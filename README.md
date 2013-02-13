@@ -1,1 +1,1 @@
-Randomness
+Checkout one of the branches.
