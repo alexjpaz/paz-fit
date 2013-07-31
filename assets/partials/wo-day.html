@@ -1,0 +1,23 @@
+<table class='week-table'>
+	<thead>
+		<tr class='week-table__top-head'>
+			<th>185</th>
+			<th colspan='7'>5/3/1</th>
+		</tr>
+		<tr class='week-table__top-head'>
+			<th>%</th>
+			<th>W</th>
+			<th>45</th>
+			<th>35</th>
+			<th>25</th>
+			<th>10</th>
+			<th>5</th>
+			<th>2.5</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat='row in table'>
+			<td ng-repeat='col in row'>{{ col }}</td>
+		</tr>
+	</tbody>
+</table>

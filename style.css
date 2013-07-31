@@ -1,0 +1,23 @@
+body {
+    background: white;
+    font-family: sans-serif;
+    font-size: 11px;
+    
+}
+
+.week-table {
+
+    border-collapse:collapse;
+    border: 1px solid #000;
+}
+
+.week-table td,
+.week-table th
+{
+    border: 1px solid #000;
+}
+
+.week-table__top-head {
+    background: black;
+    color: #fff;
+}
