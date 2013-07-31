@@ -5,8 +5,8 @@ app.directive('woLifts', function (){
 	return {
 		restrict: 'EA',
 		templateUrl: '/assets/partials/wo-lifts.html',
-		controller: function($scope, $location) {
-			$scope.lifts = $location.search();
+		controller: function($scope, OneRepMax, $location) {
+			$scope.lifts = OneRepMax;
 			
 			$scope.$watch('lifts', function(value) {
 				$location.search(value);
@@ -57,7 +57,17 @@ app.directive('woDay', function() {
 });
 
 app.factory('OneRepMax', function($location) {
-	return $location.search();
+	
+	function OneRepMax() {
+		this.Press = 120;
+		this.Deadlift = 360;
+		this.Bench = 185;
+		this.Squat = 285;
+	}
+	
+	var OneRepMaxSingleton = new OneRepMax();
+	
+	return OneRepMaxSingleton;
 });
 
 app.factory('PlateCalculator', function() {
