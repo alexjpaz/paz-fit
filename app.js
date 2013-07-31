@@ -1,15 +1,37 @@
 var app = angular.module('app', []);
 
+
+app.directive('woLifts', function (){
+	return {
+		restrict: 'EA',
+		templateUrl: '/assets/partials/wo-lifts.html',
+		controller: function($scope, $location) {
+			$scope.lifts = $location.search();
+			
+			$scope.$watch('lifts', function(value) {
+				$location.search(value);
+			}, true);
+		}
+	}
+});
+
 app.directive('woMonth', function() {
-	
+	return {
+		restrict: 'EA',
+		templateUrl: '/assets/partials/wo-month.html',
+		controller: function($scope) {
+
+		}
+	}
 });
 
 app.directive('woWeek', function() {
 	return {
 		restrict: 'EA',
 		templateUrl: '/assets/partials/wo-week.html',
-		controller: function($scope, PlateCalculator) {
-			$scope.table = PlateCalculator.generateTable(180, '531');
+		scope: {'week':'@'},
+		controller: function($scope) {
+
 		}
 	}
 });
@@ -17,12 +39,25 @@ app.directive('woWeek', function() {
 app.directive('woDay', function() {
 	return {
 		restrict: 'EA',
-		scope: {'oneRepMax':'=','week':'='},
+		scope: {'week':'=', 'lift':'@'},
 		templateUrl: '/assets/partials/wo-day.html',
-		controller: function($scope, PlateCalculator) {
+		controller: function($scope, $attrs, PlateCalculator, OneRepMax) {
+			$scope.oneRepMax = OneRepMax[$attrs.lift]
 			$scope.table = PlateCalculator.generateTable($scope.oneRepMax, $scope.week);
+			
+			$scope.rowClass = [];
+			$scope.rowClass[0] = 'wo-day__warm-up';
+			$scope.rowClass[1] = 'wo-day__warm-up';
+			$scope.rowClass[2] = 'wo-day__bbb';
+			$scope.rowClass[3] = 'wo-day__work-set';
+			$scope.rowClass[4] = 'wo-day__work-set';
+			$scope.rowClass[5] = 'wo-day__work-set';
 		}
 	}
+});
+
+app.factory('OneRepMax', function($location) {
+	return $location.search();
 });
 
 app.factory('PlateCalculator', function() {
@@ -53,10 +88,10 @@ app.factory('PlateCalculator', function() {
 	function generateTable(repmax, week) {
 	  
 	  var weekMap = {
-	    '5x3': [0.4,0.5,0.6,config.bbb,0.65,0.75,0.85],
-	    '3x3': [0.4,0.5,0.6,config.bbb,0.7,0.8,0.9],
-	    '531': [0.4,0.5,0.6,config.bbb,0.75,0.85,0.95],
-	    'DL': [0.4,0.5,0.6,config.bbb,0.4,0.5,0.6]
+	    '5x3': [0.4,0.5,0.6,0.65,0.75,0.85],
+	    '3x3': [0.4,0.5,0.6,0.7,0.8,0.9],
+	    '531': [0.4,0.5,0.6,0.75,0.85,0.95],
+	    'DL': [0.4,0.5,0.6,0.4,0.5,0.6]
 	  };
 	  
 	  var pcents = weekMap[week];

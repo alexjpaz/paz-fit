@@ -5,19 +5,92 @@ body {
     
 }
 
-.week-table {
+.wo-day {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.wo-day table {
 
     border-collapse:collapse;
-    border: 1px solid #000;
+    border: 2px solid #444    ;
 }
 
-.week-table td,
-.week-table th
+.wo-day td,
+.wo-day th
 {
-    border: 1px solid #000;
+    border: 1px solid #444;
+    text-align: center;
 }
 
-.week-table__top-head {
+.wo-day .col-weight {
+    width: 20px;
+}
+
+.wo-day .col-plate {
+    width: 20px;
+}
+
+.wo-day .col-percent {
+    width: 20px;
+}
+
+.wo-day__top-head {
     background: black;
     color: #fff;
+}
+
+.wo-day__warm-up {
+    background: rgba(0,0,0,0.25);
+}
+
+.wo-day__warm-up td:nth-of-type(1),
+.wo-day__warm-up td:nth-of-type(2)
+{
+    background: rgba(0,0,0,0.5);
+}
+
+.wo-day__bbb {
+    background: rgba(0,0,255,0.25);
+}
+
+.wo-day__bbb td:nth-of-type(1),
+.wo-day__bbb td:nth-of-type(2)
+{
+    background: rgba(0,0,255,0.5);
+}
+
+.wo-day__work-set {
+    background: rgba(255,0,0,0.25);
+    font-weight: bold;
+}
+
+.wo-day__work-set td:nth-of-type(1),
+.wo-day__work-set td:nth-of-type(2)
+{
+    background: rgba(255,0,0,0.6);
+}
+
+.wo-week {
+    margin-bottom: 20px
+}
+
+.wo-week .wo-day:nth-of-type1 {
+    background: blue;
+}
+
+.wo-lifts {
+    
+}
+
+.wo-lifts__box {
+    display: inline-block;
+    margin-right: 19px;
+}
+
+.wo-lifts__box input {
+    border: 1px solid #000;
+    border-radius: 4px;
+    padding: 4px;
+    width: 180px;   
 }

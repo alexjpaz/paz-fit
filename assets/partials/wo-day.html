@@ -1,23 +1,32 @@
-<table class='week-table'>
-	<thead>
-		<tr class='week-table__top-head'>
-			<th>185</th>
-			<th colspan='7'>5/3/1</th>
-		</tr>
-		<tr class='week-table__top-head'>
-			<th>%</th>
-			<th>W</th>
-			<th>45</th>
-			<th>35</th>
-			<th>25</th>
-			<th>10</th>
-			<th>5</th>
-			<th>2.5</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat='row in table'>
-			<td ng-repeat='col in row'>{{ col }}</td>
-		</tr>
-	</tbody>
-</table>
+<div class='wo-day'>
+	<table>
+		<thead>
+			<tr class='wo-day__top-head'>
+				<th colspan='2'>{{ oneRepMax }}</th>
+				<th colspan='6'>{{ week }}</th>
+			</tr>
+			<tr class='wo-day__top-head'>
+				<th class='col-percent'>%</th>
+				<th class='col-weight'>W</th>
+				<th class='col-plate'>45</th>
+				<th class='col-plate'>35</th>
+				<th class='col-plate'>25</th>
+				<th class='col-plate'>10</th>
+				<th class='col-plate'>5</th>
+				<th class='col-plate'>2.5</th>
+			</tr>
+		</thead>
+		<tbody ng-repeat='row in table'>
+			<tr class='{{rowClass[$index]}}'>
+				<td>{{row[0] * 100}}%</td>
+				<td>{{row[1]}}</td>
+				<td>{{row[2] || "_"}}</td>
+				<td>{{row[3] || "_"}}</td>
+				<td>{{row[4] || "_"}}</td>
+				<td>{{row[5] || "_"}}</td>
+				<td>{{row[6] || "_"}}</td>
+				<td>{{row[7] || "_"}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
