@@ -2,12 +2,18 @@ body {
     background: white;
     font-family: sans-serif;
     font-size: 11px;
-    
+    background: #fafafa;
+}
+
+.wo-app {
+    width: 845px;
+    margin: 0 auto;
 }
 
 .wo-day {
     display: inline-block;
     margin-right: 20px;
+    background: #fff;
 }
 
 .wo-day table {
@@ -83,14 +89,39 @@ body {
     
 }
 
-.wo-lifts__box {
+.wo-lifts__control {
     display: inline-block;
-    margin-right: 19px;
+    margin-left: 25px;
 }
 
-.wo-lifts__box input {
+.wo-lifts__control:nth-of-type(1) {
+    margin-left: 0px;
+}
+
+.wo-lifts__control input {
     border: 1px solid #000;
     border-radius: 4px;
     padding: 4px;
     width: 180px;   
+}
+
+.wo-lifts__title {
+    text-align:center; 
+}
+
+.wo-lifts__cycle button {
+    background: rgba(0,0,255,0.55);
+    padding: 4px;
+    color: #fff;
+    border: 1px solid rgba(0,0,0,0.25);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.wo-lifts__cycle-next {
+    float: right;
+}
+
+.wo-lifts__cycle-prev {
+    float: left;
 }

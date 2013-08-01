@@ -1,15 +1,40 @@
 var app = angular.module('app', []);
 
+app.directive('woApp', function ($rootScope){
+	return {
+		restrict: 'EA',
+		templateUrl: '/assets/partials/wo-app.html',
+	}
+});
 
-app.directive('woLifts', function (){
+app.directive('woLifts', function ($rootScope){
 	return {
 		restrict: 'EA',
 		templateUrl: '/assets/partials/wo-lifts.html',
-		controller: function($scope, OneRepMax, $location) {
+		controller: function($scope, OneRepMax, $location, $rootScope) {
 			$scope.lifts = OneRepMax;
 			
-			$scope.$watch('lifts', function(value) {
-				$location.search(value);
+			$scope.incrementLife = function(liftKey, amount) {
+				$scope.lifts[liftKey] = parseInt($scope.lifts[liftKey]) + amount;
+			};
+			
+			$scope.nextCycle = function() {
+				$scope.incrementLife('Press', 5);
+				$scope.incrementLife('Bench', 5);
+				$scope.incrementLife('Squat', 10);
+				$scope.incrementLife('Deadlift', 10);
+			};
+			
+			$scope.prevCycle = function() {
+				$scope.incrementLife('Press', -5);
+				$scope.incrementLife('Bench', -5);
+				$scope.incrementLife('Squat', -10);
+				$scope.incrementLife('Deadlift', -10);
+			};
+			
+			$scope.$watch('lifts', function(newOneRepMax) {
+				$location.search(newOneRepMax);
+				$rootScope.$broadcast('woLifts.updateLifts', newOneRepMax);
 			}, true);
 		}
 	}
@@ -19,8 +44,8 @@ app.directive('woMonth', function() {
 	return {
 		restrict: 'EA',
 		templateUrl: '/assets/partials/wo-month.html',
-		controller: function($scope) {
-
+		controller: function($scope, OneRepMax) {
+			$scope.OneRepMax = OneRepMax;
 		}
 	}
 });
@@ -41,9 +66,8 @@ app.directive('woDay', function() {
 		restrict: 'EA',
 		scope: {'week':'=', 'lift':'@'},
 		templateUrl: '/assets/partials/wo-day.html',
-		controller: function($scope, $attrs, PlateCalculator, OneRepMax) {
+		controller: function($scope, $attrs, PlateCalculator, OneRepMax, $rootScope) {
 			$scope.oneRepMax = OneRepMax[$attrs.lift]
-			$scope.table = PlateCalculator.generateTable($scope.oneRepMax, $scope.week);
 			
 			$scope.rowClass = [];
 			$scope.rowClass[0] = 'wo-day__warm-up';
@@ -52,22 +76,41 @@ app.directive('woDay', function() {
 			$scope.rowClass[3] = 'wo-day__work-set';
 			$scope.rowClass[4] = 'wo-day__work-set';
 			$scope.rowClass[5] = 'wo-day__work-set';
+			
+			$rootScope.$on('woLifts.updateLifts', function(event, newOneRepMax) {
+				$scope.oneRepMax = newOneRepMax[$attrs.lift];
+			})
+			
+			$scope.$watch('oneRepMax', function() {
+				$scope.table = PlateCalculator.generateTable($scope.oneRepMax, $scope.week);
+			});
 		}
 	}
 });
 
-app.factory('OneRepMax', function($location) {
+app.factory('OneRepMax', function($location, NumberUtil) {
+	
+	var OneRepMaxSingleton = null;
 	
 	function OneRepMax() {
-		this.Press = 120;
-		this.Deadlift = 360;
-		this.Bench = 185;
-		this.Squat = 285;
+		var lifts = $location.search();
+		angular.forEach(['Press','Deadlift','Bench','Squat'], function(liftKey) {
+			this[liftKey] = lifts[liftKey];
+		}, this);
+	}
+	
+	function OneRepMaxManager() {
+		this.get = function() {
+			return OneRepMaxSingleton;
+		};
 	}
 	
 	var OneRepMaxSingleton = new OneRepMax();
 	
 	return OneRepMaxSingleton;
+});
+
+app.service('NumberUtil', function (){
 });
 
 app.factory('PlateCalculator', function() {
