@@ -12,8 +12,9 @@ body {
 
 .wo-day {
     display: inline-block;
-    margin-right: 20px;
+    margin-left: 20px;
     background: #fff;
+    text-align: center;
 }
 
 .wo-day table {
@@ -79,6 +80,9 @@ body {
 
 .wo-week {
     margin-bottom: 20px
+;
+    text-align: center;
+    margin-left: -20px;
 }
 
 .wo-week .wo-day:nth-of-type1 {
