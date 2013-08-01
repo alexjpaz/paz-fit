@@ -1,0 +1,11 @@
+body {
+    background: white;
+}
+
+.no-print {
+	display: none;
+}
+
+.wo-lifts__cycle {
+	display: none;
+}
