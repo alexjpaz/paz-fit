@@ -66,9 +66,9 @@ app.directive('woDay', function() {
 		restrict: 'EA',
 		scope: {'week':'=', 'lift':'@'},
 		templateUrl: '/assets/partials/wo-day.html',
-		controller: function($scope, $attrs, PlateCalculator, OneRepMax, $rootScope) {
+		controller: function($scope, $attrs, PlateCalculator, OneRepMax, RepGoalCalculator, $rootScope) {
 			$scope.oneRepMax = OneRepMax[$attrs.lift]
-			
+
 			$scope.rowClass = [];
 			$scope.rowClass[0] = 'wo-day__warm-up';
 			$scope.rowClass[1] = 'wo-day__warm-up';
@@ -83,6 +83,7 @@ app.directive('woDay', function() {
 			
 			$scope.$watch('oneRepMax', function() {
 				$scope.table = PlateCalculator.generateTable($scope.oneRepMax, $scope.week);
+				$scope.repGoal = RepGoalCalculator.goalFromWeekAndLift($scope.oneRepMax, $scope.week);
 			});
 		}
 	}
@@ -111,6 +112,32 @@ app.factory('OneRepMax', function($location, NumberUtil) {
 });
 
 app.service('NumberUtil', function (){
+});
+
+app.service('RepGoalCalculator', function() {
+	var weekMap = {
+		'5x3' : 0.85,
+		'3x3' : 0.9,
+		'531' : 0.95,
+		'DL' : 0.6
+	};
+	
+	
+	this.goalFromWeekAndLift = function(oneRepMax, week) {
+		var weight = Math.round(oneRepMax*weekMap[week] / 5) * 5;
+		return this.goalFromWeightAndMax(weight, oneRepMax, 5);
+		
+	};
+	this.goalFromWeightAndMax = function(weight, onerep, increment) {
+		weight = parseInt(weight);
+		onerep = parseInt(onerep);
+		increment = parseInt(increment);
+		
+		var goal = Math.round(37-36*weight/(onerep+5));
+
+		
+		return goal;
+	};
 });
 
 app.factory('PlateCalculator', function() {
