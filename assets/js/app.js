@@ -1,4 +1,5 @@
-var app = angular.module('app', []);
+var app = angular.module('app', ['routes']);
+
 
 app.directive('woApp', function ($rootScope){
 	return {
