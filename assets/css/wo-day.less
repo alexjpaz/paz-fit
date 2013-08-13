@@ -1,0 +1,44 @@
+.set(@color, @background) {
+	color: @color;
+	background: @background; 
+}
+
+.setHead(@color, @background) {
+	.set(darken(@color, 10%), darken(@background, 10%));
+}
+
+.wo-day__work-set td {
+	.setHead(#900, red);
+}
+
+.wo-day__bbb td {
+	.setHead(#009, blue);
+}
+
+.wo-day__warm-up td {
+	.setHead(#999, gray);
+}
+
+@iterations: 8;
+
+.loopingClass (@index) when (@index > 2) {
+		
+    .wo-day__work-set td:nth-of-type(@{index}) {
+    	.set(#000, fadeout(red, 10%*@index));    
+    }
+    
+    .wo-day__bbb td:nth-of-type(@{index}) {
+    	.set(#000, fadeout(blue, 10%*@index));    
+    }
+    
+    .wo-day__warm-up td:nth-of-type(@{index}) {
+    	.set(#000, fadeout(gray, 10%*@index));    
+    }
+    
+
+    .loopingClass(@index - 1);
+}
+
+.loopingClass (0) {}
+
+.loopingClass (@iterations);

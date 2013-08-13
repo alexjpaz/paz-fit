@@ -1,5 +1,7 @@
+@import url(//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css);
+@import url(wo-day.less);
+
 body {
-    background: white;
     font-family: sans-serif;
     font-size: 11px;
     background: #fafafa;
@@ -18,7 +20,6 @@ body {
 }
 
 .wo-day table {
-
     border-collapse:collapse;
     border: 2px solid #444    ;
 }
@@ -42,41 +43,19 @@ body {
     width: 20px;
 }
 
-.wo-day__top-head {
+.wo-day__title {
     background: black;
     color: #fff;
 }
 
-.wo-day__warm-up {
-    background: rgba(0,0,0,0.25);
+
+.wo-day__top-head {
+    background: lighten(black, 20%);
+    color: darken(white, 20%);
 }
 
-.wo-day__warm-up td:nth-of-type(1),
-.wo-day__warm-up td:nth-of-type(2)
-{
-    background: rgba(0,0,0,0.5);
-}
 
-.wo-day__bbb {
-    background: rgba(0,0,255,0.25);
-}
 
-.wo-day__bbb td:nth-of-type(1),
-.wo-day__bbb td:nth-of-type(2)
-{
-    background: rgba(0,0,255,0.5);
-}
-
-.wo-day__work-set {
-    background: rgba(255,0,0,0.25);
-    font-weight: bold;
-}
-
-.wo-day__work-set td:nth-of-type(1),
-.wo-day__work-set td:nth-of-type(2)
-{
-    background: rgba(255,0,0,0.6);
-}
 
 .wo-week {
     margin-bottom: 20px

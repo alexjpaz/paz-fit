@@ -1,7 +1,7 @@
 <div class='wo-day'>
 	<table>
 		<thead>
-			<tr class='wo-day__top-head'>
+			<tr class='wo-day__title'>
 				<th colspan='2'>{{ oneRepMax }}</th>
 				<th colspan='6'>{{ week }}</th>
 			</tr>
@@ -28,6 +28,18 @@
 				<td>{{row[7] || "-"}}</td>
 			</tr>
 		</tbody>
+		<thead>
+			<tr class='wo-day__top-head'>
+				<th class='col-percent'>%</th>
+				<th class='col-weight'>W</th>
+				<th class='col-plate'>45</th>
+				<th class='col-plate'>35</th>
+				<th class='col-plate'>25</th>
+				<th class='col-plate'>10</th>
+				<th class='col-plate'>5</th>
+				<th class='col-plate'>2.5</th>
+			</tr>
+		</thead>
 	</table>
 	<p>{{ repGoal }}</p>
 </div>
