@@ -3,20 +3,21 @@
 	background: @background; 
 }
 
-.setHead(@color, @background) {
-	.set(darken(@color, 10%), darken(@background, 10%));
+.setHead(@color) {
+	color: fade(#000,50%);
+	background: @color;
 }
 
 .wo-day__work-set td {
-	.setHead(#900, red);
+	.setHead(red);
 }
 
 .wo-day__bbb td {
-	.setHead(#009, blue);
+	.setHead(blue);
 }
 
 .wo-day__warm-up td {
-	.setHead(#999, gray);
+	.setHead(gray);
 }
 
 @iterations: 8;
