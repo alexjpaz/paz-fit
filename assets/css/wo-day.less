@@ -1,3 +1,7 @@
+@warmupsetColor: gray;
+@worksetColor: #DF5252;
+@bbbsetColor: #8580FF;
+
 .set(@color, @background) {
 	color: @color;
 	background: @background; 
@@ -5,20 +9,20 @@
 }
 
 .setHead(@color) {
-	color: fade(#000,50%);
+	color: darken(@color,40);
 	background: @color;
 }
 
 .wo-day__work-set td {
-	.setHead(red);
+	.setHead(@worksetColor);
 }
 
 .wo-day__bbb td {
-	.setHead(blue);
+	.setHead(@bbbsetColor);
 }
 
 .wo-day__warm-up td {
-	.setHead(gray);
+	.setHead(@warmupsetColor);
 }
 
 @iterations: 8;
@@ -26,15 +30,15 @@
 .loopingClass (@index) when (@index > 2) {
 		
     .wo-day__work-set td:nth-of-type(@{index}) {
-    	.set(#000, fadeout(red, 10%*@index));    
+    	.set(#000, fadeout(@worksetColor, 10%*@index));    
     }
     
     .wo-day__bbb td:nth-of-type(@{index}) {
-    	.set(#000, fadeout(blue, 10%*@index));    
+    	.set(#000, fadeout(@bbbsetColor, 10%*@index));    
     }
     
     .wo-day__warm-up td:nth-of-type(@{index}) {
-    	.set(#000, fadeout(gray, 10%*@index));    
+    	.set(#000, fadeout(@warmupsetColor, 10%*@index));    
     }
     
 
