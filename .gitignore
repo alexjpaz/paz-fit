@@ -1,1 +1,7 @@
 venv
+.classpath
+.project
+.settings/
+.venv/
+target/
+

@@ -9,20 +9,19 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ajpaz.ajpaz531.builder.SecurityDtoBuilder;
+import com.ajpaz.ajpaz531.builder.DerpDtoBuilder;
 
 @Path("/system")
 @Transactional
 public class SystemResource {
 
     @Autowired
-    SecurityDtoBuilder securityDtoBuilder;
+    DerpDtoBuilder derpDtoBuilder;
 
     @Context
     private SecurityContext security;
@@ -33,7 +32,7 @@ public class SystemResource {
     public Object getUserPrincipal() {
         Collection<GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
-        return securityDtoBuilder.build(authorities);
+        return derpDtoBuilder.build(authorities);
     }
 
 }

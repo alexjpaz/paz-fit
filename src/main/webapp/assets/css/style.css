@@ -1,7 +1,0 @@
-@import url(../lib/bootstrap/css/bootstrap.min.css);
-@import url(../lib/font-awesome/css/font-awesome.min.css);
-@import url(layout.css);
-
-.breadcrumb--block {
-	margin: 1em 0em 0em;
-}
