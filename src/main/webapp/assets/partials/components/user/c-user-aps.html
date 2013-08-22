@@ -1,0 +1,16 @@
+<div class='c-user-aps'>
+	<table class='table table-bordered table-hover'>
+		<tbody>
+			<tr ng-repeat='(apId, ap) in userApplicationProfiles'>
+				<td>
+					<label>
+						<input type='checkbox' ng-model='ap.status' ng-true-value="ASSIGNED" ng-false-value="UNASSIGNED" />
+						<span>{{ ap.name }}</span>
+					</label>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<button class='btn'>Update Application Profiles</button>
+</div>
