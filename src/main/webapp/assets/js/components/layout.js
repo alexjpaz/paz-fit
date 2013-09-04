@@ -4,16 +4,10 @@
 	layout.config(function(componentFactoryProvider) {
 		ComponentFactory = componentFactoryProvider.$get();
 		
-		ComponentFactory.build('app-portal', function($scope) {
-		});
-		
-	});
-	
-	layout.config(function(componentFactoryProvider) {
-		ComponentFactory = componentFactoryProvider.$get();
-		
 		ComponentFactory.config.templateUrlBase = 'components/layout';
 		
+		
+		ComponentFactory.build('app');
 		ComponentFactory.build('c-sidebar');
 		ComponentFactory.build('c-nav-bar');
 		

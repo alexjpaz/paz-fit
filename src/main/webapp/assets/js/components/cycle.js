@@ -1,94 +1,85 @@
-var app = angular.module('app', ['routes']);
+(function(angular){
 
+var app = angular.module('components/cycle', ['utils/factory']);
 
-app.directive('woApp', function ($rootScope){
-	return {
-		restrict: 'EA',
-		templateUrl: '/assets/partials/wo-app.html',
-	}
-});
+app.config(function(componentFactoryProvider) {
+	ComponentFactory = componentFactoryProvider.$get();
+	
+	ComponentFactory.config.templateUrlBase = 'components/wo';
+	
+	ComponentFactory.build('wo-app');
+	
+	ComponentFactory.build('wo-lifts', function($scope, OneRepMax, $location, $rootScope) {
+		$scope.lifts = OneRepMax;
+		
+		$scope.incrementLife = function(liftKey, amount) {
+			$scope.lifts[liftKey] = parseInt($scope.lifts[liftKey]) + amount;
+		};
+		
+		$scope.nextCycle = function() {
+			$scope.incrementLife('Press', 5);
+			$scope.incrementLife('Bench', 5);
+			$scope.incrementLife('Squat', 10);
+			$scope.incrementLife('Deadlift', 10);
+		};
+		
+		$scope.prevCycle = function() {
+			$scope.incrementLife('Press', -5);
+			$scope.incrementLife('Bench', -5);
+			$scope.incrementLife('Squat', -10);
+			$scope.incrementLife('Deadlift', -10);
+		};
+		
+		$scope.$watch('lifts', function(newOneRepMax) {
+			$location.search(newOneRepMax);
+			$rootScope.$broadcast('woLifts.updateLifts', newOneRepMax);
+		}, true);
+	});
+	
+	ComponentFactory.build('wo-month', function($scope, OneRepMax) {
+		$scope.OneRepMax = OneRepMax;
+	});
+	
+	ComponentFactory.build('wo-week', function($scope, $attrs) {
+		$scope.week = $attrs.week;
+	});
 
-app.directive('woLifts', function ($rootScope){
-	return {
-		restrict: 'EA',
-		templateUrl: '/assets/partials/wo-lifts.html',
-		controller: function($scope, OneRepMax, $location, $rootScope) {
-			$scope.lifts = OneRepMax;
-			
-			$scope.incrementLife = function(liftKey, amount) {
-				$scope.lifts[liftKey] = parseInt($scope.lifts[liftKey]) + amount;
-			};
-			
-			$scope.nextCycle = function() {
-				$scope.incrementLife('Press', 5);
-				$scope.incrementLife('Bench', 5);
-				$scope.incrementLife('Squat', 10);
-				$scope.incrementLife('Deadlift', 10);
-			};
-			
-			$scope.prevCycle = function() {
-				$scope.incrementLife('Press', -5);
-				$scope.incrementLife('Bench', -5);
-				$scope.incrementLife('Squat', -10);
-				$scope.incrementLife('Deadlift', -10);
-			};
-			
-			$scope.$watch('lifts', function(newOneRepMax) {
-				$location.search(newOneRepMax);
-				$rootScope.$broadcast('woLifts.updateLifts', newOneRepMax);
-			}, true);
-		}
-	}
-});
-
-app.directive('woMonth', function() {
-	return {
-		restrict: 'EA',
-		templateUrl: '/assets/partials/wo-month.html',
-		controller: function($scope, OneRepMax) {
-			$scope.OneRepMax = OneRepMax;
-		}
-	}
-});
-
-app.directive('woWeek', function() {
-	return {
-		restrict: 'EA',
-		templateUrl: '/assets/partials/wo-week.html',
-		scope: {'week':'@'},
-		controller: function($scope) {
-
-		}
-	}
-});
-
-app.directive('woDay', function() {
-	return {
-		restrict: 'EA',
-		scope: {'week':'=', 'lift':'@'},
-		templateUrl: '/assets/partials/wo-day.html',
-		controller: function($scope, $attrs, PlateCalculator, OneRepMax, RepGoalCalculator, $rootScope) {
-			$scope.oneRepMax = OneRepMax[$attrs.lift]
-
-			$scope.rowClass = [];
+	ComponentFactory.build('wo-day', function($scope, $attrs, PlateCalculator, OneRepMax, RepGoalCalculator, $rootScope) {
+		$scope.lift = $attrs.week;
+		$scope.$watch($attrs.week, function(week) {
+			$scope.week = week;
+			console.log(week);
+		});
+		
+		$scope.oneRepMax = OneRepMax[$attrs.lift]
+		
+		$scope.rowClass = [];
+		if($scope.week == 'DL') {
 			$scope.rowClass[0] = 'wo-day__warm-up';
 			$scope.rowClass[1] = 'wo-day__warm-up';
 			$scope.rowClass[2] = 'wo-day__bbb';
-			$scope.rowClass[3] = 'wo-day__work-set';
-			$scope.rowClass[4] = 'wo-day__work-set';
-			$scope.rowClass[5] = 'wo-day__work-set';
-			
-			$rootScope.$on('woLifts.updateLifts', function(event, newOneRepMax) {
-				$scope.oneRepMax = newOneRepMax[$attrs.lift];
-			})
-			
-			$scope.$watch('oneRepMax', function() {
-				$scope.table = PlateCalculator.generateTable($scope.oneRepMax, $scope.week);
-				$scope.repGoal = RepGoalCalculator.goalFromWeekAndLift($scope.oneRepMax, $scope.week);
-			});
+		} else {
+			$scope.rowClass[0] = 'wo-day__work-set';
+			$scope.rowClass[1] = 'wo-day__work-set';
+			$scope.rowClass[2] = 'wo-day__work-set';
 		}
-	}
+		
+		$rootScope.$on('woLifts.updateLifts', function(event, newOneRepMax) {
+			$scope.oneRepMax = newOneRepMax[$attrs.lift];
+		})
+		
+		$scope.$watch('oneRepMax', function() {
+			$scope.table = PlateCalculator.generateTable($scope.oneRepMax, $scope.week);
+			
+			$scope.repGoal = RepGoalCalculator.goalFromWeekAndLift($scope.oneRepMax, $scope.week);;
+		});
+	});
+
 });
+
+
+
+
 
 app.factory('OneRepMax', function($location, NumberUtil) {
 	
@@ -169,10 +160,10 @@ app.factory('PlateCalculator', function() {
 	function generateTable(repmax, week) {
 	  
 	  var weekMap = {
-	    '5x3': [0.4,0.5,0.6,0.65,0.75,0.85],
-	    '3x3': [0.4,0.5,0.6,0.7,0.8,0.9],
-	    '531': [0.4,0.5,0.6,0.75,0.85,0.95],
-	    'DL': [0.4,0.5,0.6,0.4,0.5,0.6]
+	    '5x3': [0.65,0.75,0.85],
+	    '3x3': [0.7,0.8,0.9],
+	    '531': [0.75,0.85,0.95],
+	    'DL': [0.4,0.5,0.6]
 	  };
 	  
 	  var pcents = weekMap[week];
@@ -197,3 +188,5 @@ app.factory('PlateCalculator', function() {
 	
 	return new PlateCalculator();
 });
+
+})(angular);

@@ -29,17 +29,10 @@
 			</tr>
 		</tbody>
 		<thead>
-			<tr class='wo-day__top-head'>
-				<th class='col-percent'>%</th>
-				<th class='col-weight'>W</th>
-				<th class='col-plate'>45</th>
-				<th class='col-plate'>35</th>
-				<th class='col-plate'>25</th>
-				<th class='col-plate'>10</th>
-				<th class='col-plate'>5</th>
-				<th class='col-plate'>2.5</th>
-			</tr>
+			<tr class='wo-day__top-head' ng-hide='week == "DL"'>
+				<th class='col-percent' colspan=2>GOAL</th>
+				<th class='col-plate' colspan=3>{{ repGoal }}</th>
+				<th class='col-plate' colspan=3></th>
 		</thead>
 	</table>
-	<p>{{ repGoal }}</p>
 </div>

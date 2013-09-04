@@ -29,12 +29,12 @@
 	loader = new Loader(Bootstrap);
 	
 //	Hopefully we dont have to put jquery in the *.html file, but only if bootstrap behaves
-	loader.addjs('lib/jquery/jquery-1.9.1'); 
+	loader.addjs('lib/jquery/jquery-2.0.0'); 
 	loader.addjs('lib/jstorage/jstorage');
 	loader.addjs('lib/bootstrap/js/bootstrap');
 	loader.addjs('lib/angular/angular');
 	loader.addjs('lib/angular/angular-resource');
-	loader.addjs('lib//angular-ui-bootstrap/ui-bootstrap-tpls-0.3.0');
+	loader.addjs('lib/less/less-1.4.1.min');
 	
 	loader.addjs('js/app');
 	loader.addjs('js/utils/factory');
@@ -44,8 +44,7 @@
 	
 	loader.addjs('js/components/layout');
 	loader.addjs('js/components/common');
-	loader.addjs('js/components/user');
-	loader.addjs('js/components/submission');
+	loader.addjs('js/components/cycle');
 	
 	loader.bootstrap();
 })();
