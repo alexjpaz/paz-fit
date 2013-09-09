@@ -31,3 +31,15 @@ class User(db.Model):
 @app.route('/')
 def hello():
     return send_from_directory(app.static_folder, 'index.html')
+
+@app.route('/user/alex')
+def alex():
+    user = User('Alex Paz', 'alexjpaz@gmail.com')
+    user.squat = 256
+    return user
+
+
+db.create_all()
+user = User('Alex Paz', 'alexjpaz@gmail.com')
+db.session.add(user)
+db.session.commit()
