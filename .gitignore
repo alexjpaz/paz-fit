@@ -1,3 +1,4 @@
+.pydevproject
 .pyc
 venv
 .classpath
@@ -5,4 +6,3 @@ venv
 .settings/
 .venv/
 target/
-
