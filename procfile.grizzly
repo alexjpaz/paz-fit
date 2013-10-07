@@ -1,1 +1,0 @@
-web:    java -cp target/classes:webmodule/target/dependency/* com.ajpaz.ajpaz531.app.Main

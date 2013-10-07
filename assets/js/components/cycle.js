@@ -9,8 +9,8 @@ app.config(function(componentFactoryProvider) {
 	
 	ComponentFactory.build('wo-app');
 	
-	ComponentFactory.build('wo-lifts', function($scope, OneRepMax, $location, $rootScope) {
-		$scope.lifts = OneRepMax;
+	ComponentFactory.build('wo-lifts', function($scope, $location, $rootScope, User) {
+	    
 		
 		$scope.incrementLife = function(liftKey, amount) {
 			$scope.lifts[liftKey] = parseInt($scope.lifts[liftKey]) + amount;
@@ -31,27 +31,26 @@ app.config(function(componentFactoryProvider) {
 		};
 		
 		$scope.$watch('lifts', function(newOneRepMax) {
-			$location.search(newOneRepMax);
 			$rootScope.$broadcast('woLifts.updateLifts', newOneRepMax);
 		}, true);
 	});
 	
-	ComponentFactory.build('wo-month', function($scope, OneRepMax) {
-		$scope.OneRepMax = OneRepMax;
+	ComponentFactory.build('wo-month', function($scope, User) {
+	    User.get({name: 'alexjpaz@gmail.com'}, function(user) {
+	        $scope.maxes = user.maxes;
+	    });
 	});
 	
 	ComponentFactory.build('wo-week', function($scope, $attrs) {
 		$scope.week = $attrs.week;
 	});
 
-	ComponentFactory.build('wo-day', function($scope, $attrs, PlateCalculator, OneRepMax, RepGoalCalculator, $rootScope) {
+	ComponentFactory.build('wo-day', function($scope, $attrs, PlateCalculator, RepGoalCalculator, $rootScope) {
 		$scope.lift = $attrs.week;
+		
 		$scope.$watch($attrs.week, function(week) {
 			$scope.week = week;
-			console.log(week);
 		});
-		
-		$scope.oneRepMax = OneRepMax[$attrs.lift]
 		
 		$scope.rowClass = [];
 		if($scope.week == 'DL') {
@@ -68,47 +67,23 @@ app.config(function(componentFactoryProvider) {
 			$scope.oneRepMax = newOneRepMax[$attrs.lift];
 		})
 		
-		$scope.$watch('oneRepMax', function() {
-			$scope.table = PlateCalculator.generateTable($scope.oneRepMax, $scope.week);
-			
-			$scope.repGoal = RepGoalCalculator.goalFromWeekAndLift($scope.oneRepMax, $scope.week);;
-		});
+		$scope.$watch('maxes', function(maxes) {
+		    var max = maxes[$attrs.lift];
+		    $scope.oneRepMax = max;
+			$scope.table = PlateCalculator.generateTable(max, $scope.week);
+			$scope.repGoal = RepGoalCalculator.goalFromWeekAndLift(max, $scope.week);
+		}, true);
 	});
 
 });
 
-
-
-
-
-app.factory('OneRepMax', function($location, NumberUtil) {
-	
-	var OneRepMaxSingleton = null;
-	
-	function OneRepMax() {
-		var lifts = $location.search();
-		angular.forEach(['Press','Deadlift','Bench','Squat'], function(liftKey) {
-			this[liftKey] = lifts[liftKey];
-		}, this);
-	}
-	
-	function OneRepMaxManager() {
-		this.get = function() {
-			return OneRepMaxSingleton;
-		};
-	}
-	
-	var OneRepMaxSingleton = new OneRepMax();
-	
-	return OneRepMaxSingleton;
-});
 
 app.service('NumberUtil', function (){
 });
 
 app.service('RepGoalCalculator', function() {
 	var weekMap = {
-		'5x3' : 0.85,
+		'3x5' : 0.85,
 		'3x3' : 0.9,
 		'531' : 0.95,
 		'DL' : 0.6
@@ -160,7 +135,7 @@ app.factory('PlateCalculator', function() {
 	function generateTable(repmax, week) {
 	  
 	  var weekMap = {
-	    '5x3': [0.65,0.75,0.85],
+	    '3x5': [0.65,0.75,0.85],
 	    '3x3': [0.7,0.8,0.9],
 	    '531': [0.75,0.85,0.95],
 	    'DL': [0.4,0.5,0.6]

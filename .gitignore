@@ -6,3 +6,4 @@ venv
 .settings/
 .venv/
 target/
+node_modules/
