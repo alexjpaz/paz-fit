@@ -12,8 +12,9 @@ app.get('/', function(request, response) {
   response.sendfile(__dirname + '/index.html');
 });
 
-app.get('/user', function(request, response) {
-    db.User.find({}, function(error, data) {
+app.get('/rest/user', function(request, response) {
+    var name = request.param('name');
+    db.User.findOne({name: name}, function(error, data) {
         response.json(data);
     });
 });
