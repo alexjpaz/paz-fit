@@ -13,5 +13,6 @@ exports.User = mongoose.model('User', {
         deadlift: Number,
         bench: Number,
         squat: Number
-    }
+    },
+    personalRecords: [{ date: Date, lift: String, weight: Number, max: Number, reps: Number }]
 });
