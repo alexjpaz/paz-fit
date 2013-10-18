@@ -9,6 +9,34 @@ app.config(function(componentFactoryProvider) {
 	
 	ComponentFactory.build('wo-app');
 	
+	ComponentFactory.build('wo-pr', function($scope, PersonalRecords, RepGoalCalculator) {
+	    var restParams = {
+	        name: 'alexjpaz@gmail.com'
+	    };
+	    
+	    $scope.queryPrs = function(queryParams) {
+    	    PersonalRecords.query(queryParams, function(personalRecords) {
+    	        $scope.personalRecords = personalRecords;
+    	    });
+	    };
+	   
+	   
+	   
+	   $scope.calculateGoal = function(weight, max) {
+	       return Math.round(37-36*weight/(max+5));
+	   };
+	   
+	   $scope.addPr = function() {
+	       PersonalRecords.save(restParams, $scope.prDto, function() {
+	           $scope.queryPrs(restParams);
+	       });
+	   };
+	   
+	   $scope.queryPrs(restParams);
+	});
+	
+	ComponentFactory.build('wo-cycle');
+	
 	ComponentFactory.build('wo-lifts', function($scope, $location, $rootScope, User) {
 	    
 		

@@ -5,6 +5,7 @@
 		var ResourceFactory = resourceFactoryProvider.$get();
 		
 		ResourceFactory.build('User','/user/:userId');
+		ResourceFactory.build('PersonalRecords','/personal-record');
 		
 	});
 	

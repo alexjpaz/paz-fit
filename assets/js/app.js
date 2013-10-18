@@ -15,9 +15,12 @@
 	app.config(function(RouteBuilderProvider) {
 		var RouteBuilder = RouteBuilderProvider.$get();
 		
-//		RouteBuilder.redirect('/','/dashboard');
+		RouteBuilder.redirect('/','/dashboard');
 		
 		RouteBuilder.when('/dashboard', 'dashboard');
+		
+		RouteBuilder.when('/cycle', 'cycle');
+		RouteBuilder.when('/pr', 'pr');
 
 		RouteBuilder.when('/error/:errorCode','error/index');
 		
