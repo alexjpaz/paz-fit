@@ -6,7 +6,7 @@ var config = {
 
 mongoose.connect(config.url);
 
-exports.User = mongoose.model('User', {
+exports.Person = mongoose.model('Person', {
     name: { type: String, required: true, unique: true },
     maxes: {
         press: Number,
