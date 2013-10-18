@@ -15,14 +15,14 @@ app.get('/', function(request, response) {
 
 app.get('/rest/user', function(request, response) {
     var name = request.param('name');
-    db.User.findOne({name: name}, function(error, data) {
+    db.Person.findOne({name: name}, function(error, data) {
         response.json(data);
     });
 });
 
 app.get('/rest/personal-record', function(request, response) {
     var name = request.param('name');
-    db.User.findOne({name: name}, function(error, data) {
+    db.Person.findOne({name: name}, function(error, data) {
         response.json(data.personalRecords);
     });
 });
@@ -31,8 +31,7 @@ app.post('/rest/personal-record', function(request, response) {
     var name = request.param('name');
     var prDto = request.body;
 
-    db.User.findOne({name: name}, function(error, data) {
-        console.log('apaz',data);
+    db.Person.findOne({name: name}, function(error, data) {
         data.personalRecords.push(prDto);
         data.save();
         response.json(prDto);

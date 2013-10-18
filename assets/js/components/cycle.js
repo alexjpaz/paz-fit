@@ -45,17 +45,17 @@ app.config(function(componentFactoryProvider) {
 		};
 		
 		$scope.nextCycle = function() {
-			$scope.incrementLife('Press', 5);
-			$scope.incrementLife('Bench', 5);
-			$scope.incrementLife('Squat', 10);
-			$scope.incrementLife('Deadlift', 10);
+			$scope.incrementLife('press', 5);
+			$scope.incrementLife('bench', 5);
+			$scope.incrementLife('squat', 10);
+			$scope.incrementLife('deadlift', 10);
 		};
 		
 		$scope.prevCycle = function() {
-			$scope.incrementLife('Press', -5);
-			$scope.incrementLife('Bench', -5);
-			$scope.incrementLife('Squat', -10);
-			$scope.incrementLife('Deadlift', -10);
+			$scope.incrementLife('press', -5);
+			$scope.incrementLife('bench', -5);
+			$scope.incrementLife('squat', -10);
+			$scope.incrementLife('deadlift', -10);
 		};
 		
 		$scope.$watch('lifts', function(newOneRepMax) {
@@ -96,6 +96,7 @@ app.config(function(componentFactoryProvider) {
 		})
 		
 		$scope.$watch('maxes', function(maxes) {
+			if(angular.isUndefined(maxes)) return;
 		    var max = maxes[$attrs.lift];
 		    $scope.oneRepMax = max;
 			$scope.table = PlateCalculator.generateTable(max, $scope.week);
