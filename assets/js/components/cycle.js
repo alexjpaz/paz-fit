@@ -9,9 +9,9 @@ app.config(function(componentFactoryProvider) {
 	
 	ComponentFactory.build('wo-app');
 	
-	ComponentFactory.build('wo-pr', function($scope, PersonalRecords, RepGoalCalculator) {
+	ComponentFactory.build('wo-pr', function($scope, PersonalRecords, RepGoalCalculator, PersonMaxes) {
 	    var restParams = {
-	        name: 'alexjpaz@gmail.com'
+	    	personId: 'alexjpaz@gmail.com'
 	    };
 	    
 	    $scope.queryPrs = function(queryParams) {
@@ -26,18 +26,32 @@ app.config(function(componentFactoryProvider) {
 	       return Math.round(37-36*weight/(max+5));
 	   };
 	   
+	   $scope.prDto = {};
+	   
 	   $scope.addPr = function() {
+		   
+		   $scope.prDto.date = new Date();
+		   
 	       PersonalRecords.save(restParams, $scope.prDto, function() {
 	           $scope.queryPrs(restParams);
+	           $scope.prDto = {};
 	       });
 	   };
 	   
+	   $scope.LiftEnum = PersonMaxes.get(restParams);
+	   
+	   $scope.getOneRepMaxForLift = function(lift) {
+		   $scope.prDto.max = $scope.LiftEnum[lift];
+	   };
+	   
 	   $scope.queryPrs(restParams);
+	   
+	   $scope.$watch('prDto.lift', $scope.getOneRepMaxForLift)
 	});
 	
 	ComponentFactory.build('wo-cycle');
 	
-	ComponentFactory.build('wo-lifts', function($scope, $location, $rootScope, User) {
+	ComponentFactory.build('wo-lifts', function($scope, $location, $rootScope, Person) {
 	    
 		
 		$scope.incrementLife = function(liftKey, amount) {
@@ -63,9 +77,13 @@ app.config(function(componentFactoryProvider) {
 		}, true);
 	});
 	
-	ComponentFactory.build('wo-month', function($scope, User) {
-	    User.get({name: 'alexjpaz@gmail.com'}, function(user) {
-	        $scope.maxes = user.maxes;
+	ComponentFactory.build('wo-month', function($scope, Person) {
+		var restParams = {
+		    	personId: 'alexjpaz@gmail.com'
+		};
+		
+		Person.get(restParams, function(person) {
+	        $scope.maxes = person.maxes;
 	    });
 	});
 	

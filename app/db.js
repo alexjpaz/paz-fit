@@ -14,5 +14,5 @@ exports.Person = mongoose.model('Person', {
         bench: Number,
         squat: Number
     },
-    personalRecords: [{ date: Date, lift: String, weight: Number, max: Number, reps: Number }]
+    personalRecords: [{ cycle: Number, week: Number, date: Date, lift: String, weight: Number, max: Number, reps: Number }]
 });

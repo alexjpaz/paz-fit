@@ -21,17 +21,29 @@
     </table>
     
     <div class='wo-pr__new'>
-        <form>
-            <label>Date</label>
-            <input type='text' ng-model='prDto.date' />
-            <label>Lift</label>
-            <input type='text' ng-model='prDto.lift' />
-            <label>Weight</label>
-            <input type='text' ng-model='prDto.weight' />
-            <label>Max</label>
-            <input type='text' ng-model='prDto.max' />
-            <label>Reps</label>
-            <input type='text' ng-model='prDto.reps' />
+        <form class='form-horizontal'>
+        	<div class='control-group'>
+    	        <label class='control-label'>Date</label>
+    	        <div class='controls'>
+	            	<input type='text' ng-model='prDto.date' />
+	            </div>
+        	</div>
+        	<div>
+    	        <label>Lift</label>
+	            <select ng-options='lift as lift for (lift,max) in LiftEnum' ng-model='prDto.lift' />
+        	</div>
+        	<div>
+    	        <label>Weight</label>
+	            <input type='text' ng-model='prDto.weight' />
+        	</div>
+        	<div>
+            	<label>Max</label>
+            	<input type='text' ng-model='prDto.max' />
+        	</div>
+        	<div>
+            	<label>Reps</label>
+	            <input type='text' ng-model='prDto.reps' />
+        	</div>
             <button ng-click='addPr()'>Add Personal Record</button>
         </form>
     </div>

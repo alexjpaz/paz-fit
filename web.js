@@ -13,25 +13,37 @@ app.get('/', function(request, response) {
   response.sendfile(__dirname + '/index.html');
 });
 
-app.get('/rest/user', function(request, response) {
-    var name = request.param('name');
-    db.Person.findOne({name: name}, function(error, data) {
+app.get('/rest/person/:personId', function(request, response) {
+    db.Person.findOne({name: request.params.personId}, function(error, data) {
         response.json(data);
     });
 });
 
-app.get('/rest/personal-record', function(request, response) {
-    var name = request.param('name');
-    db.Person.findOne({name: name}, function(error, data) {
+app.get('/rest/person/:personId/max', function(request, response) {
+    query = db.Person.findOne({name: request.params.personId});
+    query.select('maxes');
+    
+    query.exec(function(error, data) {
+    	response.json(data.maxes);
+    });
+});
+
+app.get('/rest/person/:personId/personal-record', function(request, response) {
+    query = db.Person.findOne({name: request.params.personId});
+    query.select('personalRecords');
+	
+    query.exec(function(error, data) {
+    	if(error) {
+    		throw error;
+    	}
+    	
         response.json(data.personalRecords);
     });
 });
 
-app.post('/rest/personal-record', function(request, response) {
-    var name = request.param('name');
+app.post('/rest/person/:personId/personal-record', function(request, response) {
     var prDto = request.body;
-
-    db.Person.findOne({name: name}, function(error, data) {
+    db.Person.findOne({name: request.params.personId}, function(error, data) {
         data.personalRecords.push(prDto);
         data.save();
         response.json(prDto);
