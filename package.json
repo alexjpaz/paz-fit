@@ -2,8 +2,8 @@
   "name": "ajpaz531",
   "version": "0.0.2",
   "dependencies": {
-    "express": "3.1.x",
-    "mongoose": "" 
+    "express": "3.1.0",
+    "mongoose": "1.2.0" 
   },
   "engines": {
     "node": "0.10.21",
