@@ -4,7 +4,6 @@ var config = {
     url: process.env.MONGOHQ_URL
 }
 
-mongoose.connect(config.url);
 
 exports.Person = mongoose.model('Person', {
     name: { type: String, required: true, unique: true },
@@ -16,3 +15,7 @@ exports.Person = mongoose.model('Person', {
     },
     personalRecords: [{ cycle: Number, week: Number, date: Date, lift: String, weight: Number, max: Number, reps: Number }]
 });
+
+exports.initDb = function() {
+    mongoose.connect(config.url);
+};
