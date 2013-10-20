@@ -34,7 +34,7 @@ app.get('/rest/person/:personId/personal-record', function(request, response) {
 	
     query.exec(function(error, data) {
     	if(error) {
-    		throw error;
+		throw error;
     	}
     	
         response.json(data.personalRecords);
