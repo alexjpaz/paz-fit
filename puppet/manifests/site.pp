@@ -15,18 +15,26 @@ package { "git":
 	ensure => "installed"
 }
 
+package { "python-pip" :
+	ensure => "installed"
+}
+
+package { "python-virtualenv" :
+	ensure => "installed"
+}
+
+class { 'mongodb':
+	service_enable => true
+}
+
 file {"/tmp/puppet-modules/pupet-modules.sh": 
 	ensure =>present,
 	owner=>'root',
 	group=>'root',
 	mode=>'777',
-	source=>'puppet://puppet/files/puppet-modules.sh',
+	source=>'puppet://puppet/manifests/puppet-modules.sh',
 }
 
 exec {"/tmp/puppet-modules/pupet-modules.sh":
 	require=>File['/tmp/puppet-modules/pupet-modules.sh'],
-}
-
-class { 'mongodb':
-	#enable_10gen => true,
 }
