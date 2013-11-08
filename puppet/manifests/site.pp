@@ -32,7 +32,7 @@ file {"/tmp/puppet-modules/pupet-modules.sh":
 	owner=>'root',
 	group=>'root',
 	mode=>'777',
-	source=>'puppet://puppet/manifests/puppet-modules.sh',
+	source=>'puppet://puppet/init/puppet-modules.sh',
 }
 
 exec {"/tmp/puppet-modules/pupet-modules.sh":
