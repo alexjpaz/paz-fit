@@ -11,6 +11,10 @@ package { "npm":
 	ensure => "installed"
 }
 
+package { "git":
+	ensure => "installed"
+}
+
 file {"/tmp/puppet-modules/pupet-modules.sh": 
 	ensure =>present,
 	owner=>'root',
