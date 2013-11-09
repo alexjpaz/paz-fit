@@ -1,13 +1,14 @@
 import webapp2
+import urllib2
 
 
-class User(webapp2.RequestHandler):
-
+class Person(webapp2.RequestHandler):
 	def get(self):
-		self.response.headers['Content-Type'] = 'text/plain'
-		self.response.write('Hello, World!')
+		response = urllib2.urlopen('https://raw.github.com/alexjpaz/ajpaz531/static/data/alexjpaz')
+		self.response.headers['Content-Type'] = 'application/json'
+		self.response.write(response.read())
 
 
-application = webapp2.WSGIApplication([
-	('/', MainPage),
+app = webapp2.WSGIApplication([
+	('/rest/person/alexjpaz@gmail.com', Person),
 	], debug=True)

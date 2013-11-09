@@ -1,11 +1,11 @@
-application: myapp
-version: 1
+application: ajpaz531
+version: static
 runtime: python27
 api_version: 1
 threadsafe: true
 
 handlers:
-- url: /rest
+- url: /rest/.*
   script: web.app
 
 - url: /(index\.html)?
