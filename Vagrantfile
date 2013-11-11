@@ -6,6 +6,6 @@ Vagrant.configure("2") do |config|
 		puppet.manifest_file = 'site.pp'
 		puppet.module_path = 'puppet/modules'
 	end
-	config.vm.network :forwarded_port, host: 8080, guest: 8080
+	config.vm.network :forwarded_port, host: 8880, guest: 8080
 	#	config.vm.share_folder "", "/guest/path", "/host/path"
 end
