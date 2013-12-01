@@ -9,19 +9,15 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 	extensions=['jinja2.ext.autoescape'],
 	autoescape=True)
 
-	template_values = {
-		'lol': 'wut'
-	}
-
-	template = JINJA_ENVIRONMENT.get_template('cycle.html')
-
-	print template.render(template_values)
-
 
 class Person(webapp2.RequestHandler):
 	def get(self):
-		response = urllib2.urlopen('https://raw.github.com/alexjpaz/ajpaz531/static/data/alexjpaz')
-		self.response.headers['Content-Type'] = 'application/json'
+		template_values = urllib2.urlopen('https://raw.github.com/alexjpaz/ajpaz531/static/data/alexjpaz')
+
+		template = JINJA_ENVIRONMENT.get_template('cycle.html')
+
+		self.response.write(template.render(template_values))
+
 		self.response.write(response.read())
 
 
