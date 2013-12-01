@@ -1,6 +1,22 @@
 import webapp2
 import urllib2
 
+import os
+import jinja2
+
+JINJA_ENVIRONMENT = jinja2.Environment(
+	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__),'templates')),
+	extensions=['jinja2.ext.autoescape'],
+	autoescape=True)
+
+	template_values = {
+		'lol': 'wut'
+	}
+
+	template = JINJA_ENVIRONMENT.get_template('cycle.html')
+
+	print template.render(template_values)
+
 
 class Person(webapp2.RequestHandler):
 	def get(self):
@@ -10,5 +26,5 @@ class Person(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-	('/rest/person/alexjpaz@gmail.com', Person),
+	('/api/cycle', Person),
 	], debug=True)

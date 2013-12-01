@@ -5,7 +5,7 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /rest/.*
+- url: /api/.*
   script: web.app
 
 - url: /(index\.html)?
