@@ -2,7 +2,7 @@ from web import app
 from models import Post
 from flask import render_template
 
-@app.route('/posts')
+@app.route('/api/posts')
 def list_posts():
 	posts = Post.all()
 	return 'looool'
