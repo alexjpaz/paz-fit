@@ -7,3 +7,4 @@ venv
 .venv/
 target/
 node_modules/
+gaenv_lib
