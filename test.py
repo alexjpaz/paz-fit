@@ -10,7 +10,7 @@ class WebTestCase(unittest.TestCase):
         self.db_fd, web.app.config['DATABASE'] = tempfile.mkstemp()
         web.app.config['TESTING'] = True
         self.app = web.app.test_client()
-#        web.init_db()
+        web.init_db()
 
     def tearDown(self):
         os.close(self.db_fd)
