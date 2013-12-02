@@ -1,16 +1,9 @@
 application: ajpaz531
-version: 2
+version: api
 runtime: python27
 api_version: 1
 threadsafe: true
 
 handlers:
-- url: /api/.*
+- url: /.*
   script: main.app
-
-- url: /(index\.html)?
-  static_files: index.html
-  upload: index.html
-
-- url: /assets
-  static_dir: assets

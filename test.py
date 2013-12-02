@@ -18,9 +18,21 @@ class WebTestCase(unittest.TestCase):
         os.close(self.db_fd)
         os.unlink(web.app.config['DATABASE'])
 
-    def test_empty_db(self):
-		rv = self.app.get('/api/table?week=531&max=400')
-		print rv.data
+    def test_table(self):
+		rv = self.app.get('/table?week=531&max=400')
+
+    def test_record(self):
+		rv = self.app.get('/goal?weight=125&max=140')
+		self.assertEqual(rv.get_data(), '6')
+		
+
+    def test_post_record(self):
+		data=dict(
+			lift="squat",
+			weight="315",
+			reps=5
+		)
+		rv = self.app.post('/api/record', data=data)
 
 class FiveThreeOneTestCase(unittest.TestCase):
 

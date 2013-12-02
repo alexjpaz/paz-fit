@@ -39,3 +39,6 @@ def generate_week(max_weight=0, week=None):
 		rows.append(plates)
 
 	return rows
+
+def goal(max_weight, weight):
+	return int(round(37-36*weight/(max_weight+5)));

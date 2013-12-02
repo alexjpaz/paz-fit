@@ -9,3 +9,4 @@ def login_required(func):
             return redirect(users.create_login_url(request.url))
         return func(*args, **kwargs)
     return decorated_view
+
