@@ -3,7 +3,7 @@ angular.module('app',['ngResource','ngRoute'])
 	$provide.provider('ResourceFactory', function() {
 		function ResourceFactory() {
 			this.build = function(resouceName, rurl) {
-				var resourceFactoryFn = function () {
+				var resourceFactoryFn = function ($resource) {
 					return $resource(resouceName, rurl);
 				};
 				$provide.factory(resouceName, resourceFactoryFn);
