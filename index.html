@@ -1,31 +1,12 @@
 <!doctype html>
-<html ng-app='main'>
+<html>
 	<head>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.js"></script>
-		<script src="http://code.angularjs.org/1.2.3/angular-resource.js"></script>
-		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.min.js"></script>
+		<script src="/assets/init.js"></script>
 	</head>
 	<body>
-		<div ng-controller='testCtrl'>
-			<table>
-				<tr ng-repeat='max in maxes.list.Max'>
-					<td>{{ max }}</td>
-				<tr>
-			</table>
+		<div> 
+			<div app-container></div>
 		</div>
 	</body>
-	<script>
-		angular.module('main',['ngResource']).config(function($provide, $controllerProvider) {
-
-			$provide.factory('Resource', function($resource) {
-				return $resource('/rest/:model/:id');
-			});
-
-			$controllerProvider.register('testCtrl', function($scope, Resource) {
-				$scope.maxes = Resource.get({
-					model: 'Max',
-				});
-			});
-		});
-	</script>
 </html>
