@@ -1,6 +1,11 @@
 <div class='pr-list'>
 	<pre>{{ records }}</pre>
 	<div class='pr-list__add'>
-		<select ng-model='newpr.lift' ng-options='lift for lift in ApplicationEnum.Lifts'></select>
+		<select ng-model='newpr.lift' ng-options='lift for lift in ApplicationEnum.LIFTS'>
+			<option>-- Select Lift --</option>
+		</select>
+		<input type='text' ng-model='newpr.weight' placeholder='Weight (lbs)' />
+		<input type='text' ng-model='newpr.reps' placeholder='Number of Reps' />
+		<button ng-click='addRecord()'>Add Personal Record</button>
 	</div>
 </div>

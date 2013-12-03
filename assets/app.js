@@ -126,6 +126,10 @@ angular.module('app',['ngResource','ngRoute'])
 
 	ComponentFactory.build('pr-list', function($scope, PersonalRecord) {
 		$scope.records = PersonalRecord.query();
+
+		$scope.addRecord = function(record) {
+			PersonalRecord.save(record);
+		};
 	});
 
 	ComponentFactory.build('plate-table', function($scope, Resource, Api) {
