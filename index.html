@@ -1,0 +1,26 @@
+<!doctype html>
+<html ng-app='main'>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.js"></script>
+		<script src="http://code.angularjs.org/1.2.3/angular-resource.js"></script>
+	</head>
+	<body>
+		<div ng-controller='testCtrl'>
+			{{ hello | json }}
+		</div>
+	</body>
+	<script>
+		angular.module('main',['ngResource']).config(function($provide, $controllerProvider) {
+
+			$provide.factory('Resource', function($resource) {
+				return $resource('/rest/:model/:id');
+			});
+
+			$controllerProvider.register('testCtrl', function($scope, Resource) {
+				$scope.hello = Resource.get({
+					model: 'Max',
+				});
+			});
+		});
+	</script>
+</html>
