@@ -1,3 +1,3 @@
-virtualenv --distribute venv
-pip install Flask
+pip install -r requirements
+gaenv
 

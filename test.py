@@ -6,6 +6,22 @@ import web
 
 from web import util
 
+class ThrowawayTestCast(unittest.TestCase):
+
+	def test_post(self):
+		import ds
+		js = ds.JsonDocument(a=5,b='two')
+
+
+		public_props = (name for name in dir(object))
+		for name in public_props:
+			print name
+
+class JsonDatastore(unittest.TestCase):
+
+	def test_post(self):
+		pass
+
 class WebTestCase(unittest.TestCase):
 
     def setUp(self):
