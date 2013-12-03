@@ -1,0 +1,16 @@
+application: ajpaz531
+version: test
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /rest/.*
+  script: ds.app
+
+- url: /(index\.html)?
+  static_files: index.html
+  upload: index.html
+
+- url: /assets
+  static_dir: assets
