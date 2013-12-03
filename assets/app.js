@@ -68,6 +68,10 @@ angular.module('app',['ngResource','ngRoute'])
 		$scope.max = Resource.get({
 			model: 'Max',
 		});
+
+		$scope.pr = Resource.get({
+			model: 'PersonalRecord',
+		});
 	});
 
 });
