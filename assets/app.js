@@ -67,13 +67,20 @@ angular.module('app',['ngResource','ngRoute'])
 		$scope.hello = 'world';
 	});
 
-	ComponentFactory.build('test-one', function($scope, Resource) {
+	ComponentFactory.build('test-one', function($scope, Resource, Api) {
 		$scope.max = Resource.get({
 			model: 'Max',
 		});
 
 		$scope.pr = Resource.get({
 			model: 'PersonalRecord',
+		});
+
+		$scope.table = Api.get({
+			path: 'table',
+			subpath: 'week',
+			max: 500,
+			week: 531
 		});
 	});
 

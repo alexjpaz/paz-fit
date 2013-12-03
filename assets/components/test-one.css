@@ -1,3 +1,7 @@
 .test-one {
 	background: red;
 }
+
+.test-one pre {
+	margin: 10px;
+}
