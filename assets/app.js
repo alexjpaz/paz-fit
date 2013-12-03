@@ -103,7 +103,7 @@ angular.module('app',['ngResource','ngRoute'])
 		return instance;
 	});
 })
-.config(function($provide,ResourceFactoryiProvider) {
+.config(function($provide,ResourceFactoryProvider) {
 	var ResourceFactory = ResourceFactoryProvider.$get();
 
 	ResourceFactory.build('Resource', '/rest/:model/:id');
