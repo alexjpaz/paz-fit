@@ -9,6 +9,9 @@ handlers:
   script: ds.app
   login: required
 
+- url: /api/.*
+  script: api.app
+
 - url: /(index\.html)?
   static_files: index.html
   upload: index.html
