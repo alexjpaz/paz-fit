@@ -76,7 +76,7 @@ angular.module('app',['ngResource','ngRoute'])
 					restrict: 'C',
 					controller: controllerDef,
 					compile: function() {
-						head.load('/assets/components/'+screen_name'.css');
+						head.load('/assets/components/'+screen_name+'.css');
 					},
 				};
 
@@ -91,6 +91,16 @@ angular.module('app',['ngResource','ngRoute'])
 	  this.$get = function() {
 		  return new ScreenFactory();
 	  };
+	});
+})
+.config(function($provide) {
+	$provide.factory('ApplicationEnum', function($rootScope) {
+		function ApplicationEnum() {
+			this.LIFTS = ['press','deadlift','bench','squat'];
+		}
+		var instance = new ApplicationEnum();
+		$rootScope.ApplicationEnum = instance;
+		return instance;
 	});
 })
 .config(function($provide,ResourceFactoryiProvider) {

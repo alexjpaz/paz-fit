@@ -1,3 +1,6 @@
 <div class='pr-list'>
 	<pre>{{ records }}</pre>
+	<div class='pr-list__add'>
+		<select ng-model='newpr.lift' ng-options='lift for lift in ApplicationEnum.Lifts'></select>
+	</div>
 </div>
