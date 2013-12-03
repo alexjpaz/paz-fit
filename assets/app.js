@@ -67,6 +67,15 @@ angular.module('app',['ngResource','ngRoute'])
 		$scope.hello = 'world';
 	});
 
+
+	ComponentFactory.build('plate-table', function($scope, Resource, Api) {
+		$scope.sets = Api.get({
+			path: 'table',
+			subpath: 'week',
+			max: 500,
+			week: 531
+		});
+	});
 	ComponentFactory.build('test-one', function($scope, Resource, Api) {
 		$scope.max = Resource.get({
 			model: 'Max',

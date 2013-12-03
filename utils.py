@@ -37,14 +37,13 @@ def generate_month(max_weight=0):
 
 def generate_week(max_weight=0, week=None):
 
-	rows = []
+	rows = {}
 
 	for fraction in config["week"][week]:
 		weight = round(max_weight*fraction);
 		plates = calculate_plates(weight)
 		plates.insert(0,weight)
-		plates.insert(0,fraction)
-		rows.append(plates)
+		rows[fraction] = plates
 
 	return rows
 

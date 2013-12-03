@@ -1,0 +1,10 @@
+<div class='plate-table'>
+	<table>
+		<tbody>
+			<tr ng-repeat='(fraction, plates) in sets'>
+				<td>{{ fraction * 100 }}</td>
+				<td ng-repeat='plate in plates track by $index' class='plate-table__plate--{{$index}}'>{{plate}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

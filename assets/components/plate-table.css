@@ -1,0 +1,11 @@
+.plate-table {
+	border: 1px solid black;
+}
+
+.plate-table table {
+	border-collapse: collapse;
+}
+
+.plate-table td {
+	border: 1px solid black;
+}

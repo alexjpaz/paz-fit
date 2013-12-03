@@ -1,8 +1,8 @@
-head.load('http://code.jquery.com/jquery-2.0.3.min.js', function() {
+head.load('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', function() {
 	var ngmods = [];
-	ngmods.push('http://code.angularjs.org/1.2.3/angular.js');
-	ngmods.push('http://code.angularjs.org/1.2.3/angular-resource.js');
-	ngmods.push('http://code.angularjs.org/1.2.3/angular-route.js');
+	ngmods.push('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.js');
+	ngmods.push('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.js');
+	ngmods.push('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-route.js');
 	ngmods.push('/assets/app.js');
 	head.load(ngmods, function() {
 		angular.element(document).ready(function() {
