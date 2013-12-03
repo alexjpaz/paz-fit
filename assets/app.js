@@ -2,7 +2,7 @@ angular.module('app',['ngResource','ngRoute'])
 .config(function($provide, $compileProvider, $routeProvider) { 
 	$provide.provider('ResourceFactory', function() {
 		function ResourceFactory() {
-			this.when = function(resouceName, rurl) {
+			this.build = function(resouceName, rurl) {
 				var resourceFactoryFn = function () {
 					return $resource(resouceName, rurl);
 				};
