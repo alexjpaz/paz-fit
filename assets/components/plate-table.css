@@ -1,7 +1,7 @@
 .plate-table {
 	font-size: 9px;
-
 	border: 1px solid black;
+	float: left;
 }
 
 .plate-table table {

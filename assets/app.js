@@ -1,5 +1,20 @@
 angular.module('app',['ngResource','ngRoute'])
 .config(function($provide, $compileProvider, $routeProvider) { 
+	$provide.provider('ResourceFactory', function() {
+		function ResourceFactory() {
+			this.when = function(resouceName, rurl) {
+				var resourceFactoryFn = function () {
+					return $resource(resouceName, rurl);
+				};
+				$provide.factory(resouceName, resourceFactoryFn);
+			};
+		}
+
+		this.$get = function() {
+			return new ResourceFactory();
+		};
+	});
+
 	$provide.provider('DirectiveFactory', function() {
 	  function ComponentFactory() {
 		this.build = function(component_name, controllerDef) {
@@ -61,14 +76,14 @@ angular.module('app',['ngResource','ngRoute'])
 					restrict: 'C',
 					controller: controllerDef,
 					compile: function() {
-						head.load('/assets/components/'+component_name+'.css');
+						head.load('/assets/components/'+screen_name'.css');
 					},
 				};
 
 				return screenFactoryObj;
 			};
 
-			var screenName = component_name.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase() });
+			var screenName = screen_name.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase() });
 			$compileProvider.directive(screenName, screenFactoryObjFn);
 		}
 	  }
@@ -78,17 +93,17 @@ angular.module('app',['ngResource','ngRoute'])
 	  };
 	});
 })
-.config(function($provide) {
-	$provide.factory('Resource', function($resource) {
-		return $resource('/rest/:model/:id');
-	});
+.config(function($provide,ResourceFactoryiProvider) {
+	var ResourceFactory = ResourceFactoryProvider.$get();
 
-	$provide.factory('Api', function($resource) {
-		return $resource('/api/:path/:subpath');
-	});
+	ResourceFactory.build('Resource', '/rest/:model/:id');
+	ResourceFactory.build('Api', '/api/:path/:subpath');
+	
+	ResourceFactory.build('PersonalRecord','/rest/PersonalRecord/:id');
+	ResourceFactory.build('Max','/rest/Max/:id');
+	ResourceFactory.build('Note','/rest/Note/:id');
 })
 .config(function($routeProvider) {
-
 	$routeProvider.when('/dashboard', { templateUrl: '/assets/screen/dashboard.html' } );
 })
 .config(function($provide, ComponentFactoryProvider, ScreenFactoryProvider) {
@@ -99,6 +114,9 @@ angular.module('app',['ngResource','ngRoute'])
 		$scope.hello = 'world';
 	});
 
+	ComponentFactory.build('pr-list', function($scope, PersonalRecord) {
+		$scope.records = PersonalRecord.query();
+	});
 
 	ComponentFactory.build('plate-table', function($scope, Resource, Api) {
 		$scope.sets = Api.get({
