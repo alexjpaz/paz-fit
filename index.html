@@ -3,10 +3,15 @@
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.js"></script>
 		<script src="http://code.angularjs.org/1.2.3/angular-resource.js"></script>
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body>
 		<div ng-controller='testCtrl'>
-			{{ hello | json }}
+			<table>
+				<tr ng-repeat='max in maxes.list.Max'>
+					<td>{{ max }}</td>
+				<tr>
+			</table>
 		</div>
 	</body>
 	<script>
@@ -17,7 +22,7 @@
 			});
 
 			$controllerProvider.register('testCtrl', function($scope, Resource) {
-				$scope.hello = Resource.get({
+				$scope.maxes = Resource.get({
 					model: 'Max',
 				});
 			});

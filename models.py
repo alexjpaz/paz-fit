@@ -2,18 +2,20 @@ from google.appengine.ext import ndb
 from google.appengine.ext import db
 
 class Note(db.Expando):
-	owner = db.UserProperty()
+	modified_date = db.DateProperty(auto_now=True)
+	creation_date = db.DateProperty(auto_now_add=True)
+	content = db.StringProperty()
 	pass
 
 class Max(db.Model):
-	owner = db.UserProperty()
 	press = db.IntegerProperty()
 	deadlift = db.IntegerProperty()
 	bench = db.IntegerProperty()
 	squat = db.IntegerProperty()
+	date = db.DateProperty(auto_now=True)
 	
 class PersonalRecord(db.Model):
-	owner = db.UserProperty()
 	max = db.IntegerProperty()
 	reps = db.IntegerProperty()
 	lift = db.StringProperty()
+	date = db.DateProperty(auto_now=True)

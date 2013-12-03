@@ -7,6 +7,7 @@ threadsafe: true
 handlers:
 - url: /rest/.*
   script: ds.app
+  login: required
 
 - url: /(index\.html)?
   static_files: index.html
