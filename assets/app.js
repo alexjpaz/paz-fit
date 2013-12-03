@@ -33,6 +33,9 @@ angular.module('app',['ngResource','ngRoute'])
 					restrict: 'EA',
 					templateUrl: '/assets/components/'+component_name+'.html',
 					controller: controllerDef,
+					compile: function() {
+						head.load('/assets/components/'+component_name+'.css');
+					},
 				};
 
 				return componentFactoryObj;

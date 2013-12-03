@@ -13,21 +13,21 @@ class TableWeekHandler(webapp2.RequestHandler):
 		week = self.request.get('week')
 		result = utils.generate_week(max_weight, week)
 
-		write_json(self.result, result)
+		write_json(self.response, result)
 
 class TableMonthHandler(webapp2.RequestHandler):
     def get(self):
 		max_weight = int(self.request.get('max'))
 		result = utils.generate_month(max_weight)
 
-		write_json(self.result, result)
+		write_json(self.response, result)
 
 class PlateHandler(webapp2.RequestHandler):
     def get(self):
 		weight = int(self.request.get('weight'))
 		result = utils.calculate_plates(weight)
 
-		write_json(self.result, result)
+		write_json(self.response, result)
 
 class GoalHandler(webapp2.RequestHandler):
     def get(self):
@@ -35,7 +35,7 @@ class GoalHandler(webapp2.RequestHandler):
 		weight = int(self.request.get('weight'))
 		result = utils.goal(max_weight, weight)
 
-		write_json(self.result, result)
+		write_json(self.response, result)
 
 app = webapp2.WSGIApplication([
 	('/api/table/week', TableWeekHandler),
