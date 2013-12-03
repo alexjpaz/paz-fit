@@ -1,5 +1,22 @@
 <div class='plate-table'>
 	<table>
+		<thead>
+			<tr>
+				<th>{{ max }}</th>
+				<th>{{ lift }}</th>
+				<th>{{ week }}</th>
+			</tr>
+			<tr>
+				<th>%</th>
+				<th>W</th>
+				<th>45</th>
+				<th>35</th>
+				<th>25</th>
+				<th>10</th>
+				<th>5</th>
+				<th>2½</th>
+			</tr>
+		</thead>
 		<tbody>
 			<tr ng-repeat='(fraction, plates) in sets'>
 				<td>{{ fraction * 100 }}</td>

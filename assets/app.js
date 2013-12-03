@@ -1,5 +1,5 @@
 angular.module('app',['ngResource','ngRoute'])
-.config(function($provide, $compileProvider) { 
+.config(function($provide, $compileProvider, $routeProvider) { 
 	$provide.provider('DirectiveFactory', function() {
 	  function ComponentFactory() {
 		this.build = function(component_name, controllerDef) {
@@ -33,6 +33,7 @@ angular.module('app',['ngResource','ngRoute'])
 					restrict: 'EA',
 					templateUrl: '/assets/components/'+component_name+'.html',
 					controller: controllerDef,
+					scope: true,
 					compile: function() {
 						head.load('/assets/components/'+component_name+'.css');
 					},
@@ -51,6 +52,31 @@ angular.module('app',['ngResource','ngRoute'])
 	  };
 	});
 
+	$provide.provider('ScreenFactory', function() {
+	  function ScreenFactory() {
+		this.build = function(screen_name, controllerDef) {
+
+			var screenFactoryObjFn = function() {
+				var screenFactoryObj = {
+					restrict: 'C',
+					controller: controllerDef,
+					compile: function() {
+						head.load('/assets/components/'+component_name+'.css');
+					},
+				};
+
+				return screenFactoryObj;
+			};
+
+			var screenName = component_name.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase() });
+			$compileProvider.directive(screenName, screenFactoryObjFn);
+		}
+	  }
+
+	  this.$get = function() {
+		  return new ScreenFactory();
+	  };
+	});
 })
 .config(function($provide) {
 	$provide.factory('Resource', function($resource) {
@@ -61,8 +87,14 @@ angular.module('app',['ngResource','ngRoute'])
 		return $resource('/api/:path/:subpath');
 	});
 })
-.config(function($provide, ComponentFactoryProvider) {
+.config(function($routeProvider) {
+
+	$routeProvider.when('/dashboard', { templateUrl: '/assets/screen/dashboard.html' } );
+})
+.config(function($provide, ComponentFactoryProvider, ScreenFactoryProvider) {
 	var ComponentFactory = ComponentFactoryProvider.$get();
+	var ScreenFactory = ScreenFactoryProvider.$get();
+
 	ComponentFactory.build('app-container', function($scope) {
 		$scope.hello = 'world';
 	});
@@ -93,4 +125,6 @@ angular.module('app',['ngResource','ngRoute'])
 		});
 	});
 
+	ScreenFactory.build('screen-dashboard', function() {
+	});
 });
