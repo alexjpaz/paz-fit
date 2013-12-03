@@ -27,6 +27,14 @@ def calculate_plates(weight=None):
 
 	return oneside
 
+def generate_month(max_weight=0):
+	
+	month = {}
+	for week,values in config['week']:
+		month[week] = generate_week(max_weight, week)
+
+	return month
+
 def generate_week(max_weight=0, week=None):
 
 	rows = []
