@@ -57,7 +57,7 @@ angular.module('app',['ngResource','ngRoute'])
 	$provide.factory('Api', function($resource) {
 		return $resource('/api/:path/:subpath');
 	});
-});
+})
 .config(function($provide, ComponentFactoryProvider) {
 	var ComponentFactory = ComponentFactoryProvider.$get();
 	ComponentFactory.build('app-container', function($scope) {
