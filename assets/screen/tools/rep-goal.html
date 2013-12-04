@@ -4,6 +4,9 @@
 				<div class='form-group'>
 					<label for='weight'>Max</label>
 					<input type='number' ng-model='mdl.max' placeholder='Max' class='form-control' />
+					<div class='rep-goal__from btn-group'>
+						<button class='btn btn-default btn-small' ng-repeat='lift in ApplicationEnum.LIFT'>{{ lift }}</button>
+					</div>
 				</div>
 				<div class='form-group'>
 					<label for='weight'>Weight</label>
