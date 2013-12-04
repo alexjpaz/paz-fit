@@ -15,7 +15,7 @@ class Max(db.Model):
 	date = db.DateProperty(auto_now=True)
 	
 class PersonalRecord(db.Model):
-	max = db.IntegerProperty()
+	weight = db.IntegerProperty()
 	reps = db.IntegerProperty()
 	lift = db.StringProperty()
 	date = db.DateProperty(auto_now=True)

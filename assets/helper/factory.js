@@ -36,12 +36,14 @@ angular.module('helper/factory', [])
 	$provide.provider('ResourceFactory', function() {
 		function ResourceFactory() {
 
-			var  paramDefaults = {};
-			var  actions = {};
-
-
 			this.build = function(resouceName, rurl, paramDefaultsExtend, actionsExtend) {
 				var resourceFactoryFn = function ($resource) {
+					var  paramDefaults = {};
+					var  actions = {
+
+					};
+
+
 					return $resource(rurl, paramDefaults, actions);
 				};
 				$provide.factory(resouceName, resourceFactoryFn);
