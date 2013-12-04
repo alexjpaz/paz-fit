@@ -1,0 +1,9 @@
+<div class='screen-plate-calculator'>
+	<div plate-table max='mdl.max' week='mdl.week'></div>
+	<div class='screen-plate-calculator'>
+		<input type='text' ng-model='mdl.max' placeholder='One Rep Max' /> 
+		<select ng-model='mdl.week' ng-options='week for week in ApplicationEnum.WEEK'>
+			<option>-- Select Week --</option>
+		</select>
+	</div>
+</div>
