@@ -1,5 +1,7 @@
-angular.module('app',['ngResource','ngRoute','helper/factory'])
-.config(function($provide){
+var app = angular.module('app',['ngResource','ngRoute','helper/factory']);
+var RootApp = app;
+
+app.config(function($provide){
 	$provide.factory('App', function($rootScope, ApplicationEnum) {
 		function App() {
 		}
@@ -22,6 +24,9 @@ angular.module('app',['ngResource','ngRoute','helper/factory'])
 
 	ComponentFactory.build('app-container', function($scope) {
 		$scope.hello = 'world';
+	});
+	
+	ComponentFactory.build('nav-top', function($scope) {
 	});
 
 	ComponentFactory.build('pr-list', function($scope, PersonalRecord) {
@@ -54,6 +59,20 @@ angular.module('app',['ngResource','ngRoute','helper/factory'])
 
 	ScreenFactory.build('screen-dashboard', function() {
 	});
+})
+.config(function($injector, ScreenFactoryProvider) {
+	var ScreenFactory = ScreenFactoryProvider.$get();
+
+	app.lazy = {
+		ScreenFactory: ScreenFactory.build,
+        //controller: $controllerProvider.register,
+        //directive: $compileProvider.directive,
+        //filter: $filterProvider.register,
+        //factory: $provide.factory,
+        //service: $provide.service,
+        //animation: $animationProvider.register
+    };
+
 })
 .run(function(App){
 });
