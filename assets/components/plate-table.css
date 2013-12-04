@@ -1,13 +1,10 @@
 .plate-table {
-	font-size: 9px;
-	border: 1px solid black;
-	float: left;
 }
 
 .plate-table table {
-	border-collapse: collapse;
 }
 
-.plate-table td {
-	border: 1px solid black;
+.plate-table td,
+.plate-table th {
+	text-align: center;
 }

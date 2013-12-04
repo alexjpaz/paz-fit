@@ -4,6 +4,7 @@ head.load('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', functio
 	ngmods.push('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.js');
 	ngmods.push('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-route.js');
 	ngmods.push('/assets/app.js');
+	ngmods.push('/assets/components/plate-table.js');
 	ngmods.push('/assets/config/routes.js');
 	ngmods.push('/assets/helper/factory.js');
 	ngmods.push('/assets/helper/enum.js');

@@ -1,9 +1,19 @@
 <div class='screen-plate-calculator'>
-	<div plate-table max='mdl.max' week='mdl.week'></div>
-	<div class='screen-plate-calculator'>
-		<input type='text' ng-model='mdl.max' placeholder='One Rep Max' /> 
-		<select ng-model='mdl.week' ng-options='week for week in ApplicationEnum.WEEK'>
-			<option>-- Select Week --</option>
-		</select>
+	<div class='row'>
+		<div class='col-md-12'>
+		<div plate-table max='mdl.max' week='mdl.week'></div>
+			<div class='screen-plate-calculator'>
+				<div class='form-group'>
+					<label for='lift'>Max</label>
+					<input type='text' ng-model='mdl.max' placeholder='One Rep Max' class='form-control' /> 
+				</div>
+				<div class='form-group'>
+					<label for='week'>Week</label>
+					<select ng-model='mdl.week' ng-options='week for week in ApplicationEnum.WEEK' class='form-control'>
+						<option>-- Select Week --</option>
+					</select>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

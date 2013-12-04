@@ -42,7 +42,7 @@ RootApp.config(function($provide) {
 
 			for(var i=0;i<pcents.length;i++) {
 				weight = Math.round(repmax*pcents[i] / 5) * 5;
-				var row = calculatePlates(weight);
+				var row = this.plates(weight);
 				row.unshift(weight);
 				row.unshift(pcents[i]);
 				rows.push(row);

@@ -42,17 +42,7 @@ app.config(function($provide){
 		};
 	});
 
-	ComponentFactory.build('plate-table', {
-		controller: function($scope, $attrs, Resource, Api) {
-			$scope.sets = Api.get({
-				path: 'table',
-				subpath: 'week',
-				max: 500,
-				week: 531
-			});
-		},
-		scope: {'max':'=','week':'='}
-	});
+
 	ComponentFactory.build('test-one', function($scope, Resource, Api) {
 
 	});
