@@ -3,6 +3,19 @@ import utils
 import json
 import logging
 
+import jinja2 
+
+JINJA_ENVIRONMENT = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    extensions=['jinja2.ext.autoescape'],
+    autoescape=True)
+
+def write_html(response, result, templatepath):
+	response.headers['Content-Type'] = 'text/html'
+	template = JINJA_ENVIRONMENT.get_template(templatepath)
+	self.response.write(template.render(result))
+
+
 def write_json(response, result):
 	response.headers['Content-Type'] = 'application/json'
 	response.write(json.dumps(result))
@@ -20,7 +33,11 @@ class TableMonthHandler(webapp2.RequestHandler):
 		max_weight = int(self.request.get('max'))
 		result = utils.generate_month(max_weight)
 
-		write_json(self.response, result)
+		#write_json(self.response, result)
+		template_values = {
+			"table": result,
+		}
+		write_html(self.result, result, 'month.html')
 
 class PlateHandler(webapp2.RequestHandler):
     def get(self):
