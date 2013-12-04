@@ -4,6 +4,7 @@ import json
 import logging
 
 import jinja2 
+import os
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -13,7 +14,10 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 def write_html(response, result, templatepath):
 	response.headers['Content-Type'] = 'text/html'
 	template = JINJA_ENVIRONMENT.get_template(templatepath)
-	self.response.write(template.render(result))
+	template_values = {
+		"table": result,
+	}
+	self.response.write(template.render(template_values))
 
 
 def write_json(response, result):
@@ -27,6 +31,7 @@ class TableWeekHandler(webapp2.RequestHandler):
 		result = utils.generate_week(max_weight, week)
 
 		write_json(self.response, result)
+		write_html(self.response, result, 'month.html')
 
 class TableMonthHandler(webapp2.RequestHandler):
     def get(self):
@@ -34,10 +39,7 @@ class TableMonthHandler(webapp2.RequestHandler):
 		result = utils.generate_month(max_weight)
 
 		#write_json(self.response, result)
-		template_values = {
-			"table": result,
-		}
-		write_html(self.result, result, 'month.html')
+		write_html(self.response, result, 'month.html')
 
 class PlateHandler(webapp2.RequestHandler):
     def get(self):
