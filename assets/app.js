@@ -25,7 +25,7 @@ angular.module('app',['ngResource','ngRoute','helper/factory'])
 	});
 
 	ComponentFactory.build('pr-list', function($scope, PersonalRecord) {
-		$scope.records = PersonalRecord.get();
+		$scope.dto = PersonalRecord.get();
 	});
 
 	ComponentFactory.build('pr-add', function($scope, PersonalRecord) {

@@ -1,5 +1,26 @@
 <div class='pr-list'>
-	<pre>{{ records }}</pre>
-
+	<div class='pr-list__view--list'>
+		<table class='table table-bordered'>
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Lift</th>
+					<th>Weight</th>
+					<th>Reps</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='pr-list__row' ng-repeat='pr in dto.list.PersonalRecord track by $index'>
+					<td>{{ pr.date }}</td>
+					<td>{{ pr.lift }}</td>
+					<td>{{ pr.weight }}</td>
+					<td>{{ pr.reps }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>	
+	<div if='view == calendar'>
+		<p>Not Implemented
+	</div>	
 	<a href='#/profile/personal-record/add' class='btn btn-default'>Add Personal Record</a>
 </div>
