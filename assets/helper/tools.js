@@ -1,4 +1,4 @@
-RootApp.config(function($provide) {
+App.config(function($provide) {
 	$provide.service('FiveThreeOneCalculator', function() {
 		this.repgoal = function(max, weight) {
 			weight = parseInt(weight);

@@ -1,4 +1,4 @@
-angular.module('app').lazy.ScreenFactory('screen-tools-rep-goal', function($scope, FiveThreeOneCalculator) {
+App.lazy.ScreenFactory('screen-tools-rep-goal', function($scope, FiveThreeOneCalculator) {
 	$scope.mdl = {};
 	$scope.getRepGoal = function(max, weight) {
 		$scope.result = FiveThreeOneCalculator.repgoal(max, weight);

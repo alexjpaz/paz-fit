@@ -1,2 +1,14 @@
 <div class='c-calendar'>
+	<div class='c-calendar__container'>
+		<div class='c-calendar__header'>
+		</div>
+		<div class='c-calendar__body'>
+			<div class='c-calendar__week-header' ng-repeat='day in "SMTWTFS" track by $index' ng-click='selectDay(day)'>{{ day }}</div>
+			<div class='c-calender__week' ng-repeat='week in [1,2,3,4,5] track by $index'>
+				<div class='c-calendar__day' ng-repeat='day in [1,2,3,4,5,6,7] track by $index' ng-click='selectDay(day)'>
+					<span class="glyphicon glyphicon-ok-circle" ng-if='events["2013-12-"+(week*day)]'>{{ week*day }}</span>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

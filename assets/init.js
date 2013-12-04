@@ -3,12 +3,13 @@ head.load('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', functio
 	ngmods.push('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.js');
 	ngmods.push('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.js');
 	ngmods.push('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-route.js');
-	ngmods.push('/assets/app.js');
-	ngmods.push('/assets/components/plate-table.js');
-	ngmods.push('/assets/config/routes.js');
-	ngmods.push('/assets/helper/factory.js');
-	ngmods.push('/assets/helper/enum.js');
-	ngmods.push('/assets/helper/tools.js');
+	ngmods.push('/assets/app.js?v=1');
+	ngmods.push('/assets/components/plate-table.js?v=1');
+	ngmods.push('/assets/components/c-calendar.js?v=1');
+	ngmods.push('/assets/config/routes.js?v=1');
+	ngmods.push('/assets/helper/factory.js?v=1');
+	ngmods.push('/assets/helper/enum.js?v=1');
+	ngmods.push('/assets/helper/tools.js?v=1');
 	head.load(ngmods, function() {
 		angular.element(document).ready(function() {
 			angular.bootstrap(document, ['app']);

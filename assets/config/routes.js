@@ -1,4 +1,4 @@
-angular.module('app').config(function(RouteBuilderProvider) {
+App.config(function(RouteBuilderProvider) {
 	var RouteBuilder = RouteBuilderProvider.$get();
 	RouteBuilder.when('/dashboard', 'dashboard');
 	RouteBuilder.when('/tools/plate-calculator', 'tools/plate-calculator');

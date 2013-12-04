@@ -1,5 +1,5 @@
 var app = angular.module('app',['ngResource','ngRoute','helper/factory']);
-var RootApp = app;
+var App = app;
 
 app.config(function($provide){
 	$provide.factory('App', function($rootScope, ApplicationEnum) {
@@ -50,11 +50,13 @@ app.config(function($provide){
 	ScreenFactory.build('screen-dashboard', function() {
 	});
 })
-.config(function($injector, ScreenFactoryProvider) {
+.config(function($injector, ScreenFactoryProvider, ComponentFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
+	var ComponentFactory = ComponentFactoryProvider.$get();
 
 	app.lazy = {
 		ScreenFactory: ScreenFactory.build,
+		component: ComponentFactory.build
         //controller: $controllerProvider.register,
         //directive: $compileProvider.directive,
         //filter: $filterProvider.register,

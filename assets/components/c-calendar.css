@@ -1,0 +1,28 @@
+.c-calendar {
+	text-align: center;
+}
+
+.c-calendar__day {
+	float: left;
+	width: 14.28%;
+	height: 60px;
+	line-height: 60px;
+	background: #fff;
+	border: 1px solid #aaa;
+	cursor: pointer;
+
+}
+
+.c-calendar__week-header {
+	float: left;
+	width: 14.28%;
+	height: 10%;
+	background: #fff;
+	border: 1px solid #aaa;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.c-calendar__day:hover {
+	background: red;
+}
