@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+  <head>
+    <title>531 Month Cycle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+	  <div class='container'>
+		  {% for lift, month in table.iteritems() %}
+		  <div class='row lift'>
+			  <div class='lift__max'>
+				  <span>{{ lift }}</span>
+			  </div>
+			  <div class='lift_month'>
+				  {% for week, set in month.iteritems() %}
+				  <div class='col-md-3'>
+					  <table class='table table-bordered'>
+						  <thead>
+							  <tr>
+								  <th>{{ week }}</th>
+							  </tr>
+						  </thead>
+						  <tbody>
+							  {% for pct, plates in set.iteritems() %}
+							  <tr>
+								  <td>{{ pct }}</td>
+								  {% for plate in plates %}
+								  <td>{{ plate }}</td>
+								  {% endfor %}
+							  </tr>
+							  {% endfor %}
+						  </tbody>
+					  </table>
+				  </div>
+				  {% endfor %}
+			  </div>
+		  </div>
+		  {% endfor %}
+	  </div>
+  </body>
+</html>
+{% endautoescape %}

@@ -39,10 +39,15 @@ def calculate_plates(weight=None):
 
 	return oneside
 
-def generate_month(max_weight=0):
-	month = {}
-	for week in config['week'].keys():
-		month[week] = generate_week(max_weight, week)
+def generate_month(maxes):
+	month = {
+		'maxes': {},
+	}
+
+	for mm in maxes:
+		month[mm] = {}
+		for week in config['week'].keys():
+			month[mm][week] = generate_week(mm, week)
 
 	return month
 
