@@ -12,6 +12,6 @@ App.config(function(ComponentFactoryProvider) {
 		};
 
 
-		getPersonalRecords('refresh');
+		getPersonalRecords('find');
 	});
 });

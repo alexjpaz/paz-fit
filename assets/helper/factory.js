@@ -32,6 +32,13 @@ angular.module('helper/factory', [])
 		var AssetLoaderProvider = AssetLoaderProvider.$get();
 
 		function RouteBuilder() {
+			this.redirect = function(urlPattern, redirectUrl) {
+				var routeConfigObj = {
+					redirectTo: redirectUrl	
+				};
+				$routeProvider.when(urlPattern, routeConfigObj);
+			};
+
 			this.when = function(urlPattern, screenName) {
 				var routeConfigObj = {
 					templateUrl: TemplateResolver.screen(screenName),
@@ -56,10 +63,6 @@ angular.module('helper/factory', [])
 					}
 				};
 				$routeProvider.when(urlPattern, routeConfigObj);
-				var resourceFactoryFn = function ($resource) {
-					return $resource(urlPattern, rurl);
-				};
-				$provide.factory(urlPattern, resourceFactoryFn);
 			};
 		}
 

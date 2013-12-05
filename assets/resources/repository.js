@@ -50,7 +50,7 @@ App.config(function($provide) {
 			};
 
 			this.refresh = function(entityName) {
-				Storage.set(entityName, {});
+				Storage.set(entityName, undefined);
 				var promise = this.fetch(entityName).then(function(entity) {
 					Storage.set(entityName,entity); 
 				});

@@ -34,9 +34,7 @@ head.load('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', functio
 		});
 	});
 
-	var asyncmods = new AssetRepository();
 	head.load('/assets/style.css');
 	head.load('//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js');
 
-	head.load(asyncmods.assets);
 });
