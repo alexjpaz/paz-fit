@@ -1,0 +1,21 @@
+{
+  "name": "ajpaz531",
+  "version": "0.0.0",
+  "description": "531 Calculator and tracking app",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexjpaz/ajpaz531.git"
+  },
+  "author": "alexjpaz@gmail.com",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/alexjpaz/ajpaz531/issues"
+  },
+  "dependencies": {
+    "bower": "~1.2.8"
+  }
+}
