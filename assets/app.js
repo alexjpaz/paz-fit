@@ -29,9 +29,7 @@ app.config(function($provide){
 	ComponentFactory.build('nav-top', function($scope) {
 	});
 
-	ComponentFactory.build('pr-list', function($scope, PersonalRecord) {
-		$scope.dto = PersonalRecord.get();
-	});
+
 
 	ComponentFactory.build('pr-add', function($scope, PersonalRecord) {
 		$scope.dto = {}
