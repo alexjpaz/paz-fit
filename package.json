@@ -16,6 +16,7 @@
     "url": "https://github.com/alexjpaz/ajpaz531/issues"
   },
   "dependencies": {
-    "bower": "~1.2.8"
+    "bower": "~1.2.8",
+    "uglify-js": "~2.4.6"
   }
 }
