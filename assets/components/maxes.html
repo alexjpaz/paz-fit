@@ -1,5 +1,13 @@
 <div class='maxes'>
-	<table>
+	<table class='table table-bordered'>
+		<thead>
+			<tr>
+				<th>Press</th>
+				<th>Deadlift</th>
+				<th>Bench</th>
+				<th>Squat</th>
+			</tr>
+		</thead>
 		<tbody>
 			<tr>
 				<td>{{ maxes.press }}</td>
@@ -9,4 +17,6 @@
 			</tr>
 		</tbody>
 	</table>
+	<!--<a href='api/table/month?maxes={{maxes}}'>View Cycle</a>-->
+	<a ng-href='api/table/month?maxes={{maxes.press}},{{maxes.deadlift}},{{maxes.bench}},{{maxes.squat}}'>View Cycle</a>
 </div>
