@@ -10,5 +10,8 @@ App.config(function(ComponentFactoryProvider) {
 		$scope.refresh = function() {
 			getPersonalRecords('refresh');
 		};
+
+
+		getPersonalRecords('refresh');
 	});
 });

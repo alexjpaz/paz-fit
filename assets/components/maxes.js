@@ -1,14 +1,16 @@
 App.config(function(ComponentFactoryProvider) {
 	var ComponentFactory = ComponentFactoryProvider.$get();
 	ComponentFactory.build('maxes', function($scope, RestRepository) {
-		function getPersonalRecords(action) {
+		function getMaxes(action) {
 			RestRepository[action]('Max').then(function(entity) {
 				$scope.maxes = response.list.Max[0];
 			});
 		}
 
 		$scope.refresh = function() {
-			getPersonalRecords('refresh');
+			getMaxes('refresh');
 		};
+
+		getMaxes('find');
 	});
 });
