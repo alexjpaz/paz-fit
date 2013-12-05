@@ -40,9 +40,7 @@ def calculate_plates(weight=None):
 	return oneside
 
 def generate_month(maxes):
-	month = {
-		'maxes': {},
-	}
+	month = {}
 
 	for mm in maxes:
 		month[mm] = {}

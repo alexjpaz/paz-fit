@@ -5,27 +5,49 @@
     <title>531 Month Cycle</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		.lift--1 {background: rgba(255,0,0,0.05);}
+		.lift--2 {background: rgba(0,255,0,0.05);}
+		.lift--3 {background: rgba(0,0,255,0.05);}
+		.lift--4 {background: rgba(255,255,0,0.05);}
+
+		.lift__month {
+		}
+
+		.lift__max {
+			text-align: center;
+		}
+
+		.lift__week table {
+			background-color: #fff;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		.lift__week td,
+		.lift__week th {
+			padding: 4px !important;
+			text-align: center;
+		}
+	</style>
   </head>
   <body>
 	  <div class='container'>
 		  {% for lift, month in table.iteritems() %}
-		  <div class='row lift'>
-			  <div class='lift__max'>
-				  <span>{{ lift }}</span>
-			  </div>
-			  <div class='lift_month'>
+		  <div class='row lift lift--{{loop.index}}'>
+			  <div class='lift__month'>
 				  {% for week, set in month.iteritems() %}
-				  <div class='col-md-3'>
-					  <table class='table table-bordered'>
+				  <div class='col-md-3 lift__week lift__week--{{week}}'>
+					  <table class='table table-bordered '>
 						  <thead>
 							  <tr>
-								  <th>{{ week }}</th>
+								  <th>{{ lift }}</th>
+								  <th colspan='7'>{{ week }}</th>
 							  </tr>
 						  </thead>
 						  <tbody>
 							  {% for pct, plates in set.iteritems() %}
 							  <tr>
-								  <td>{{ pct }}</td>
+								  <td>{{ (pct*100) | round }}</td>
 								  {% for plate in plates %}
 								  <td>{{ plate }}</td>
 								  {% endfor %}
@@ -39,6 +61,7 @@
 		  </div>
 		  {% endfor %}
 	  </div>
+	  <pre>{{ table }}</pre>
   </body>
 </html>
 {% endautoescape %}
