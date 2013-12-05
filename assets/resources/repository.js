@@ -75,6 +75,7 @@ App.config(function($provide) {
 				var entity = Storage.get(entityName);
 
 				if(angular.isUndefined(entity)) {
+
 					this.refresh(entityName).then(function(entity) {
 						deferred.resolve(entity);
 					});
