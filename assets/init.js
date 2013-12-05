@@ -1,16 +1,31 @@
 head.load('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', function() {
-	var ngmods = [];
-	ngmods.push('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.js');
-	ngmods.push('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.js');
-	ngmods.push('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-route.js');
-	ngmods.push('/assets/app.js?v=1');
-	ngmods.push('/assets/components/plate-table.js?v=1');
-	ngmods.push('/assets/components/c-calendar.js?v=1');
-	ngmods.push('/assets/config/routes.js?v=1');
-	ngmods.push('/assets/helper/factory.js?v=1');
-	ngmods.push('/assets/helper/enum.js?v=1');
-	ngmods.push('/assets/helper/tools.js?v=1');
-	head.load(ngmods, function() {
+
+	function AssetRepository() {
+		this.assets = [];
+
+		this.add = function(assetUrl) {
+			this.assets[assetUrl];
+		};
+
+		this.importFromJson = function(jsonUrl) {
+			throw new "Not Yet Implemented";
+		};
+	}
+
+	var respository = AssetRepository();
+	respository.add('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.js');
+	respository.add('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.js');
+	respository.add('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-route.js');
+	respository.add('/assets/app.js?v=1');
+	respository.add('/assets/components/maxes.js?v=1');
+	respository.add('/assets/components/plate-table.js?v=1');
+	respository.add('/assets/components/c-calendar.js?v=1');
+	respository.add('/assets/config/routes.js?v=1');
+	respository.add('/assets/helper/factory.js?v=1');
+	respository.add('/assets/helper/enum.js?v=1');
+	respository.add('/assets/helper/tools.js?v=1');
+
+	head.load(respository.assets, function() {
 		angular.element(document).ready(function() {
 			angular.bootstrap(document, ['app']);
 		});
