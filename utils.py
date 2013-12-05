@@ -35,6 +35,8 @@ def calculate_plates(weight=None):
 		if number_of_plates > 0 :
 			weight = (weight - (number_of_plates*plate*2))
 
+
+
 		oneside.append(number_of_plates)
 
 	return oneside
@@ -54,7 +56,7 @@ def generate_week(max_weight=0, week=None):
 	rows = {}
 
 	for fraction in config["week"][week]:
-		weight = round(max_weight*fraction);
+		weight = round(max_weight*fraction / 5) * 5;
 		plates = calculate_plates(weight)
 		plates.insert(0,weight)
 		rows[fraction] = plates

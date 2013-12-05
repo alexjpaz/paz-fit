@@ -23,6 +23,10 @@
 			margin-top: 10px;
 			margin-bottom: 10px;
 		}
+
+		.lift__week thead {
+		}
+
 		.lift__week td,
 		.lift__week th {
 			padding: 4px !important;
@@ -35,21 +39,21 @@
 		  {% for lift, month in table.iteritems() %}
 		  <div class='row lift lift--{{loop.index}}'>
 			  <div class='lift__month'>
-				  {% for week, set in month.iteritems() %}
+				  {% for week in ['3x5','3x3','531','DL'] %}
 				  <div class='col-md-3 lift__week lift__week--{{week}}'>
 					  <table class='table table-bordered '>
 						  <thead>
 							  <tr>
-								  <th>{{ lift }}</th>
-								  <th colspan='7'>{{ week }}</th>
+								  <td colspan='2'>{{ lift }}</td>
+								  <th colspan='6'>{{ week }}</th>
 							  </tr>
 						  </thead>
 						  <tbody>
-							  {% for pct, plates in set.iteritems() %}
+							  {% for pct, plates in month[week].iteritems() | sort %}
 							  <tr>
-								  <td>{{ (pct*100) | round }}</td>
+								  <td>{{ (pct*100) | int }}%</td>
 								  {% for plate in plates %}
-								  <td>{{ plate }}</td>
+								  <td>{{ plate | int }}</td>
 								  {% endfor %}
 							  </tr>
 							  {% endfor %}
@@ -61,7 +65,6 @@
 		  </div>
 		  {% endfor %}
 	  </div>
-	  <pre>{{ table }}</pre>
   </body>
 </html>
 {% endautoescape %}
