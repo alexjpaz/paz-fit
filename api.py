@@ -6,6 +6,8 @@ import logging
 import jinja2 
 import os
 
+from google.appengine.api import users
+
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
@@ -53,8 +55,22 @@ class GoalHandler(webapp2.RequestHandler):
 		max_weight = int(self.request.get('max'))
 		weight = int(self.request.get('weight'))
 		result = utils.goal(max_weight, weight)
-
 		write_json(self.response, result)
+		
+class SimpleAuthenticationHandler(webapp2.RequestHandler):
+    def post(self):
+    	user = users.get_current_user()
+ 
+	result = {}
+	
+    	if user:
+            self.response.headers['Content-Type'] = 'application/json'
+            result := {}
+            result['nickname'] = user.nickname()
+        else:
+      		result['redirect'] = users.create_login_url(self.request.uri)
+        
+        write_json(self.response, creds)
 
 app = webapp2.WSGIApplication([
 	('/api/table/week', TableWeekHandler),
