@@ -1,0 +1,20 @@
+{
+  "name": "ajpaz531",
+  "version": "0.0.0",
+  "homepage": "https://github.com/alexjpaz/ajpaz531",
+  "authors": [
+    "Alex Paz <alexander.j.paz@ngc.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.3"
+  }
+}
