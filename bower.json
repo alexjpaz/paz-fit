@@ -17,6 +17,9 @@
   "dependencies": {
     "angular-mocks": "~1.2.3",
     "angular-resource": "~1.2.3",
-    "angular-route": "~1.2.3"
+    "angular-route": "~1.2.3",
+    "ydn-db": "~0.8.12",
+    "jquery": "~2.0.3",
+    "headjs": "~1.0.3"
   }
 }

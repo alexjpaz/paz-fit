@@ -7,16 +7,7 @@ app.config(function($provide){
 		}
 	});
 })
-.config(function($provide,ResourceFactoryProvider) {
-	var ResourceFactory = ResourceFactoryProvider.$get();
 
-	ResourceFactory.build('Resource', '/rest/:model/:id');
-	ResourceFactory.build('Api', '/api/:path/:subpath');
-	
-	ResourceFactory.build('PersonalRecord','/rest/PersonalRecord/:id');
-	ResourceFactory.build('Max','/rest/Max/:id');
-	ResourceFactory.build('Note','/rest/Note/:id');
-})
 .config(function($provide, ComponentFactoryProvider, ScreenFactoryProvider) {
 
 	var ComponentFactory = ComponentFactoryProvider.$get();
@@ -31,14 +22,7 @@ app.config(function($provide){
 
 
 
-	ComponentFactory.build('pr-add', function($scope, PersonalRecord) {
-		$scope.dto = {}
-		$scope.dto.PersonalRecord = new PersonalRecord();
 
-		$scope.addRecord = function(record) {
-			PersonalRecord.save(record);
-		};
-	});
 
 
 	ComponentFactory.build('test-one', function($scope, Resource, Api) {

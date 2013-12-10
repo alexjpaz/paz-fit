@@ -1,17 +1,13 @@
 App.config(function(ComponentFactoryProvider) {
 	var ComponentFactory = ComponentFactoryProvider.$get();
-	ComponentFactory.build('pr-list', function($scope, RestRepository) {
+	ComponentFactory.build('pr-list', function($scope, Database) {
 		function getPersonalRecords(action) {
-			RestRepository[action]('PersonalRecord').then(function(entity) {
-				$scope.dto = entity;
+			Database.values('PersonalRecord').done(function(record) {
+				console.debug('apaz',record);
+				$scope.list = record;
+				$scope.$apply();
 			});
 		}
-
-		$scope.refresh = function() {
-			getPersonalRecords('refresh');
-		};
-
-
-		getPersonalRecords('find');
+		getPersonalRecords();
 	});
 });

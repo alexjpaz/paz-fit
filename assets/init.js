@@ -1,10 +1,14 @@
-head.load('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', function() {
+head.load('/bower_components/jquery/jquery.min.js', function() {
 
 	function AssetRepository() {
 		this.assets = [];
 
+		var assetSeed = 0;
 		this.add = function(assetUrl) {
-			this.assets.push(assetUrl+".js?v=2");
+			assetSeed += 1;
+			var asset = {}
+			asset[assetSeed] = (assetUrl+".js?v=2");
+			this.assets.push(asset);
 		};
 
 		this.importFromJson = function(jsonUrl) {
@@ -13,13 +17,20 @@ head.load('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', functio
 	}
 
 	var respository = new AssetRepository();
-	respository.add('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular');
-	respository.add('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource');
-	respository.add('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-route');
+
+	respository.add('/bower_components/angular/angular');
+	respository.add('/bower_components/angular-route/angular-route');
+	respository.add('/bower_components/angular-mocks/angular-mocks');
+	respository.add('/bower_components/angular-resource/angular-resource')
+
+
+	respository.add('/bower_components/ydn-db/jsc/ydn.db-dev');
+
 	respository.add('/assets/app');
 	respository.add('/assets/components/maxes');
 	respository.add('/assets/components/plate-table');
 	respository.add('/assets/components/pr-list');
+	respository.add('/assets/components/pr-add');
 	respository.add('/assets/components/c-calendar');
 	respository.add('/assets/config/routes');
 	respository.add('/assets/resources/repository');
@@ -30,7 +41,12 @@ head.load('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', functio
 	console.log(respository);
 	head.load(respository.assets, function() {
 		angular.element(document).ready(function() {
-			angular.bootstrap(document, ['app']);
+			try{
+				angular.bootstrap(document, ['app']);
+			} catch(e) {
+				console.error(e);
+				document.write('<pre>'+e+'</pre>');
+			}
 		});
 	});
 

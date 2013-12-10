@@ -10,7 +10,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class='pr-list__row' ng-repeat='pr in dto.list.PersonalRecord track by $index'>
+				<tr class='pr-list__row' ng-repeat='pr in list track by $index'>
 					<td>{{ pr.date }}</td>
 					<td>{{ pr.lift }}</td>
 					<td>{{ pr.weight }}</td>
@@ -20,4 +20,5 @@
 		</table>
 	</div>	
 	<a href='#/profile/personal-record/add' class='btn btn-default'>Add Personal Record</a>
+	<pre>{{ list | json }}</pre>
 </div>

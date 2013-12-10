@@ -1,5 +1,8 @@
 {
 	"css": {
 		"style": "async",
+	},
+	"components": {
+		"pr-list": true
 	}
 }
