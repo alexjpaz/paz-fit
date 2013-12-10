@@ -5,12 +5,15 @@
 					<label for='weight'>Max</label>
 					<input type='number' ng-model='mdl.max' placeholder='Max' class='form-control' />
 					<div class='rep-goal__from btn-group'>
-						<button class='btn btn-default btn-small' ng-repeat='lift in ApplicationEnum.LIFT'>{{ lift }}</button>
+						<button class='btn btn-default btn-xs' ng-click='useMax(lift)' ng-repeat='lift in ApplicationEnum.LIFT'>{{ lift }}</button>
 					</div>
 				</div>
 				<div class='form-group'>
 					<label for='weight'>Weight</label>
 					<input type='number' ng-model='mdl.weight' placeholder='Weight (lbs)' class='form-control' />
+					<div class='rep-goal__use-fraction btn-group'>
+						<button class='btn btn-default btn-xs' ng-click='useFraction(fraction)' ng-repeat='fraction in ApplicationEnum.FRACTION'>{{ fraction * 100 }}%</button>
+					</div>
 				</div>
 				<hr />
 				<div class='form-group'>

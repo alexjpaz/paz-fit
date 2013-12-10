@@ -2,6 +2,7 @@
 	<table class='table table-bordered'>
 		<thead>
 			<tr>
+				<th>Date</th>
 				<th>Press</th>
 				<th>Deadlift</th>
 				<th>Bench</th>
@@ -9,15 +10,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>{{ maxes.press }}</td>
-				<td>{{ maxes.deadlift }}</td>
-				<td>{{ maxes.bench }}</td>
-				<td>{{ maxes.squat }}</td>
+			<tr ng-repeat='max in maxes track by $index'>
+				<td>{{ max.date }}</td>
+				<td>{{ max.press }}</td>
+				<td>{{ max.deadlift }}</td>
+				<td>{{ max.bench }}</td>
+				<td>{{ max.squat }}</td>
 			</tr>
 		</tbody>
 	</table>
-	<!--<a href='api/table/month?maxes={{maxes}}'>View Cycle</a>-->
-	<a ng-href='api/table/month?maxes={{maxes.press}},{{maxes.deadlift}},{{maxes.bench}},{{maxes.squat}}'>View Cycle</a>
-	<button ng-click='refresh()'>refresh</button>
 </div>

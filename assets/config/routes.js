@@ -7,5 +7,6 @@ App.config(function(RouteBuilderProvider) {
 	RouteBuilder.when('/profile', 'profile/main');
 	RouteBuilder.when('/profile/personal-record', 'profile/personal-record');
 	RouteBuilder.when('/profile/personal-record/add', 'profile/personal-record-add');
+	RouteBuilder.when('/profile/max', 'profile/max');
 });
 

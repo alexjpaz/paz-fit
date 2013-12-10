@@ -24,7 +24,7 @@ head.load('/bower_components/jquery/jquery.min.js', function() {
 	respository.add('/bower_components/angular-resource/angular-resource')
 
 
-	respository.add('/bower_components/ydn-db/jsc/ydn.db-dev');
+	respository.add('/assets/lib/ydn.db-iswu-core-e-qry-dev');
 
 	respository.add('/assets/app');
 	respository.add('/assets/components/maxes');
@@ -32,6 +32,7 @@ head.load('/bower_components/jquery/jquery.min.js', function() {
 	respository.add('/assets/components/pr-list');
 	respository.add('/assets/components/pr-add');
 	respository.add('/assets/components/c-calendar');
+	respository.add('/assets/components/c-table');
 	respository.add('/assets/config/routes');
 	respository.add('/assets/resources/repository');
 	respository.add('/assets/helper/factory');

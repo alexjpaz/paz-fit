@@ -1,15 +1,15 @@
 <div class='screen-profile-main'>
 	<div class='row'>
 		<div class='col-md-12'>
-			<h4>Current Max</h4>
-			<div maxes current='true'></div>
+			<h4><a href='#/profile/max'>Max</a></h4>
+			<div c-table item='currentMaxes'></div>
+			<a class='btn btn-xu btn-default' ng-if='currentMaxes' ng-href='api/table/month?maxes={{currentMaxes.press}},{{currentMaxes.deadlift}},{{currentMaxes.bench}},{{currentMaxes.squat}}'>View Cycle</a>
 		</div>
 	</div>
 	<hr />
 	<div class='row'>
 		<div class='col-md-12'>
-			<h4>Personal Records</h4>
-			<div pr-list></div>
+			<h4><a href='#/profile/personal-record'>Personal Records</a></h4>
 		</div>
 	</div>
 	<hr />

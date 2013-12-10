@@ -1,0 +1,9 @@
+<div class='c-table'>
+	<table class='table table-bordered'>
+		<tbody>
+			<tr ng-repeat='item in data track by $index'>
+				<td ng-repeat='(k,v) in item track by $index'>{{ v }}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

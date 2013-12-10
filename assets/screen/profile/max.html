@@ -1,0 +1,28 @@
+<div class='screen-profile-max'>
+	<div class=''>
+		<div maxes='maxes'></div>
+	</div>
+	<div class='screen-profile-max__add'>
+		<div class='form-group'>
+			<label>Press</label>
+			<input type='number' min='5' max='1000' step='5' value='100'class='form-control' ng-model='newMax.press' />
+		</div>
+		<div class='form-group'>
+			<label>Deadlift</label>
+			<input type='number' min='5' max='1000' step='5' value='100'  class='form-control' ng-model='newMax.deadlift' />
+		</div>
+		<div class='form-group'>
+			<label>Bench</label>
+			<input type='number' min='5' max='1000' step='5' value='100' class='form-control' ng-model='newMax.bench' />
+		</div>
+		<div class='form-group'>
+			<label>Squat</label>
+			<input  type='number' min='5' max='1000' step='5' value='100' class='form-control' ng-model='newMax.squat' />
+		</div>
+		<div class='form-group'>
+			<label>Date</label>
+			<input type='date' class='form-control' ng-model='newMax.date' />
+		</div>
+		<button ng-click='addMax(newMax)' class='btn btn-default'>Add New Max</button>
+	</div>
+</div>
