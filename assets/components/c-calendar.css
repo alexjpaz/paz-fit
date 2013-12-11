@@ -6,7 +6,6 @@
 	float: left;
 	width: 14.28%;
 	height: 60px;
-	line-height: 60px;
 	background: #fff;
 	border: 1px solid #aaa;
 	cursor: pointer;
@@ -24,5 +23,22 @@
 }
 
 .c-calendar__day:hover {
-	background: red;
+	background: rgba(0,0,0,0.25);
+}
+
+.c-calendar__day {
+	background: #fefefe;
+	color: #ddd;
+	position: relative;
+}
+
+.c-calendar__day--current-month {
+	background: #fff;
+	color: #000;
+}
+
+.c-calendar__day-label {
+	position: absolute;
+	left: 0;
+	top: 0;
 }

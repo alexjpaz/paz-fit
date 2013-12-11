@@ -18,10 +18,6 @@ App.config(function($provide) {
 		schema.stores.push({
 			name: 'PersonalRecord',
 			keyPath: 'date',
-			  Sync: {
-				format: 's3',
-				transport: gapi.client
-			  }
 		});
 
 		schema.stores.push({

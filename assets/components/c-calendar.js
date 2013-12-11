@@ -2,24 +2,66 @@ App.config(function(ComponentFactoryProvider) {
 	var ComponentFactory = ComponentFactoryProvider.$get();
 	ComponentFactory.build('c-calendar', function($scope) {
 
-		(function populate_calendar() {
-			$scope.days = [];
-
-			for(var i=0;i<(7*5);i++) {
-				$scope.days.push(i);
+		$scope.cssForDay = function(day) {
+			var css = [];
+			if(day.isCurrentMonth) {
+				css.push('c-calendar__day--current-month');
 			}
-		})();
-
-		$scope.events = {
-			'2013-12-1' : 'hi',
-			'2013-12-5' : 'hi',
-			'2013-12-7' : 'hi',
+			return css;
 		};
 
-		$scope.selectDay = function(day) {
-			console.log(day);
-		};
+		function Day() {
+			this.date = null;
+			this.isCurrentMonth = false;
+		}
 
-		var derp = '2013-12-5';
+		function populateDays() {
+			$scope.days = [];
+			var i,n;
+			i=0;
+			n=(7*5)
+			for(;i<n;i++) {
+				$scope.days[i] = null;
+			}
+
+			var now = moment($scope.currentDate);
+			var working = now.clone().startOf('month');
+			var previous = working.clone();
+			var daysInMonth = now.daysInMonth();
+			var startingDay = working.day();
+
+			i=startingDay;
+			n=0;
+			for(i;i>=n;i--) {
+				var day = new Day();
+				day.date = previous.clone();
+				$scope.days[i] = day;
+				previous.subtract('days',1);
+			}
+
+
+			i=startingDay;
+			n=(daysInMonth+startingDay)
+				for(;i<n;i++) {
+					var day = new Day();
+					day.date = working.clone();
+					day.isCurrentMonth = true;
+					$scope.days[i] = day;
+					working.add('days',1);
+				}
+
+			i=(daysInMonth+startingDay);
+			n=(i)+(7*5)-(daysInMonth+startingDay);
+			console.log(i,n)
+				for(;i<n;i++) {
+					var day = new Day();
+					day.date = working.clone();
+					$scope.days[i] = day;
+					working.add('days',1);
+				}
+
+		}
+	
+		populateDays();
 	});
 }); 

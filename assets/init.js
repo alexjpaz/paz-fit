@@ -11,6 +11,10 @@ head.load('/bower_components/jquery/jquery.min.js', function() {
 			this.assets.push(asset);
 		};
 
+		this.addBowerComponent = function(componentUrl) {
+			this.add('/bower_components/'+componentUrl);
+		};
+
 		this.importFromJson = function(jsonUrl) {
 			throw new "Not Yet Implemented";
 		};
@@ -18,6 +22,8 @@ head.load('/bower_components/jquery/jquery.min.js', function() {
 
 	var respository = new AssetRepository();
 
+
+	respository.addBowerComponent('momentjs/moment');
 	respository.add('/bower_components/angular/angular');
 	respository.add('/bower_components/angular-route/angular-route');
 	respository.add('/bower_components/angular-mocks/angular-mocks');
