@@ -1,36 +1,41 @@
 App.config(function($provide, ComponentFactoryProvider) {
 
-	$provide.factory('CalendarEventRepository', function() {
-		function CalendarEventRepository() {
-		};
-
-		return CalendarEventRepository;
-	});
-	$provide.factory('CalenderView', function(CalendarEventRepository) {
 	
+	$provide.factory('CalendarDay', function() {
 		function CalendarDay() {
 			this.date = null;
 			this.events = null;
 			this.isCurrentMonth = false;
 		}
 
+		return CalendarDay;
+	});
+
+	$provide.factory('CalendarEventRepository', function() {
 		function CalendarEventRepository() {
 			this.events = {};
-			this.get = function(date) {
-				return this.events[date];
+			this.get = function(dateKey) {
+				var ev =  this.events[dateKey];
+				console.log('apaz(getRepo)',dateKey, ev);
+				return ev;
 			};
 
 			this.put = function(date, eventObj) {
 				var ref = this.events[date];
 
 				if(angular.isUndefined(ref)) {
-					ref = [];
+					this.events[date] = [];
+					ref = this.events[date]; 
 				}
 
 				ref.push(eventObj);
 			};
 		}
 
+		return CalendarEventRepository;
+	});
+
+	$provide.factory('CalendarView', function(CalendarEventRepository, CalendarDay) {
 		function CalendarView() {
 			this.days = [];
 			this.events = null;
@@ -41,6 +46,13 @@ App.config(function($provide, ComponentFactoryProvider) {
 			
 			this.setEvents = function(eventRepository) {
 				this.events = eventRepository;
+			};
+
+			this.__newDay = function(dateObj) {
+				var day = new CalendarDay();
+				day.date = dateObj.clone();
+				day.events = this.events.get(day.date.format('YYYY-MM-DD'));
+				return day;
 			};
 
 			this.generateLayout = function(currentDate) {
@@ -68,11 +80,7 @@ App.config(function($provide, ComponentFactoryProvider) {
 				i=startingDay;
 				n=0;
 				for(i;i>=n;i--) {
-					var day = new CalendarDay();
-					day.date = previous.clone();
-					day.eventObj = this.events.get(day);
-
-					this.days[i] = day;
+					this.days[i] = this.__newDay(previous);
 					previous.subtract('days',1);
 				}
 
@@ -80,29 +88,26 @@ App.config(function($provide, ComponentFactoryProvider) {
 				i=startingDay;
 				n=(daysInMonth+startingDay)
 					for(;i<n;i++) {
-					var day = new CalendarDay();
-					day.date = working.clone();
-					day.isCurrentMonth = true;
-					this.days[i] = day;
+					this.days[i] = this.__newDay(working);
+					this.days[i].isCurrentMonth = true;
 					working.add('days',1);
 				}
 
 				i=(daysInMonth+startingDay);
 				n=(i)+(7*5)-(daysInMonth+startingDay);
 				for(;i<n;i++) {
-					var day = new CalendarDay();
-					day.date = working.clone();
-					this.days[i] = day;
+					this.days[i] = this.__newDay(working);
 					working.add('days',1);
 				}
 		}
 
-		return Calendar;
+		}
+		return CalendarView;
 	});
 
 
 	var ComponentFactory = ComponentFactoryProvider.$get();
-	ComponentFactory.build('c-calendar', function($scope, Calendar) {
+	ComponentFactory.build('c-calendar', function($scope, CalendarView, CalendarEventRepository) {
 
 		$scope.cssForDay = function(day) {
 			var css = [];
@@ -111,8 +116,13 @@ App.config(function($provide, ComponentFactoryProvider) {
 			}
 			return css;
 		};
+		
+		var eventRepository = new CalendarEventRepository();
+		eventRepository.put("2013-12-11", "a special event")
 
-	
-		populateDays();
+		console.log('eventRepo', eventRepository.events);
+		$scope.calendar = new CalendarView();
+		$scope.calendar.setEvents(eventRepository);
+		$scope.calendar.generateLayout();
 	});
 }); 
