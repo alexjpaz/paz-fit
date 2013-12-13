@@ -2,7 +2,7 @@ App.lazy.ScreenFactory('screen-profile-main', function($scope, Database, Datasto
 	$scope.events = new CalendarEventRepository();
 
 	$scope.getProfileData = function() {
-		Database.from('Maxes').list(1).done(function(records) {
+		Database.from('Max').list(1).done(function(records) {
 			$scope.currentMaxes = records[0];
 			$scope.$apply();
 		});
@@ -21,6 +21,6 @@ App.lazy.ScreenFactory('screen-profile-main', function($scope, Database, Datasto
 		DatastoreSync.sync();
 	};
 	$scope.clear = function() {
-		Database.clear();
+		DatastoreSync.refresh();
 	};
 });

@@ -1,7 +1,7 @@
 App.lazy.ScreenFactory('screen-profile-max', function($scope, Database) {
 
 	$scope.getMaxes = function() {
-		Database.from('Maxes').list().done(function(records) {
+		Database.from('Max').list().done(function(records) {
 			$scope.maxes = records;
 			$scope.newMax = angular.copy(records[0]);
 			$scope.$apply();
@@ -9,15 +9,13 @@ App.lazy.ScreenFactory('screen-profile-max', function($scope, Database) {
 	};
 
 	$scope.addMax = function(max) {
-		var req = Database.put('Maxes', max);
+		var req = Database.put('Max', max);
 		
 		req.done(function() {
 			$scope.getMaxes();
-			console.info('apaz_done', arguments);
 		});
 
 		req.fail(function() {
-			console.info('apaz_fail', arguments);
 		});
 	};
 

@@ -2,16 +2,13 @@ App.config(function($provide) {
 
 	$provide.factory('DatastoreSync', function($http, Database, Schema) {
 		function DatastoreSync() {
-			var stores = ['PersonalRecord','Maxes'];
+			var stores = ['PersonalRecord','Max'];
 			
 			this.refresh = function() {
 				angular.forEach(stores, function(store) {
-					var postUrl = '/rest/'+store;
-					var postData = {};
-					postData.list = {};
-					postData[store] = records;
+					var getUrl = '/rest/'+store;
 
-					$http.get(postUrl, postData).success(function(data) {
+					$http.get(getUrl).success(function(data) {
 						Database.put(store, data.list[store]); 
 					});
 				});
@@ -59,7 +56,7 @@ App.config(function($provide) {
 		});
 
 		schema.stores.push({
-			name: 'Maxes',
+			name: 'Max',
 			keyPath: 'date',
 			indexes: [
 				{
