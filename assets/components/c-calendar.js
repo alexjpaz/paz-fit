@@ -1,6 +1,13 @@
 App.config(function($provide, ComponentFactoryProvider) {
 
-	
+	$provide.factory('CalendarEvent', function() {
+		function CalendarEvent() {
+			this.isCurrentMonth = false;
+		}
+
+		return CalendarEvent;
+	});
+
 	$provide.factory('CalendarDay', function() {
 		function CalendarDay() {
 			this.date = null;
@@ -16,7 +23,6 @@ App.config(function($provide, ComponentFactoryProvider) {
 			this.events = {};
 			this.get = function(dateKey) {
 				var ev =  this.events[dateKey];
-				console.log('apaz(getRepo)',dateKey, ev);
 				return ev;
 			};
 
@@ -51,7 +57,9 @@ App.config(function($provide, ComponentFactoryProvider) {
 			this.__newDay = function(dateObj) {
 				var day = new CalendarDay();
 				day.date = dateObj.clone();
-				day.events = this.events.get(day.date.format('YYYY-MM-DD'));
+				if(this.events) {
+					day.events = this.events.get(day.date.format('YYYY-MM-DD'));
+				}
 				return day;
 			};
 
@@ -107,22 +115,23 @@ App.config(function($provide, ComponentFactoryProvider) {
 
 
 	var ComponentFactory = ComponentFactoryProvider.$get();
-	ComponentFactory.build('c-calendar', function($scope, CalendarView, CalendarEventRepository) {
+	ComponentFactory.build('c-calendar', {
+		scope: {'events':'='},
+		controller: function($scope, Database, CalendarView, CalendarEventRepository) {
+			$scope.cssForDay = function(day) {
+				if(day == null) return;
+				var css = [];
+				if(day.isCurrentMonth) {
+					css.push('c-calendar__day--current-month');
+				}
+				return css;
+			};
 
-		$scope.cssForDay = function(day) {
-			var css = [];
-			if(day.isCurrentMonth) {
-				css.push('c-calendar__day--current-month');
-			}
-			return css;
-		};
-		
-		var eventRepository = new CalendarEventRepository();
-		eventRepository.put("2013-12-11", "a special event")
-
-		console.log('eventRepo', eventRepository.events);
-		$scope.calendar = new CalendarView();
-		$scope.calendar.setEvents(eventRepository);
-		$scope.calendar.generateLayout();
+			$scope.calendar = new CalendarView();
+			$scope.calendar.setEvents($scope.events);
+			$scope.$watch('events', function() {
+				$scope.calendar.generateLayout();
+			}, true);
+		}
 	});
 }); 

@@ -5,7 +5,6 @@ angular.module('app').config(function(ComponentFactoryProvider){
 			$scope.week = $scope.week || '3x5';
 			$scope.max = $scope.max || '315';
 			function updateTable() {
-				console.log(arguments);
 				var max = parseInt($scope.max);
 				var week = ''+$scope.week;
 				$scope.sets = FiveThreeOneCalculator.generatePlateTable(max, week);

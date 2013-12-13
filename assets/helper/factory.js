@@ -3,11 +3,15 @@ angular.module('helper/factory', [])
 	$provide.provider('AssetLoader', function() {
 		function AssetLoader() {
 			this.load = function(headPackage, callback) {
+				if(angular.isUndefined(callback)) {
+					 callback = angular.noop;
+				}
 				head.load(headPackage, callback);
 			};
 
 			this.screen = function(screenName, callback) {
 				this.load('assets/screen/'+screenName+'.js', callback);
+				this.load('assets/screen/'+screenName+'.css');
 			};
 		}
 

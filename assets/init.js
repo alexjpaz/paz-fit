@@ -24,11 +24,10 @@ head.load('/bower_components/jquery/jquery.min.js', function() {
 
 
 	respository.addBowerComponent('momentjs/moment');
-	respository.add('/bower_components/angular/angular');
-	respository.add('/bower_components/angular-route/angular-route');
-	respository.add('/bower_components/angular-mocks/angular-mocks');
-	respository.add('/bower_components/angular-resource/angular-resource')
-
+	respository.addBowerComponent('angular/angular');
+	respository.addBowerComponent('angular-route/angular-route');
+	respository.addBowerComponent('angular-mocks/angular-mocks');
+	respository.addBowerComponent('angular-resource/angular-resource')
 
 	respository.add('/assets/lib/ydn.db-iswu-core-e-qry-dev');
 
@@ -57,7 +56,6 @@ head.load('/bower_components/jquery/jquery.min.js', function() {
 		});
 	});
 
+	head.load('/bower_components/bootstrap/dist/js/bootstrap.min.js');
 	head.load('/assets/style.css');
-	head.load('//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js');
-
 });

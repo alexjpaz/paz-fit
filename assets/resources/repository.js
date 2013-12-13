@@ -1,18 +1,35 @@
 App.config(function($provide) {
 
-	$provide.factory('MaxesValidator', function() {
-		function MaxesValidator() {
-			this.validate = function(entity) {
+	$provide.factory('DatastoreSync', function($http, Database) {
+		function DatastoreSync() {
+			this.sync = function() {
+				Database.values('Maxes').done(function(records) {
+					var postData = {
+						list: {
+							"Maxes": records,
+						}
+					};
+					$http.post('/rest/Maxes', postData)
+				});
 			};
 		}
 
-		var instance = new MaxesValidator();
+		var instance = new DatastoreSync();
 		return instance;
 	});
 
-	$provide.factory('Database', function() {
+	$provide.factory('Schema', function() {
+	});
+
+	$provide.factory('Database', function(Schema) {
 		var schema = {
 		  stores: []
+		};
+
+		function Derp() {
+		}
+		Derp.prototype.request = function(args) {
+			console.info('apaz(database)', arguments);
 		};
 
 		schema.stores.push({
