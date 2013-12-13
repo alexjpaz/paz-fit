@@ -20,4 +20,7 @@ App.lazy.ScreenFactory('screen-profile-main', function($scope, Database, Datasto
 	$scope.sync = function() {
 		DatastoreSync.sync();
 	};
+	$scope.clear = function() {
+		Database.clear();
+	};
 });
