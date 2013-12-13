@@ -2,13 +2,23 @@ App.config(function($provide) {
 
 	$provide.factory('DatastoreSync', function($http, Database, Schema) {
 		function DatastoreSync() {
-			var stores = ['PersonalRecord','Max'];
+			var stores = Schema.stores;
 			
 			this.refresh = function() {
 				angular.forEach(stores, function(store) {
-					var getUrl = '/rest/'+store;
+					//TODO gather etags from metadata database
+					console.log(store);
+					var config = {
+						method: 'GET',
+						url: '/rest/PersonalRecord',
+						headers: {
+							"If-None-Match": "*",
+						}
+					};
 
-					$http.get(getUrl).success(function(data) {
+					var promise = $http(config);
+					
+					promise.success(function(data) {
 						Database.put(store, data.list[store]); 
 					});
 				});
@@ -33,36 +43,41 @@ App.config(function($provide) {
 		}
 
 		var instance = new DatastoreSync();
+		instance.refresh();
 		return instance;
 	});
 
 	$provide.factory('Schema', function() {
-	});
-
-	$provide.factory('Database', function(Schema) {
-		var schema = {
-		  stores: []
-		};
-
-		function Derp() {
+		function Schema() {
+			this.stores = [];
 		}
-		Derp.prototype.request = function(args) {
-			console.info('apaz(database)', arguments);
-		};
 
-		schema.stores.push({
+		function SchemaBuilder() {
+		}
+
+		var instance = new Schema();
+
+		instance.stores.push({
+			name: '_metadata',
+			indexes: [
+				{keyPath: 'store'},
+				{keyPath: 'modified'},
+			]
+		});
+
+		instance.stores.push({
 			name: 'PersonalRecord',
 			keyPath: 'date',
 		});
 
-		schema.stores.push({
+		instance.stores.push({
 			name: 'Max',
 			keyPath: 'date',
 			indexes: [
-				{
-					keyPath: 'press',
-					type: 'INTEGER'
-				},
+				{keyPath: 'press',type: 'INTEGER'},
+				{keyPath: 'deadlift',type: 'INTEGER'},
+				{keyPath: 'bench',type: 'INTEGER'},
+				{keyPath: 'squat',type: 'INTEGER'},
 				{
 					keyPath: 'date',
 					unique: true,
@@ -71,8 +86,11 @@ App.config(function($provide) {
 			]
 		});
 
+		return instance;
+	});
 
-		var databaseInstance = new ydn.db.Storage('ajpaz531', schema);
+	$provide.factory('Database', function(Schema) {
+		var databaseInstance = new ydn.db.Storage('ajpaz531', Schema);
 		return databaseInstance;
 	});
 }).config(function($provide) {
