@@ -79,12 +79,15 @@ describe('resources/repository', function() {
 				}
 			};
 
-			mock.$httpBackend.expectPOST(mdl.url, mdl.data).respond(mdl.data);
+			mock.$httpBackend.expectPOST(mdl.url, mdl.data).respond(200,'');
 
 			var promise = mock.DatastoreSync.push();
 
-			promise.finally(function() {
+			promise.then(function() {
 				console.debug(arguments);
+				done();
+			}, function() {
+				console.debug('fwfwe',arguments);
 			});
 
 			mock.$scope.$apply();

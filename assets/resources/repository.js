@@ -48,38 +48,39 @@ angular.module('app').config(function($provide) {
 
 					var dbPromise = Database.values(store.name);
 
+					var dbDeffered = $q.defer();
+
 					dbPromise.done(function(records) {
-						Database.values(store.name).done(function(records) {
-							var config = {
-								method: 'POST',
-								url: '/rest/'+store.name,
-								data: {},
-								headers: {
-									"ETag": "*",
-								}
-							};
-							var postData = {};
-							config.data.list = {};
-							config.data.list[store.name] = records;
-
-							var cb = {
-								success: function(response) {
-									deffered.resolve(records);
-									console.debug(data);
-								},
-								failure: function(data) {
-									deffered.reject(records);
-									console.error(arguments);
-								}
-							};
-							console.debug(config)
-
-							$rootScope.$apply(function() {
-								var promise = $http(config);
-								var chainedPromise =  promise.then(cb.success, cb.failure);
-							});
-							//return chainedPromise;
+						$rootScope.$apply(function() {
+							dbDeffered.resolve(records);
 						});
+					});
+
+					dbDeffered.promise.then(function(records) {
+						var config = {
+							method: 'POST',
+							url: '/rest/'+store.name,
+							data: {},
+							headers: {
+								"ETag": "*",
+							}
+						};
+						var postData = {};
+						config.data.list = {};
+						config.data.list[store.name] = records;
+
+						var cb = {
+							success: function(response) {
+								console.log('post success');
+								deffered.resolve();
+							},
+							failure: function(data) {
+								deffered.resolve();
+							}
+						};
+
+						var promise = $http(config);
+						promise.then(cb.success, cb.failure);
 					});
 				});
 
