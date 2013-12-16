@@ -1,9 +1,17 @@
 angular.module('app').config(function($provide) {
 
-	$provide.factory('DatastoreSync', function($http, Database, SchemaManager) {
+	$provide.factory('Database', function(SchemaManager) {
+		var databaseInstance = new ydn.db.Storage('ajpaz531', SchemaManager.schema);
+		return databaseInstance;
+	});
+
+	$provide.factory('DatastoreSync', function($http, $rootScope, $q, Database, SchemaManager) {
 		function DatastoreSync() {
-			this.refresh = function() {
-				angular.forEach(SchemaManager.getPublicStores(), function(store) {
+
+			this.pull = function() {
+				var deferred = $q.defer();
+
+				this.iterateStores(function(store) {
 					//TODO gather etags from metadata database
 					var config = {
 						method: 'GET',
@@ -13,31 +21,77 @@ angular.module('app').config(function($provide) {
 						}
 					};
 
+					var cb = {
+						success: function(response) {
+							var putData = response.data.list[store.name];
+							Database.put(store, putData); 
+						},
+						failure: function(data) {
+							console.error(arguments);
+						}
+					};
+
 					var promise = $http(config);
-					
-					promise.success(function(data) {
-						var putData = data.list;
-						Database.put(store, putData); 
+					var chainedPromise =  promise.then(cb.success, cb.failure);
+					return chainedPromise;
+				});
+
+				return deferred.promise;
+			};
+
+			this.push = function() {
+				var promises = [];
+
+				this.iterateStores(function(store) {
+					var deffered = $q.defer();
+					promises.push(deffered.promise);
+
+					var dbPromise = Database.values(store.name);
+
+					dbPromise.done(function(records) {
+						Database.values(store.name).done(function(records) {
+							var config = {
+								method: 'POST',
+								url: '/rest/'+store.name,
+								data: {},
+								headers: {
+									"ETag": "*",
+								}
+							};
+							var postData = {};
+							config.data.list = {};
+							config.data.list[store.name] = records;
+
+							var cb = {
+								success: function(response) {
+									deffered.resolve(records);
+									console.debug(data);
+								},
+								failure: function(data) {
+									deffered.reject(records);
+									console.error(arguments);
+								}
+							};
+							console.debug(config)
+
+							$rootScope.$apply(function() {
+								var promise = $http(config);
+								var chainedPromise =  promise.then(cb.success, cb.failure);
+							});
+							//return chainedPromise;
+						});
 					});
 				});
+
+				return $q.all(promises); 
 			};
 
-			this.sync = function() {
-				angular.forEach(stores, this.__iter_stores, this);
+			this.iterateStores = function(callback) {
+
+				var stores = SchemaManager.getPublicStores();
+				angular.forEach(stores, callback);
 			};
 
-			this.__iter_stores = function(store) {
-				Database.values(store).done(function(records) {
-					var postUrl = '/rest/'+store+'?type=full';
-					var postData = {};
-					postData.list = {};
-					postData[store] = records;
-
-					$http.post(postUrl, postData).success(function(data) {
-
-					});
-				});
-			};
 		}
 
 		var instance = new DatastoreSync();
@@ -68,8 +122,6 @@ angular.module('app').config(function($provide) {
 		};
 	});
 
-	$provide.factory('Database', function(SchemaManager) {
-		var databaseInstance = new ydn.db.Storage('ajpaz531', SchemaManager.schema);
-		return databaseInstance;
-	});
+
+
 })
