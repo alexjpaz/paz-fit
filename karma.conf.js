@@ -18,6 +18,7 @@ module.exports = function(config) {
 		'bower_components/angular-route/angular-route.js',
 		'bower_components/angular-mocks/angular-mocks.js',
 		'bower_components/angular-resource/angular-resource.js',
+		'assets/lib/ydn.db-iswu-core-e-qry-dev.js',
 		'assets/app.mock.js',
 		'assets/helper/factory.js',
 		'assets/resources/repository.js',

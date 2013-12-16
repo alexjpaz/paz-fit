@@ -2,48 +2,61 @@ describe('resources/repository', function() {
 
 	var mock = {};
 
-	beforeEach(module('app'));
-	
-	beforeEach(inject(function($rootScope, RestRepository, Storage, $httpBackend) {
-		mock.$scope = $rootScope.$new();
-		mock.RestRepository = RestRepository;
-		mock.Storage = Storage;
-		mock.$httpBackend = $httpBackend;
+	describe('DatastoreSync', function() {
 
-		mock.Storage.remove('Mock');
-	}));
+		beforeEach(function() {
+			angular.module('app').config(function($provide, SchemaManagerProvider) {
+				SchemaManagerProvider.addStore({
+					name: '_metadata',
+					indexes: [
+						{keyPath: 'store'},
+						{keyPath: 'modified'},
+					]
+				});
 
-
-	it('should use Storage to find entities', function(done) {
-
-		var mockData = {
-			'test': 1
-		};
-
-		mock.Storage.set('Mock', mockData);
-
-		var promise = mock.RestRepository.find('Mock');
-
-		promise.then(function(data) {
-			expect(mockData).to.deep.equal(data)
-			done();
+				SchemaManagerProvider.addStore({
+					name: 'MockStore',
+					keyPath: 'mockId',
+				});
+			});
+			module('app');
 		});
 
-		mock.$scope.$apply();
-	});
+		beforeEach(inject(function($rootScope, $httpBackend) {
+			mock = {};
+			mock.$scope = $rootScope.$new();
+			mock.$httpBackend = $httpBackend;
+		}));
 
-	it('should use use rest to find entities and save in Storage', function(done) {
+		beforeEach(inject(function(DatastoreSync, SchemaManager) {
+			mock.DatastoreSync = DatastoreSync
+			mock.SchemaManager = SchemaManager
+		}));
 
-		///mock.Storage.get('Mock');
+		it('should retrieve data from the server and store in local DB', function(done) {
+			var mdl = {
+				url: '/rest/MockStore',
+				data: {
+					list: [
+						{
+							mockId: -1,
+							mockField: 'A Mock Field'
+						}
+					],
+				}
+			};
 
-		var promise = mock.RestRepository.find('Mock');
+			mock.$httpBackend.expectGET(mdl.url).respond(mdl.data);
 
-		promise.then(function(data) {
-			console.log(data);
+			var mockData = {
+				'test': 1
+			};
+
+			mock.DatastoreSync.refresh();
+
+			mock.$httpBackend.flush();
+			mock.$scope.$apply();
 			done();
 		});
-
-		mock.$scope.$apply();
 	});
-
 });

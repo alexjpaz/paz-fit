@@ -20,11 +20,6 @@ app.config(function($provide){
 	ComponentFactory.build('nav-top', function($scope) {
 	});
 
-
-
-
-
-
 	ComponentFactory.build('test-one', function($scope, Resource, Api) {
 
 	});
@@ -32,6 +27,36 @@ app.config(function($provide){
 	ScreenFactory.build('screen-dashboard', function() {
 	});
 })
+.config(function($provide, SchemaManagerProvider) {
+	SchemaManagerProvider.addStore({
+		name: '_metadata',
+		indexes: [
+			{keyPath: 'store'},
+			{keyPath: 'modified'},
+		]
+	});
+
+	SchemaManagerProvider.addStore({
+		name: 'PersonalRecord',
+		keyPath: 'date',
+	});
+
+	SchemaManagerProvider.addStore({
+		name: 'Max',
+		keyPath: 'date',
+		indexes: [
+			{keyPath: 'press',type: 'INTEGER'},
+			{keyPath: 'deadlift',type: 'INTEGER'},
+			{keyPath: 'bench',type: 'INTEGER'},
+			{keyPath: 'squat',type: 'INTEGER'},
+			{
+				keyPath: 'date',
+				unique: true,
+				type: 'DATE'
+			},  
+		]
+	});
+});
 .config(function($injector, ScreenFactoryProvider, ComponentFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
 	var ComponentFactory = ComponentFactoryProvider.$get();

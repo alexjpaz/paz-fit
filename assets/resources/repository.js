@@ -1,16 +1,13 @@
-App.config(function($provide) {
+angular.module('app').config(function($provide) {
 
-	$provide.factory('DatastoreSync', function($http, Database, Schema) {
+	$provide.factory('DatastoreSync', function($http, Database, SchemaManager) {
 		function DatastoreSync() {
-			var stores = Schema.stores;
-			
 			this.refresh = function() {
-				angular.forEach(stores, function(store) {
+				angular.forEach(SchemaManager.getPublicStores(), function(store) {
 					//TODO gather etags from metadata database
-					console.log(store);
 					var config = {
 						method: 'GET',
-						url: '/rest/PersonalRecord',
+						url: '/rest/'+store.name,
 						headers: {
 							"If-None-Match": "*",
 						}
@@ -19,7 +16,8 @@ App.config(function($provide) {
 					var promise = $http(config);
 					
 					promise.success(function(data) {
-						Database.put(store, data.list[store]); 
+						var putData = data.list;
+						Database.put(store, putData); 
 					});
 				});
 			};
@@ -43,73 +41,35 @@ App.config(function($provide) {
 		}
 
 		var instance = new DatastoreSync();
-		instance.refresh();
 		return instance;
 	});
 
-	$provide.factory('Schema', function() {
+	$provide.provider('SchemaManager', function SchemaManagerProvider() {
 		function Schema() {
 			this.stores = [];
 		}
 
-		function SchemaBuilder() {
-		}
+		this.schema = new Schema();
+		this.publicStores = [];
 
-		var instance = new Schema();
+		this.addStore = function(store) {
+			this.schema.stores.push(store);
+			if(!(/^_/).test(store.name)) {
+				this.publicStores.push(store);
+			}
+		};
 
-		instance.stores.push({
-			name: '_metadata',
-			indexes: [
-				{keyPath: 'store'},
-				{keyPath: 'modified'},
-			]
-		});
+		this.getPublicStores = function() {
+			return this.publicStores;
+		};
 
-		instance.stores.push({
-			name: 'PersonalRecord',
-			keyPath: 'date',
-		});
-
-		instance.stores.push({
-			name: 'Max',
-			keyPath: 'date',
-			indexes: [
-				{keyPath: 'press',type: 'INTEGER'},
-				{keyPath: 'deadlift',type: 'INTEGER'},
-				{keyPath: 'bench',type: 'INTEGER'},
-				{keyPath: 'squat',type: 'INTEGER'},
-				{
-					keyPath: 'date',
-					unique: true,
-					type: 'DATE'
-				},  
-			]
-		});
-
-		return instance;
+		this.$get = function() {
+			return this;
+		};
 	});
 
-	$provide.factory('Database', function(Schema) {
-		var databaseInstance = new ydn.db.Storage('ajpaz531', Schema);
+	$provide.factory('Database', function(SchemaManager) {
+		var databaseInstance = new ydn.db.Storage('ajpaz531', SchemaManager.schema);
 		return databaseInstance;
 	});
-}).config(function($provide) {
-/* $provide.factory('Database', function() {*/
-//var schema = {
-//stores: []
-//};
-
-//schema.stores.push({
-//name: 'PersonalRecord',
-//autoIncrement: true
-//});
-
-//schema.stores.push({
-//name: 'Maxes',
-//autoIncrement: true
-//});
-
-//var databaseInstance = new ydn.db.Storage('ajpaz531', schema);
-//return databaseInstance;
-/*});*/
-});
+})
