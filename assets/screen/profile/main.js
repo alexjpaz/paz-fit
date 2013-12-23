@@ -9,18 +9,14 @@ angular.module('app').lazy.ScreenFactory('screen-profile-main', function($scope,
 
 		Database.from('PersonalRecord').list().done(function(records) {
 			angular.forEach(records, function(record) {
-				$scope.events.put(record.date, record.lift+" "+record.weight+"x"+record.reps);
+				var event  = new Object();
+				event.label = record.lift+" "+record.weight+"x"+record.reps; 
+				event.href = '#/profile/personal-record/edit?date='+record.date;
+				$scope.events.put(record.date, event);
 			});
 			$scope.$apply();
 		});
 	};
 
 	$scope.getProfileData();
-
-	$scope.sync = function() {
-		DatastoreSync.sync();
-	};
-	$scope.clear = function() {
-		DatastoreSync.refresh();
-	};
 });

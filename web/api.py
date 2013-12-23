@@ -27,21 +27,15 @@ def write_json(response, result):
 	response.headers['Content-Type'] = 'application/json'
 	response.write(json.dumps(result))
 
-class TableWeekHandler(webapp2.RequestHandler):
-    def get(self):
-		max_weight = int(self.request.get('max'))
-		week = self.request.get('week')
-		result = utils.generate_week(max_weight, week)
-
-		#write_json(self.response, result)
-		write_html(self.response, result, 'month.html')
-
 class TableMonthHandler(webapp2.RequestHandler):
     def get(self):
-		maxes = [int(x) for x in self.request.get('maxes').split(",")]
+		maxes = []
+		maxes.append(int(self.request.get('p')))
+		maxes.append(int(self.request.get('d')))
+		maxes.append(int(self.request.get('b')))
+		maxes.append(int(self.request.get('s')))
 		result = utils.generate_month(maxes)
 
-		#write_json(self.response, result)
 		write_html(self.response, result, 'month.html')
 
 class PlateHandler(webapp2.RequestHandler):
@@ -61,7 +55,6 @@ class GoalHandler(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-	('/api/table/week', TableWeekHandler),
 	('/api/table/month', TableMonthHandler),
 	('/api/plates', PlateHandler),
 	('/api/goal', PlateHandler)

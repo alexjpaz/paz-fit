@@ -44,7 +44,7 @@
 	font-size: 11px;
 }
 
-.c-calendar__events span {
+.c-calendar__events a {
 	background: #00a;
 	border-radius: 4px;
 	color: #fff;

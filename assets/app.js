@@ -53,6 +53,10 @@ angular.module('app',['ngResource','ngRoute','helper','resources'])
 	SchemaManagerProvider.addStore({
 		name: 'PersonalRecord',
 		keyPath: 'date',
+		indexes: [
+			{keyPath: 'reps', type: 'INTEGER'},
+			{keyPath: 'weight', type: 'INTEGER'}
+		]
 	});
 
 	SchemaManagerProvider.addStore({
@@ -87,5 +91,11 @@ angular.module('app',['ngResource','ngRoute','helper','resources'])
     };
 
 })
-.run(function(App){
+.run(function(App, DatastoreSync, $window){
+	DatastoreSync.pull();
+
+	window.onbeforeunload = function() {
+		DatastoreSync.push();
+		return null;
+	}
 });

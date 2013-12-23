@@ -1,4 +1,5 @@
 import math 
+from collections import OrderedDict
 
 class Config(object):
 	bar = 45
@@ -42,7 +43,7 @@ def calculate_plates(weight=None):
 	return oneside
 
 def generate_month(maxes):
-	month = {}
+	month = OrderedDict()
 
 	for mm in maxes:
 		month[mm] = {}
@@ -53,7 +54,7 @@ def generate_month(maxes):
 
 def generate_week(max_weight=0, week=None):
 
-	rows = {}
+	rows = OrderedDict()
 
 	for fraction in config["week"][week]:
 		weight = round(max_weight*fraction / 5) * 5;

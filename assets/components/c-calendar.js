@@ -21,6 +21,7 @@ angular.module('app').config(function($provide, ComponentFactoryProvider) {
 	$provide.factory('CalendarEventRepository', function() {
 		function CalendarEventRepository() {
 			this.events = {};
+
 			this.get = function(dateKey) {
 				var ev =  this.events[dateKey];
 				return ev;

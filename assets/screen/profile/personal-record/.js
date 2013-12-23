@@ -1,4 +1,4 @@
-App.lazy.ScreenFactory('screen-profile-personal-record', function($scope, Database) {
+angular.module('app').lazy.ScreenFactory('screen-profile-personal-record', function($scope, Database) {
 
 	$scope.getMaxes = function() {
 		Database.from('Max').list().done(function(records) {
