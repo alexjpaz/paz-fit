@@ -7,7 +7,7 @@ class Post(db.Expando):
 	title = db.StringProperty()
 	content = db.StringProperty()
 	
-class Max(db.Model):
+class Maxes(db.Model):
 	press = db.IntegerProperty()
 	deadlift = db.IntegerProperty()
 	bench = db.IntegerProperty()
