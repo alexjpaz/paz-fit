@@ -1,4 +1,4 @@
-angular.module('helper/factory', [])
+angular.module('helper')
 .config(function($provide, $compileProvider, $routeProvider) { 
 	$provide.provider('AssetLoader', function() {
 		function AssetLoader() {

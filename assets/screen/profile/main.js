@@ -1,4 +1,4 @@
-App.lazy.ScreenFactory('screen-profile-main', function($scope, Database, DatastoreSync, CalendarEventRepository) {
+angular.module('app').lazy.ScreenFactory('screen-profile-main', function($scope, Database, DatastoreSync, CalendarEventRepository) {
 	$scope.events = new CalendarEventRepository();
 
 	$scope.getProfileData = function() {

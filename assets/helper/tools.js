@@ -1,4 +1,4 @@
-App.config(function($provide) {
+angular.module('app').config(function($provide) {
 	$provide.service('FiveThreeOneCalculator', function() {
 		this.repgoal = function(max, weight) {
 			weight = parseInt(weight);

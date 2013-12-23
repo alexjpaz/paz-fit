@@ -1,4 +1,4 @@
-angular.module('app').config(function($provide) {
+angular.module('resources').config(function($provide) {
 
 	$provide.factory('Database', function(SchemaManager) {
 		var databaseInstance = new ydn.db.Storage('ajpaz531', SchemaManager.schema);
@@ -122,7 +122,5 @@ angular.module('app').config(function($provide) {
 			return this;
 		};
 	});
-
-
 
 })

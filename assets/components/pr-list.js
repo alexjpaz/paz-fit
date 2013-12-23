@@ -1,4 +1,4 @@
-App.config(function(ComponentFactoryProvider) {
+angular.module('app').config(function(ComponentFactoryProvider) {
 	var ComponentFactory = ComponentFactoryProvider.$get();
 	ComponentFactory.build('pr-list', function($scope, Database) {
 		function getPersonalRecords(action) {

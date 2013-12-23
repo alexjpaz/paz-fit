@@ -50,7 +50,7 @@ head.load('/bower_components/jquery/jquery.min.js', function() {
 			try{
 				angular.bootstrap(document, ['app']);
 			} catch(e) {
-				console.error(e);
+				console.error(e.message);
 				document.write('<pre>'+e+'</pre>');
 			}
 		});

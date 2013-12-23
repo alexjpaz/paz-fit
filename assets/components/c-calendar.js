@@ -1,4 +1,4 @@
-App.config(function($provide, ComponentFactoryProvider) {
+angular.module('app').config(function($provide, ComponentFactoryProvider) {
 
 	$provide.factory('CalendarEvent', function() {
 		function CalendarEvent() {

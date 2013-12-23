@@ -1,7 +1,21 @@
-var app = angular.module('app',['ngResource','ngRoute','helper/factory']);
-var App = app;
+/*
+ * Module: helper
+ *
+ */
+angular.module('resources',[])
+.config(function(){})
+.run(function(){})
 
-app.config(function($provide){
+/*
+ * Module: helper
+ *
+ */
+angular.module('helper',[])
+.config(function(){})
+.run(function(){})
+
+angular.module('app',['ngResource','ngRoute','helper','resources'])
+.config(function($provide){
 	$provide.factory('App', function($rootScope, ApplicationEnum) {
 		function App() {
 		}
@@ -56,12 +70,12 @@ app.config(function($provide){
 			},  
 		]
 	});
-});
+})
 .config(function($injector, ScreenFactoryProvider, ComponentFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
 	var ComponentFactory = ComponentFactoryProvider.$get();
 
-	app.lazy = {
+	angular.module('app').lazy = {
 		ScreenFactory: ScreenFactory.build,
 		component: ComponentFactory.build
         //controller: $controllerProvider.register,

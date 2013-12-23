@@ -1,4 +1,4 @@
-App.config(function(ComponentFactoryProvider) {
+angular.module('app').config(function(ComponentFactoryProvider) {
 	var ComponentFactory = ComponentFactoryProvider.$get();
 	ComponentFactory.build('pr-add', function($scope, Database) {
 		$scope.dto = {

@@ -1,4 +1,4 @@
-App.config(function(RouteBuilderProvider) {
+angular.module('app').config(function(RouteBuilderProvider) {
 	var RouteBuilder = RouteBuilderProvider.$get();
 	RouteBuilder.redirect('/', '/profile');
 	RouteBuilder.when('/dashboard', 'dashboard');
