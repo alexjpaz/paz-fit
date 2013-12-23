@@ -2,7 +2,7 @@ angular.module('app').lazy.ScreenFactory('screen-profile-main', function($scope,
 	$scope.events = new CalendarEventRepository();
 
 	$scope.getProfileData = function() {
-		Database.from('Max').list(1).done(function(records) {
+		Database.from('Maxes').list(1).done(function(records) {
 			$scope.currentMaxes = records[0];
 			$scope.$apply();
 		});

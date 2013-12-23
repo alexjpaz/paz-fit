@@ -60,7 +60,7 @@ angular.module('app',['ngResource','ngRoute','helper','resources'])
 	});
 
 	SchemaManagerProvider.addStore({
-		name: 'Max',
+		name: 'Maxes',
 		keyPath: 'date',
 		indexes: [
 			{keyPath: 'press',type: 'INTEGER'},
