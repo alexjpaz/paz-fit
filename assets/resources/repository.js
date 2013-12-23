@@ -23,8 +23,17 @@ angular.module('resources').config(function($provide) {
 
 					var cb = {
 						success: function(response) {
-							var putData = response.data.list[store.name];
-							Database.put(store, putData); 
+							if(angular.isUndefined(response.data.list)) {
+								throw "Malformed response. Expected one list element";
+							}
+
+							var elements = response.data.list[store.name];
+
+							if(angular.isUndefined(elements)) {
+								console.debug("No new elements to add");
+							} else {
+								Database.put(store, elements); 
+							}
 						},
 						failure: function(error) {
 							if(error.status == 304) {
