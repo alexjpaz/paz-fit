@@ -16,9 +16,9 @@ angular.module('resources').config(function($provide) {
 					var config = {
 						method: 'GET',
 						url: '/rest/'+store.name,
-						headers: {
-							"If-None-Match": "*",
-						}
+						//headers: {
+						//	"If-None-Match": "*",
+						//}
 					};
 
 					var cb = {
@@ -26,8 +26,12 @@ angular.module('resources').config(function($provide) {
 							var putData = response.data.list[store.name];
 							Database.put(store, putData); 
 						},
-						failure: function(data) {
-							console.error(arguments);
+						failure: function(error) {
+							if(error.status == 304) {
+								console.debug('Not Modified recieved for '+store.name);
+							} else {
+								throw "Erorr during Datastore pull" + error;
+							}
 						}
 					};
 
