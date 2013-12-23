@@ -1,7 +1,16 @@
 angular.module('resources').config(function($provide) {
 
-	$provide.factory('Database', function(SchemaManager) {
+	$provide.factory('Database', function(SchemaManager, $rootScope) {
 		var databaseInstance = new ydn.db.Storage('ajpaz531', SchemaManager.schema);
+
+		angular.forEach(['error','updated','created','ready','fail'], function(type) {
+			databaseInstance.addEventListener(type, function(event) {
+				var name = 'Database'+(type.charAt(0).toUpperCase() + type.slice(1));
+				$rootScope.$broadcast(name, event.name, event);
+				console.debug(name, event);
+			});
+		});
+
 		return databaseInstance;
 	});
 
@@ -121,6 +130,7 @@ angular.module('resources').config(function($provide) {
 		this.publicStores = [];
 
 		this.addStore = function(store) {
+			store.dispatchEvents = 'canAnythingGoHere';
 			this.schema.stores.push(store);
 			if(!(/^_/).test(store.name)) {
 				this.publicStores.push(store);
