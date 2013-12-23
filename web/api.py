@@ -4,6 +4,7 @@ import json
 import logging
 import jinja2 
 import os
+from datetime import date
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__),'templates')),
@@ -16,6 +17,7 @@ def write_html(response, result, templatepath):
 	template = JINJA_ENVIRONMENT.get_template(templatepath)
 	template_values = {
 		"table": result,
+		"today": date.today()
 	}
 
 	response.write(template.render(template_values))
