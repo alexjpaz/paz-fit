@@ -44,7 +44,7 @@
 	font-size: 11px;
 }
 
-.c-calendar__events a {
+.c-calendar__event a {
 	background: #00a;
 	border-radius: 4px;
 	color: #fff;
@@ -52,4 +52,17 @@
 	font-weight: bold;
 	padding: 2px 4px;
 	font-size: 11px;
+}
+
+.c-calendar__day-button {
+	position: absolute;
+	bottom: 2px;
+	right: 2px;
+}
+.c-calendar__day .c-calendar__day-button {
+	visibility: hidden;
+}
+
+.c-calendar__day:hover .c-calendar__day-button {
+	visibility: visible;
 }

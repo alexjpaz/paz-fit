@@ -128,6 +128,10 @@ angular.module('app').config(function($provide, ComponentFactoryProvider) {
 				return css;
 			};
 
+			$scope.showDayMenu = function() {
+				console.log('ho');
+			};
+
 			$scope.calendar = new CalendarView();
 			$scope.calendar.setEvents($scope.events);
 			$scope.$watch('events', function() {

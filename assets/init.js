@@ -56,6 +56,7 @@ head.load('/bower_components/jquery/jquery.min.js', function() {
 		});
 	});
 
+
 	head.load('/bower_components/bootstrap/dist/js/bootstrap.min.js');
 	head.load('/assets/style.css');
 });

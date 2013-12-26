@@ -1,4 +1,4 @@
-angular.module('app').lazy.ScreenFactory('screen-profile-maxes-edit', function($scope, $routeParams, Database) {
+angular.module('app').lazy.ScreenFactory('screen-profile-maxes-edit', function($scope, $routeParams, Database, DatastoreSync) {
 	$scope.date = $routeParams.date; 
 
 	$scope.getPersonalRecord  = function() {
@@ -11,7 +11,9 @@ angular.module('app').lazy.ScreenFactory('screen-profile-maxes-edit', function($
 	};
 
 	$scope.saveChanges = function() {
-		var promise = Database.put('PersonalRecord', $scope.dto);
+		var promise = Database.put('PersonalRecord', $scope.dto).done(function() {
+			DatastoreSync.push();
+		});
 	};
 
 	$scope.getPersonalRecord();

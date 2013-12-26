@@ -23,6 +23,7 @@
     "headjs": "~1.0.3",
     "validator": "0.0.4",
     "momentjs": "~2.4.0",
-    "bootstrap": "~3.0.3"
+    "bootstrap": "~3.0.3",
+    "font-awesome": "~4.0.3"
   }
 }
