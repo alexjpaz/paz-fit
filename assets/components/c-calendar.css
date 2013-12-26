@@ -45,9 +45,7 @@
 }
 
 .c-calendar__event a {
-	background: #00a;
 	border-radius: 4px;
-	color: #fff;
 	text-shadow: 1px 1px rgba(0,0,0,0.25);
 	font-weight: bold;
 	padding: 2px 4px;
@@ -59,10 +57,25 @@
 	bottom: 2px;
 	right: 2px;
 }
+
+.c-calendar__day-button a {
+	color: black;
+}
+
 .c-calendar__day .c-calendar__day-button {
 	visibility: hidden;
 }
 
 .c-calendar__day:hover .c-calendar__day-button {
 	visibility: visible;
+}
+
+.c-calendar__event--PersonalRecord {
+	background: #00a !important;
+	color: #fff;
+}
+
+.c-calendar__event--Maxes {
+	color: #fff;
+	background-color: rgb(184, 33, 33) !important;
 }

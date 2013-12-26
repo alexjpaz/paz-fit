@@ -8,10 +8,10 @@
 				<span class='c-calendar__day-label' >{{ day.date.format('D') }}</span>
 				<div class='c-calendar__events'>
 					<div class='c-calendar__event'>
-						<a ng-repeat='ev in day.events track by $index' ng-href='{{ev.href}}' title="{{ev}}">{{ ev.label }}</a>
+						<a ng-repeat='ev in day.events track by $index' class='c-calendar__event--{{ev.type}}' ng-href='{{ev.href}}' title="{{ev}}">{{ ev.label }}</a>
 					</div>
 					<div class='c-calendar__day-button'>
-						<a ng-click='showDayMenu()' class='fa fa-plus-square'></a>
+						<a ng-href="#/profile/note/edit?date={{ day.date.format('YYYY-MM-DD') }}" class='fa fa-plus-square'></a>
 					</div>
 				</div>
 			</div>

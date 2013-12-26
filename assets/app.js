@@ -54,6 +54,7 @@ angular.module('app',['ngResource','ngRoute','helper','resources'])
 		name: 'PersonalRecord',
 		keyPath: 'date',
 		indexes: [
+			{keyPath: 'lift'},
 			{keyPath: 'reps', type: 'INTEGER'},
 			{keyPath: 'weight', type: 'INTEGER'}
 		]

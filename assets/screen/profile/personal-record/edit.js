@@ -1,11 +1,17 @@
-angular.module('app').lazy.ScreenFactory('screen-profile-maxes-edit', function($scope, $routeParams, Database, DatastoreSync) {
+angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-edit', function($scope, $routeParams, Database, DatastoreSync) {
 	$scope.date = $routeParams.date; 
 
 	$scope.getPersonalRecord  = function() {
 		var promise = Database.get('PersonalRecord', $scope.date)
 		
 		promise.done(function(record) {
-			$scope.dto = record;
+			if(angular.isDefined(record)) {
+				$scope.dto = record;
+			} else {
+				$scope.dto = {
+					date: $scope.date
+				};
+			}
 			$scope.$apply();
 		});
 	};

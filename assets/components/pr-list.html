@@ -11,7 +11,7 @@
 			</thead>
 			<tbody>
 				<tr class='pr-list__row' ng-repeat='pr in list track by $index'>
-					<td>{{ pr.date }}</td>
+					<td><a ng-href='#/profile/personal-record/edit?date={{pr.date}}'>{{ pr.date }}</td>
 					<td>{{ pr.lift }}</td>
 					<td>{{ pr.weight }}</td>
 					<td>{{ pr.reps }}</td>

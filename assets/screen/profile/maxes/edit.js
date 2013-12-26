@@ -1,8 +1,30 @@
-angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-edit', function($scope, $routeParams, Database) {
+angular.module('app').lazy.ScreenFactory('screen-profile-maxes-edit', function($scope, $routeParams, Database, DatastoreSync) {
 	$scope.date = $routeParams.date; 
 
-	Database.get('PersonalRecord', $scope.date).done(function(record) {
-		$scope.record = record;
-		$scope.$apply();
+	$scope.getMaxes  = function() {
+		var promise = Database.get('Maxes', $scope.date)
+		
+		promise.done(function(record) {
+			if(angular.isDefined(record)) {
+				$scope.record = record;
+			} else {
+				$scope.record = {
+					date: $scope.date
+				};
+			}
+			$scope.$apply();
+		});
+	};
+
+	$scope.saveChanges = function() {
+		var promise = Database.put('Maxes', $scope.record).done(function() {
+			DatastoreSync.push();
+		});
+	};
+
+	$scope.getMaxes();
+
+	$scope.$on('MaxForm', function() {
+		console.debug(arguments);
 	});
 });

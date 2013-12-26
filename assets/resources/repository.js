@@ -41,7 +41,11 @@ angular.module('resources').config(function($provide) {
 							if(angular.isUndefined(elements)) {
 								console.debug("No new elements to add");
 							} else {
-								Database.put(store, elements); 
+								Database.clear(store.name).then(function() {
+									Database.put(store.name, elements).then(function() { 
+										$rootScope.$apply();
+									});
+								});
 							}
 						},
 						failure: function(error) {
