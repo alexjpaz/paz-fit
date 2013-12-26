@@ -61,6 +61,7 @@ angular.module('app').config(function($provide, ComponentFactoryProvider) {
 				if(this.events) {
 					day.events = this.events.get(day.date.format('YYYY-MM-DD'));
 				}
+
 				return day;
 			};
 
@@ -93,7 +94,7 @@ angular.module('app').config(function($provide, ComponentFactoryProvider) {
 					previous.subtract('days',1);
 				}
 
-
+				/* current month */
 				i=startingDay;
 				n=(daysInMonth+startingDay)
 					for(;i<n;i++) {
@@ -102,12 +103,15 @@ angular.module('app').config(function($provide, ComponentFactoryProvider) {
 					working.add('days',1);
 				}
 
+				/* next month */
 				i=(daysInMonth+startingDay);
 				n=(i)+(7*5)-(daysInMonth+startingDay);
 				for(;i<n;i++) {
 					this.days[i] = this.__newDay(working);
 					working.add('days',1);
 				}
+
+				this.days[startingDay+now.date()-1].isToday = true;
 		}
 
 		}
@@ -125,6 +129,10 @@ angular.module('app').config(function($provide, ComponentFactoryProvider) {
 				if(day.isCurrentMonth) {
 					css.push('c-calendar__day--current-month');
 				}
+				if(day.isToday) {
+					css.push('c-calendar__day--today');
+				}
+
 				return css;
 			};
 

@@ -37,6 +37,11 @@
 	color: #000;
 }
 
+.c-calendar__day--today {
+	background: rgba(0, 82, 255, 0.14);
+	color: #000;
+}
+
 .c-calendar__day-label {
 	position: absolute;
 	left: 2px;
