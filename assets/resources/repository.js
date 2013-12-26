@@ -93,10 +93,12 @@ angular.module('resources').config(function($provide) {
 
 						var cb = {
 							success: function(response) {
-								console.log('post success');
+								console.debug('Successfully pushed datastore', store.name);
 								deffered.resolve();
 							},
 							failure: function(data) {
+								console.error('Could not push datastore',store.name);
+								throw "Datastore Sync Error "+store.name;
 								deffered.resolve();
 							}
 						};

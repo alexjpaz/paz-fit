@@ -4,6 +4,8 @@ import json
 import logging
 import jinja2 
 import os
+from google.appengine.api import users
+
 from datetime import date
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -26,6 +28,14 @@ def write_html(response, result, templatepath):
 def write_json(response, result):
 	response.headers['Content-Type'] = 'application/json'
 	response.write(json.dumps(result))
+
+class DerpAuthenticationHandler(webapp2.RequestHandler):
+	def get(self):
+		result = {}
+		result['loginUrl'] = users.create_login_url(self.request.uri)
+		result['logoutUrl'] = users.create_logout_url(self.request.uri)
+
+		write_json(self.response, result)
 
 class TableMonthHandler(webapp2.RequestHandler):
     def get(self):
@@ -55,6 +65,7 @@ class GoalHandler(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
+	('/api/authenticate', DerpAuthenticationHandler),
 	('/api/table/month', TableMonthHandler),
 	('/api/plates', PlateHandler),
 	('/api/goal', PlateHandler)
