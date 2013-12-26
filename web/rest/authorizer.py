@@ -4,7 +4,7 @@ from google.appengine.api import users
 class NamespaceAuthorizer(rest.Authorizer):
 
     def can_read(self, dispatcher, model):
-        if(model.key().namespace() != namespace_manager.get_namespace()):
+        if(model.key().namespace() != users.get_current_user().user_id()):
             dispatcher.not_found()
 
     def filter_read(self, dispatcher, models):
@@ -18,10 +18,10 @@ class NamespaceAuthorizer(rest.Authorizer):
         return self.filter_models(models)
 
     def can_delete(self, dispatcher, model_type, model_key):
-        if(model_key.namespace() != namespace_manager.get_namespace()):
+        if(model_key.namespace() != users.get_current_user().user_id()):
             dispatcher.not_found()
 
     def filter_models(self, models):
-        cur_ns = namespace_manager.get_namespace()
+        cur_ns = users.get_current_user().user_id()
         models[:] = [model for model in models if model.key().namespace() == cur_ns]
         return models
