@@ -51,4 +51,10 @@ angular.module('app').config(function($provide) {
 			return rows;
 		};
 	});
+})
+.config(function($provide) {
+	$provide.factory('moment', function() {
+		var momentConfig = moment;
+		return momentConfig;
+	});
 });

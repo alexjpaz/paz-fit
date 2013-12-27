@@ -1,5 +1,11 @@
-angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-edit', function($scope, $routeParams, Database, DatastoreSync) {
-	$scope.date = $routeParams.date; 
+angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-edit', function($scope, $routeParams, Database, DatastoreSync, moment) {
+	$scope.date = $routeParams.date || moment().format('YYYY-MM-DD'); 
+	$scope.isNew = $routeParams.isNew;
+
+	$scope.dto = {
+		date: $scope.date,
+		reps: 5
+	};
 
 	$scope.getPersonalRecord  = function() {
 		var promise = Database.get('PersonalRecord', $scope.date)
@@ -22,5 +28,7 @@ angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-edit', 
 		});
 	};
 
-	$scope.getPersonalRecord();
+	if(!$scope.isNew) {
+		$scope.getPersonalRecord();
+	}
 });
