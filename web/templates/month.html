@@ -4,15 +4,13 @@
   <head>
     <title>531 Month Cycle</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 	<style>
 
-
-
-		.lift--1 {background: rgba(212, 13, 13, 1);}
-		.lift--2 {background: rgba(0, 187, 0, 1);}
-		.lift--3 {background: rgba(23, 23, 189, 1);}
-		.lift--4 {background: rgba(255, 112, 0, 1);}
+		.lift--1 .lift__week-table {background: rgba(212, 13, 13, 1);}
+		.lift--2 .lift__week-table {background: rgba(0, 187, 0, 1);}
+		.lift--3 .lift__week-table {background: rgba(23, 23, 189, 1);}
+		.lift--4 .lift__week-table {background: rgba(255, 112, 0, 1);}
 
 		.lift__month {
 		}
@@ -21,10 +19,20 @@
 			text-align: center;
 		}
 
+		.lift__week {
+			padding: 0;
+			margin-bottom: 8px;
+		}
+
+		.lift__week-table {
+			border-radius: 2px;
+			margin-right:10px;
+			padding: 4px;
+		}
+
 		.lift__week table {
 			background-color: #fff;
-			margin-top: 10px;
-			margin-bottom: 10px;
+			margin-bottom: 0;
 		}
 
 		.lift__week thead {
@@ -52,6 +60,7 @@
 			  <div class='lift__month'>
 				  {% for week in ['3x5','3x3','531','DL'] %}
 				  <div class='col-md-3 lift__week lift__week--{{week}}'>
+					  <div class='lift__week-table'>
 					  <table class='table table-bordered '>
 						  <thead>
 							  <tr>
@@ -80,6 +89,7 @@
 							  {% endfor %}
 						  </tbody>
 					  </table>
+				  </div>
 				  </div>
 				  {% endfor %}
 			  </div>

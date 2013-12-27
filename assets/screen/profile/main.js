@@ -2,8 +2,17 @@ angular.module('app').lazy.ScreenFactory('screen-profile-main', function($scope,
 	$scope.events = new CalendarEventRepository();
 
 	$scope.getProfileData = function() {
+
+		$scope.events.clear();
+
 		Database.from('Maxes').list(1).done(function(records) {
-			$scope.currentMaxes = records[0];
+			$scope.currentMaxes = records[0]
+			$scope.uriEncodedMaxes = $.param({
+				p: $scope.currentMaxes.press,
+				d: $scope.currentMaxes.deadlift,
+				b: $scope.currentMaxes.bench,
+				s: $scope.currentMaxes.squat,
+			});
 			$scope.$apply();
 		});
 

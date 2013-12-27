@@ -8,7 +8,7 @@
 				<p><strong>Bench</strong>{{currentMaxes.bench}}</p>
 				<p><strong>Squat</strong>{{currentMaxes.squat}}</p>
 			</div>
-			<a class='btn btn-xu btn-default' ng-if='currentMaxes' ng-href='api/table/month?maxes={{currentMaxes.press}},{{currentMaxes.deadlift}},{{currentMaxes.bench}},{{currentMaxes.squat}}'>View Cycle</a>
+			<a class='btn btn-xu btn-default' ng-if='uriEncodedMaxes' ng-href='api/table/month?{{uriEncodedMaxes}}'>View Cycle</a>
 		</div>
 	</div>
 	<hr />

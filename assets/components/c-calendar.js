@@ -37,6 +37,10 @@ angular.module('app').config(function($provide, ComponentFactoryProvider) {
 
 				ref.push(eventObj);
 			};
+
+			this.clear = function() {
+				this.events = {};
+			};
 		}
 
 		return CalendarEventRepository;

@@ -60,6 +60,7 @@ angular.module('helper')
 									});
 								}
 
+								$rootScope.$broadcast('ScreenLoaded');
 							});
 
 							return deferred.promise;

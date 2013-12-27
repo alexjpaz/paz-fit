@@ -1,4 +1,3 @@
-#from google.appengine.ext import ndb
 from google.appengine.ext import db
 
 class Post(db.Expando):
