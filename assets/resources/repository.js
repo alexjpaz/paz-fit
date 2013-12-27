@@ -1,5 +1,31 @@
 angular.module('resources').config(function($provide) {
 
+	$provide.factory('Dao', function() {
+	});
+
+	$provide.factory('PersonalRecordDao', function($http, $q, Database) {
+		function PersonalRecordDao() {
+			this.fetchFromDateRange = function(beginDate, endDate, successFn) {
+				var httpConfig = { 
+					method: 'GET',
+					url: '/rest/PersonalRecord',
+					params: {
+						'fge_date': beginDate,
+						'fle_date': endDate,
+					},
+				};
+
+				var promise = $http(httpConfig);
+
+
+				return promise;
+			};
+		}
+
+		var instance = new PersonalRecordDao();
+		return instance;
+	});
+
 	$provide.factory('Database', function(SchemaManager, $rootScope) {
 		var databaseInstance = new ydn.db.Storage('ajpaz531', SchemaManager.schema);
 

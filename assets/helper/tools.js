@@ -1,4 +1,5 @@
-angular.module('app').config(function($provide) {
+angular.module('app')
+.config(function($provide) {
 	$provide.service('FiveThreeOneCalculator', function() {
 		this.repgoal = function(max, weight) {
 			weight = parseInt(weight);
@@ -52,6 +53,29 @@ angular.module('app').config(function($provide) {
 		};
 	});
 })
+.config(function($provide) {
+	$provide.factory('CalendarUtils', function(moment) {
+
+		function CalendarUtils() {
+
+			function CalendarDateRange() {
+				this.begin = null;
+				this.end = null;
+			}
+
+			var CELLS = 4*7;
+			/*
+			 * Gets the date range for given date
+			 */
+			this.getCalendarDateRange = function(date) {
+				var month = date.
+			};
+		}
+
+		var instance = new CalendarUtils();
+		return instance;
+	});
+});
 .config(function($provide) {
 	$provide.factory('moment', function() {
 		var momentConfig = moment;
