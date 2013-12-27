@@ -67,15 +67,23 @@ angular.module('app')
 			/*
 			 * Gets the date range for given date
 			 */
-			this.getCalendarDateRange = function(date) {
-				var month = date.
+			this.getCalendarRangeForToday = function() {
+				var today = moment();
+
+				var days = today.daysInMonth();
+
+				var dateRange = new CalendarDateRange();
+				dateRange.begin = today.clone().subtract('days', 30).format('YYYY-MM-DD');
+				dateRange.end = today.clone().add('days', 30).format('YYYY-MM-DD');
+
+				return dateRange;
 			};
 		}
 
 		var instance = new CalendarUtils();
 		return instance;
 	});
-});
+})
 .config(function($provide) {
 	$provide.factory('moment', function() {
 		var momentConfig = moment;

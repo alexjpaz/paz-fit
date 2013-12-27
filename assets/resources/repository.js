@@ -1,6 +1,33 @@
 angular.module('resources').config(function($provide) {
 
-	$provide.factory('Dao', function() {
+	$provide.factory('DaoFactory', function($http, $q) {
+		function Dao(storeName) {
+			var httpConfigDefaults = {
+				url: '/rest'+storeName,
+			};
+		}
+
+		Dao.prototype.get = function(key) {
+		};
+
+		Dao.prototype.find = function(params) {
+			var deffered = $q.defer();
+			var config = {
+				method: 'GET',
+				params: params
+			};
+
+			angular.extend(config, httpConfigDefaults);
+
+		};
+
+		function DaoFactory(storeName, extendo) {
+			var dao = new Dao();
+			return 
+		}
+
+		var factoryInstance = new DaoFactory();
+		return factoryInstance;
 	});
 
 	$provide.factory('PersonalRecordDao', function($http, $q, Database) {
@@ -15,10 +42,16 @@ angular.module('resources').config(function($provide) {
 					},
 				};
 
-				var promise = $http(httpConfig);
+				var httpPromise = $http(httpConfig);
 
+				var deffered = $q.defer();
 
-				return promise;
+				httpPromise.then(function(response) {
+					var records = response.data.list.PersonalRecord;
+					deffered.resolve(records);
+				});
+
+				return deffered.promise;
 			};
 		}
 

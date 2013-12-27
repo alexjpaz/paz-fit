@@ -1,13 +1,12 @@
-angular.module('app').lazy.ScreenFactory('screen-profile-main', function($scope, PersonalRecordDao, CalendarEventRepository) {
+angular.module('app').lazy.ScreenFactory('screen-profile-main', function($scope, PersonalRecordDao, CalendarEventRepository, CalendarUtils) {
 	$scope.events = new CalendarEventRepository();
 
 	$scope.getProfileData = function() {
 		$scope.events.clear();
 
-		var today = 
+		var dateRange = CalendarUtils.getCalendarRangeForToday();
 
-		PersonalRecordDao.fetchFromDateRange('2013-12-01','2013-12-15').then(function(response) {
-			var records = response.data.list.PersonalRecord;
+		PersonalRecordDao.fetchFromDateRange(dateRange.begin,dateRange.end).then(function(records) {
 			angular.forEach(records, function(record) {
 				var event  = new Object();
 				event.label = record.lift+" "+record.weight+"x"+record.reps; 
