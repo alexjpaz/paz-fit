@@ -1,4 +1,4 @@
-App.lazy.ScreenFactory('screen-tools-rep-goal', function($scope, FiveThreeOneCalculator, Database) {
+angular.module('app').lazy.ScreenFactory('screen-tools-rep-goal', function($scope, FiveThreeOneCalculator, Database) {
 	$scope.mdl = {};
 
 	$scope.useMax = function(lift) {

@@ -1,6 +1,11 @@
 angular.module('app')
 .config(function($provide) {
 	$provide.service('FiveThreeOneCalculator', function() {
+		this.max = function(weight, reps) {
+			var max = (weight*reps*0.333 + weight);
+			return max;
+		};
+
 		this.repgoal = function(max, weight) {
 			weight = parseInt(weight);
 			max = parseInt(max);

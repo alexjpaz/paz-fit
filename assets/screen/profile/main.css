@@ -2,3 +2,23 @@
 .screen-profile-main__maxes td {
 	text-align: center;
 }
+
+.screen-profile-main__maxes table {
+	margin-bottom: 0;
+}
+
+
+.screen-profile-main__maxes .btn {
+	margin-left: 2px;
+	margin-bottom: 2px;
+}
+
+.screen-profile-main .row {
+	margin-bottom: 20px;
+}
+
+.screen-profile-main__maxes {
+	background: #fff;
+	border-radius: 4px;
+	border: 1px solid #999;
+}
