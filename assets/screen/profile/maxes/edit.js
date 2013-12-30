@@ -1,30 +1,27 @@
-angular.module('app').lazy.ScreenFactory('screen-profile-maxes-edit', function($scope, $routeParams, Database, DatastoreSync) {
+angular.module('app').lazy.ScreenFactory('screen-profile-maxes-edit', function($scope, $injector, $routeParams, Database, DatastoreSync) {
+	var MaxesDao = $injector.get('MaxesDao');
+
 	$scope.date = $routeParams.date; 
 
 	$scope.getMaxes  = function() {
-		var promise = Database.get('Maxes', $scope.date)
-		
-		promise.done(function(record) {
-			if(angular.isDefined(record)) {
-				$scope.record = record;
+		var params = {"feq_date": $scope.date};
+		MaxesDao.find(params).then(function(records) {
+			var Maxes = records[0];
+
+			if(angular.isDefined(Maxes)) {
+				$scope.record = Maxes;
 			} else {
 				$scope.record = {
 					date: $scope.date
 				};
 			}
-			$scope.$apply();
 		});
 	};
 
 	$scope.saveChanges = function() {
-		var promise = Database.put('Maxes', $scope.record).done(function() {
-			DatastoreSync.push();
-		});
+		MaxesDao.save($scope.record).then();
 	};
 
 	$scope.getMaxes();
 
-	$scope.$on('MaxForm', function() {
-		console.debug(arguments);
-	});
 });

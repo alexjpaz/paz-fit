@@ -1,4 +1,4 @@
-angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-edit', function($scope, $routeParams, Database, DatastoreSync, moment) {
+angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-edit', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator) {
 	$scope.date = $routeParams.date || moment().format('YYYY-MM-DD'); 
 	$scope.isNew = $routeParams.isNew;
 
@@ -8,24 +8,22 @@ angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-edit', 
 	};
 
 	$scope.getPersonalRecord  = function() {
-		var promise = Database.get('PersonalRecord', $scope.date)
-		
-		promise.done(function(record) {
-			if(angular.isDefined(record)) {
-				$scope.dto = record;
+		var params = {"feq_date": $scope.date};
+		PersonalRecordDao.find(params).then(function(records) {
+			var PersonalRecord = records[0];
+
+			if(angular.isDefined(PersonalRecord)) {
+				$scope.dto = PersonalRecord;
 			} else {
-				$scope.dto = {
+				$scope.record = {
 					date: $scope.date
 				};
 			}
-			$scope.$apply();
 		});
 	};
 
 	$scope.saveChanges = function() {
-		var promise = Database.put('PersonalRecord', $scope.dto).done(function() {
-			DatastoreSync.push();
-		});
+		PersonalRecordDao.save($scope.dto);
 	};
 
 	if(!$scope.isNew) {

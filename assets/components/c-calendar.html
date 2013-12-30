@@ -10,9 +10,6 @@
 					<div class='c-calendar__event' ng-repeat='ev in day.events track by $index'>
 						<a class='c-calendar__event--{{ev.type}}' ng-href='{{ev.href}}' title="{{ev}}">{{ ev.label }}</a>
 					</div>
-					<div class='c-calendar__day-button'>
-						<a ng-href="#/profile/note/edit?date={{ day.date.format('YYYY-MM-DD') }}" class='fa fa-plus-square'></a>
-					</div>
 				</div>
 			</div>
 		</div>

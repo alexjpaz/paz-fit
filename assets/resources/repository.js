@@ -8,6 +8,9 @@ angular.module('resources').config(function($provide) {
 			};
 		}
 
+		Dao.prototype.fetchList = function() {
+		};
+
 		Dao.prototype._http = function(httpConfig) {
 			var resultHttpConfig = {};
 			angular.extend(resultHttpConfig, this.httpConfigDefaults, httpConfig);
@@ -16,29 +19,15 @@ angular.module('resources').config(function($provide) {
 			return httpPromise;
 		};
 
-		Dao.prototype.get = function(key) {
+		Dao.prototype.findSingle = function(key) {
 		};
 
 		Dao.prototype.find = function(params) {
 			var deffered = $q.defer();
-			var config = {
+			var httpConfig = {
 				method: 'GET',
 				params: params
 			};
-
-			angular.extend(config, httpConfigDefaults);
-
-		};
-
-		Dao.prototype.fetchFromDateRange = function(beginDate, endDate) {
-			var httpConfig = { 
-				method: 'GET',
-				params: {
-					'fge_date': beginDate,
-					'fle_date': endDate,
-				},
-			};
-
 
 			var httpPromise = this._http(httpConfig);
 
@@ -47,7 +36,46 @@ angular.module('resources').config(function($provide) {
 			var _this = this;
 			httpPromise.then(function(response) {
 				var records = response.data.list[_this.storeName];
+				if(angular.isUndefined(records)) {
+					records = [];
+				}
 				deffered.resolve(records);
+			});
+
+			return deffered.promise;
+		};
+
+		Dao.prototype.fetchFromDateRange = function(beginDate, endDate) {
+			var params = {
+				'fge_date': beginDate,
+				'fle_date': endDate,
+			};
+
+			return this.find(params);
+		};
+
+		Dao.prototype.save = function(data) {
+			var httpConfig = {
+				method: 'POST',
+				data: {}
+			};
+
+			httpConfig.data.list = {};
+			var dataRef = httpConfig.data.list[this.storeName] = [];
+
+			if(angular.isArray(data)) {
+				dataRef.concat(data);
+			} else {
+				dataRef.push(data);
+			}
+
+			var httpPromise = this._http(httpConfig);
+
+			var deffered = $q.defer();
+
+			var _this = this;
+			httpPromise.then(function(response) {
+				deffered.resolve(response);
 			});
 
 			return deffered.promise;
@@ -61,8 +89,16 @@ angular.module('resources').config(function($provide) {
 		return DaoFactory;
 	});
 
-	$provide.factory('MaxesDao', function($http, $q, DaoFactory, Database) {
+	$provide.factory('MaxesDao', function($http, $q, DaoFactory, Database, moment) {
 		var MaxesDao = DaoFactory('Maxes');
+		MaxesDao.findLatest = function() {
+			var params = {
+				"flt_date": moment().format('YYYY-MM-DD'),
+				"ordering": "-date",
+			};
+
+			return this.find(params);
+		};
 		return MaxesDao;
 	});
 

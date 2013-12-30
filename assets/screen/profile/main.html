@@ -1,21 +1,32 @@
 <div class='screen-profile-main'>
 	<div class='row'>
 		<div class='col-md-12'>
-			<h4><a href='#/profile/maxes'>Max</a></h4>
-			<div class='screen-profile-main__maxes clearfix'>
-				<p><strong>Press</strong>{{currentMaxes.press}}</p>
-				<p><strong>Deadlift</strong>{{currentMaxes.deadlift}}</p>
-				<p><strong>Bench</strong>{{currentMaxes.bench}}</p>
-				<p><strong>Squat</strong>{{currentMaxes.squat}}</p>
-			</div>
-			<a class='btn btn-xu btn-default' ng-if='uriEncodedMaxes' ng-href='api/table/month?{{uriEncodedMaxes}}'>View Cycle</a>
+			<div c-calendar events='events'></div>
 		</div>
 	</div>
-	<hr />
 	<div class='row'>
 		<div class='col-md-12'>
-			<h4><a href='#/profile/personal-record'>Log</a></h4>
-			<div c-calendar events='events'></div>
+			<div class='screen-profile-main__maxes'>
+				<table class='table'>
+					<thead>
+						<tr>
+							<th>Press</th>
+							<th>Deadlift</th>
+							<th>Bench</th>
+							<th>Squat</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>{{currentMaxes.press}}</td>
+							<td>{{currentMaxes.deadlift}}</td>
+							<td>{{currentMaxes.bench}}</td>
+							<td>{{currentMaxes.squat}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<a class='btn btn-xu btn-default' ng-if='uriEncodedMaxes' ng-href='api/table/month?{{uriEncodedMaxes}}'>View Cycle</a>
 		</div>
 	</div>
 </div>

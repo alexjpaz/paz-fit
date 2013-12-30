@@ -1,16 +1,4 @@
-.screen-profile-main__maxes {
-	border: 1px solid #aaa;
-	border-radius: 4px;
-	margin-bottom: 8px;
-}
-.screen-profile-main__maxes p {
-	float: left;
-	padding: 2px 4px;
-	margin-right: 8px;
-	margin:0;
-	width: 25%;
-}
-
-.screen-profile-main__maxes strong {
-	padding-right: 4px;
+.screen-profile-main__maxes th,
+.screen-profile-main__maxes td {
+	text-align: center;
 }

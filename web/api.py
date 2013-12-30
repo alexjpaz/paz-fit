@@ -62,7 +62,12 @@ class GoalHandler(webapp2.RequestHandler):
 		result = utils.goal(max_weight, weight)
 		write_json(self.response, result)
 		
+class GoalHandler(webapp2.RequestHandler):
+    def get(self):
+		result = {}
 
+
+		write_json(self.response, result)
 
 app = webapp2.WSGIApplication([
 	('/api/authenticate', DerpAuthenticationHandler),

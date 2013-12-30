@@ -12,5 +12,6 @@ angular.module('app').config(function(RouteBuilderProvider) {
 	RouteBuilder.when('/profile/maxes/edit', 'profile/maxes/edit');
 	RouteBuilder.when('/profile/note', 'profile/note/list');
 	RouteBuilder.when('/profile/note/edit', 'profile/note/edit');
+	RouteBuilder.when('/profile/day/:date', 'profile/day/view');
 });
 
