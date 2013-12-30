@@ -92,11 +92,3 @@ angular.module('app',['ngResource','ngRoute','helper','resources'])
     };
 
 })
-.run(function(App, DatastoreSync, $window, $rootScope){
-	DatastoreSync.pull();
-
-	window.onbeforeunload = function() {
-		DatastoreSync.push();
-		return null;
-	}
-});

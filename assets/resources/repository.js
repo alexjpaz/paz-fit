@@ -2,10 +2,19 @@ angular.module('resources').config(function($provide) {
 
 	$provide.factory('DaoFactory', function($http, $q) {
 		function Dao(storeName) {
-			var httpConfigDefaults = {
-				url: '/rest'+storeName,
+			this.storeName = storeName
+			this.httpConfigDefaults = {
+				url: '/rest/'+storeName,
 			};
 		}
+
+		Dao.prototype._http = function(httpConfig) {
+			var resultHttpConfig = {};
+			angular.extend(resultHttpConfig, this.httpConfigDefaults, httpConfig);
+			var httpPromise = $http(resultHttpConfig);
+
+			return httpPromise;
+		};
 
 		Dao.prototype.get = function(key) {
 		};
@@ -21,42 +30,45 @@ angular.module('resources').config(function($provide) {
 
 		};
 
+		Dao.prototype.fetchFromDateRange = function(beginDate, endDate) {
+			var httpConfig = { 
+				method: 'GET',
+				params: {
+					'fge_date': beginDate,
+					'fle_date': endDate,
+				},
+			};
+
+
+			var httpPromise = this._http(httpConfig);
+
+			var deffered = $q.defer();
+
+			var _this = this;
+			httpPromise.then(function(response) {
+				var records = response.data.list[_this.storeName];
+				deffered.resolve(records);
+			});
+
+			return deffered.promise;
+		};
+
 		function DaoFactory(storeName, extendo) {
-			var dao = new Dao();
-			return 
+			var dao = new Dao(storeName);
+			return dao; 
 		}
 
-		var factoryInstance = new DaoFactory();
-		return factoryInstance;
+		return DaoFactory;
 	});
 
-	$provide.factory('PersonalRecordDao', function($http, $q, Database) {
-		function PersonalRecordDao() {
-			this.fetchFromDateRange = function(beginDate, endDate, successFn) {
-				var httpConfig = { 
-					method: 'GET',
-					url: '/rest/PersonalRecord',
-					params: {
-						'fge_date': beginDate,
-						'fle_date': endDate,
-					},
-				};
+	$provide.factory('MaxesDao', function($http, $q, DaoFactory, Database) {
+		var MaxesDao = DaoFactory('Maxes');
+		return MaxesDao;
+	});
 
-				var httpPromise = $http(httpConfig);
-
-				var deffered = $q.defer();
-
-				httpPromise.then(function(response) {
-					var records = response.data.list.PersonalRecord;
-					deffered.resolve(records);
-				});
-
-				return deffered.promise;
-			};
-		}
-
-		var instance = new PersonalRecordDao();
-		return instance;
+	$provide.factory('PersonalRecordDao', function($http, $q, Database, DaoFactory) {
+		var PersonalRecordDao = DaoFactory('PersonalRecord');
+		return PersonalRecordDao;
 	});
 
 	$provide.factory('Database', function(SchemaManager, $rootScope) {
