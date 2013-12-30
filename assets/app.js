@@ -19,6 +19,7 @@ angular.module('app',['ngResource','ngRoute','helper','resources'])
 	$provide.factory('App', function($rootScope, ApplicationEnum) {
 		function App() {
 		}
+		$rootScope.ApplicationEnum = ApplicationEnum;
 	});
 })
 
@@ -92,3 +93,6 @@ angular.module('app',['ngResource','ngRoute','helper','resources'])
     };
 
 })
+.run(function($injector) {
+	$injector.get('App');
+});

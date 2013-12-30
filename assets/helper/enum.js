@@ -1,5 +1,5 @@
 angular.module('app').config(function($provide) {
-	$provide.factory('ApplicationEnum', function($rootScope) {
+	$provide.factory('ApplicationEnum', function() {
 		function ApplicationEnum() {
 			this.LIFT = ['press','deadlift','bench','squat'];
 			this.WEEK = ['3x5','3x3','531','DL'];
@@ -7,7 +7,6 @@ angular.module('app').config(function($provide) {
 
 		}
 		var instance = new ApplicationEnum();
-		$rootScope.ApplicationEnum = instance;
 		return instance;
 	});
 })
