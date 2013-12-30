@@ -2,7 +2,7 @@ angular.module('app')
 .config(function($provide) {
 	$provide.service('FiveThreeOneCalculator', function() {
 		this.max = function(weight, reps) {
-			var max = (weight*reps*0.333 + weight);
+			var max = (weight*reps*0.0333 + weight);
 			return max;
 		};
 
