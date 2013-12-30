@@ -6,12 +6,12 @@ angular.module('app').lazy.ScreenFactory('screen-profile-note-edit', function($s
 
 	$scope.mdl = {};
 
-	var params = {"feq_date": $scope.date};
+	var params = {"feq_date": $scope.date,"ordering": '-'+$scope.date};
 	PersonalRecordDao.find(params).then(function(records) {
 		$scope.mdl.PersonalRecord = records[0];
 	});
 	
-	params = {"fle_date": $scope.date};
+	params = {"fle_date": $scope.date,"ordering": '-'+$scope.date};
 	MaxesDao.find(params).then(function(records) {
 		$scope.mdl.Maxes = records[0];
 	});
