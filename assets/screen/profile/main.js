@@ -1,5 +1,13 @@
-angular.module('app').lazy.ScreenFactory('screen-profile-main', function($scope, PersonalRecordDao, MaxesDao, CalendarEventRepository, CalendarUtils) {
+angular.module('app').lazy.ScreenFactory('screen-profile-main', function($scope, PersonalRecordDao, MaxesDao, CalendarEventRepository, CalendarUtils, FiveThreeOneCalculator) {
 	$scope.events = new CalendarEventRepository();
+
+	$scope.repgoal = function(max, fraction) {
+		return FiveThreeOneCalculator.repgoal(max, max*fraction);
+	};
+
+	$scope.maxFraction = function(max, fraction) {
+		return FiveThreeOneCalculator.roundToNearestPlate(max * fraction);
+	};
 
 	$scope.getProfileData = function() {
 		$scope.events.clear();

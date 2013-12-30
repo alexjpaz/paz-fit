@@ -56,6 +56,10 @@ angular.module('app')
 
 			return rows;
 		};
+
+		this.roundToNearestPlate = function(weight) {
+			return Math.round(weight / 5) * 5;
+		};
 	});
 })
 .config(function($provide) {

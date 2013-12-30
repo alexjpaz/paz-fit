@@ -7,7 +7,7 @@
 	width: 14.28%;
 	height: 60px;
 	background: #fff;
-	border: 1px solid #aaa;
+	border: 1px solid #ddd;
 	cursor: pointer;
 	overflow: hidden;
 }
@@ -17,7 +17,7 @@
 	width: 14.28%;
 	height: 10%;
 	background: #fff;
-	border: 1px solid #aaa;
+	border: 1px solid #ddd;
 	cursor: pointer;
 	font-weight: bold;
 }

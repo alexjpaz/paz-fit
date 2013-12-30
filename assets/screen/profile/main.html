@@ -7,26 +7,34 @@
 	<div class='row'>
 		<div class='col-md-12'>
 			<div class='screen-profile-main__maxes'>
-				<table class='table'>
+				<table class='table table-bordered' ng-if='currentMaxes'>
 					<thead>
 						<tr>
-							<th>Press</th>
-							<th>Deadlift</th>
-							<th>Bench</th>
-							<th>Squat</th>
+							<th>*</th>
+							<th colspan='2'>Press</th>
+							<th colspan='2'>Deadlift</th>
+							<th colspan='2'>Bench</th>
+							<th colspan='2'>Squat</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>{{currentMaxes.press}}</td>
-							<td>{{currentMaxes.deadlift}}</td>
-							<td>{{currentMaxes.bench}}</td>
-							<td>{{currentMaxes.squat}}</td>
+							<td>1RM</td>
+							<td colspan='2'>{{currentMaxes.press}}</td>
+							<td colspan='2'>{{currentMaxes.deadlift}}</td>
+							<td colspan='2'>{{currentMaxes.bench}}</td>
+							<td colspan='2'>{{currentMaxes.squat}}</td>
+						</tr>
+						<tr ng-repeat='fraction in [0.95,0.90,0.85,0.80,0.75,0.65] track by $index'>
+							<td><em>{{fraction*100}}%</em></td>
+							<td ng-repeat-start='lift in ApplicationEnum.LIFT track by $index'>{{maxFraction(currentMaxes[lift], fraction)}}<small>lbs</small></td>
+							<td ng-repeat-end>{{repgoal(currentMaxes[lift], fraction)}}</td>
 						</tr>
 					</tbody>
 				</table>
-				<a class='btn btn-sm btn-default' ng-if='uriEncodedMaxes' ng-href='api/table/month?{{uriEncodedMaxes}}'>View Cycle</a>
 			</div>
+			<a class='btn btn-sm btn-default' ng-if='uriEncodedMaxes' ng-href='api/table/month?{{uriEncodedMaxes}}'>View Cycle</a>
+			<th><em>Maxes as of {{currentMaxes.date}}</em></th>
 		</div>
 	</div>
 </div>

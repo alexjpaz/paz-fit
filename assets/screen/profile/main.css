@@ -4,7 +4,6 @@
 }
 
 .screen-profile-main__maxes table {
-	margin-bottom: 0;
 }
 
 
@@ -19,6 +18,4 @@
 
 .screen-profile-main__maxes {
 	background: #fff;
-	border-radius: 4px;
-	border: 1px solid #999;
 }
