@@ -46,6 +46,17 @@ class TableMonthHandler(webapp2.RequestHandler):
 		maxes.append(int(self.request.get('s')))
 		result = utils.generate_month(maxes)
 
+		write_html(self.response, result, '531.html')
+
+class GZCLTableHandler(webapp2.RequestHandler):
+    def get(self):
+		maxes = []
+		maxes.append(int(self.request.get('p')))
+		maxes.append(int(self.request.get('d')))
+		maxes.append(int(self.request.get('b')))
+		maxes.append(int(self.request.get('s')))
+		result = utils.generate_month(maxes)
+
 		write_html(self.response, result, 'month.html')
 
 class PlateHandler(webapp2.RequestHandler):
@@ -71,7 +82,8 @@ class GoalHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
 	('/api/authenticate', DerpAuthenticationHandler),
-	('/api/table/month', TableMonthHandler),
+	('/api/table/531', TableMonthHandler),
+	('/api/table/gzcl', GZCLTableHandler),
 	('/api/plates', PlateHandler),
 	('/api/goal', PlateHandler)
 ], debug=True)
