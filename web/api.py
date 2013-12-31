@@ -40,29 +40,27 @@ class DerpAuthenticationHandler(webapp2.RequestHandler):
 class TableMonthHandler(webapp2.RequestHandler):
     def get(self):
 		maxes = []
-		maxes.append(int(self.request.get('p')))
-		maxes.append(int(self.request.get('d')))
-		maxes.append(int(self.request.get('b')))
-		maxes.append(int(self.request.get('s')))
-		result = utils.generate_month(maxes)
+		for lift in ['press','deadlift','bench','squat']:
+			maxes.append(int(self.request.get(lift[0])))
+
+		result = utils.generate_month(maxes, '531')
 
 		write_html(self.response, result, '531.html')
 
 class GZCLTableHandler(webapp2.RequestHandler):
     def get(self):
 		maxes = []
-		maxes.append(int(self.request.get('p')))
-		maxes.append(int(self.request.get('d')))
-		maxes.append(int(self.request.get('b')))
-		maxes.append(int(self.request.get('s')))
-		result = utils.generate_month(maxes)
+		for lift in ['press','deadlift','bench','squat']:
+			maxes.append(int(self.request.get(lift[0])))
 
-		write_html(self.response, result, 'month.html')
+		result = utils.generate_month(maxes, 'gzcl')
+
+		write_html(self.response, result, 'gzcl.html')
 
 class PlateHandler(webapp2.RequestHandler):
     def get(self):
 		weight = int(self.request.get('weight'))
-		result = utils.calculate_plates(weight)
+		result = utils.calculate_plates(weight, '531')
 
 		write_json(self.response, result)
 

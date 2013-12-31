@@ -16,11 +16,16 @@ config = {
 	"bar": 45,
 	"bbb": 0.6,
 	"plates": [45,35,25,10,5,2.5],
-	"week": {
-		'3x5': [0.65,0.75,0.85],
-		'3x3': [0.7,0.8,0.9],
-		'531': [0.75,0.85,0.95],
-		'DL': [0.4,0.5,0.6]
+	"method": {
+		"531": {
+			'3x5': [0.65,0.75,0.85],
+			'3x3': [0.7,0.8,0.9],
+			'531': [0.75,0.85,0.95],
+			'DL': [0.4,0.5,0.6]
+		},
+		"gzcl": {
+			'X': [0.65,0.70,0.75,0.80,0.85,0.90,0.95,1.0]
+		}
 	}
 }
 
@@ -42,21 +47,22 @@ def calculate_plates(weight=None):
 
 	return oneside
 
-def generate_month(maxes):
+
+def generate_month(maxes, method):
 	month = OrderedDict()
 
 	for mm in maxes:
 		month[mm] = {}
-		for week in config['week'].keys():
-			month[mm][week] = generate_week(mm, week)
+		for week in config['method'][method].keys():
+			month[mm][week] = generate_week(mm, week, method)
 
 	return month
 
-def generate_week(max_weight=0, week=None):
+def generate_week(max_weight=0, week=None, method='531'):
 
 	rows = OrderedDict()
 
-	for fraction in config["week"][week]:
+	for fraction in config["method"][method][week]:
 		weight = round(max_weight*fraction / 5) * 5;
 		plates = calculate_plates(weight)
 		plates.insert(0,weight)
