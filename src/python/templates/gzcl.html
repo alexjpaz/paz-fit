@@ -37,8 +37,8 @@
 						  </thead>
 						  <tbody>
 							  {% for pct, plates in month[week].iteritems() | sort %}
-							  <tr class='lift__set lift__set--{{ (pct*100) | int }}'>
-								  <td>{{ (pct*100) | int }}%</td>
+							  <tr class='lift__set lift__set--{{ (pct*100) | replace('.','_') }}'>
+								  <td>{{ (pct*100) }}%</td>
 								  {% for plate in plates %}
 								  <td>{{ plate | int }}</td>
 								  {% endfor %}

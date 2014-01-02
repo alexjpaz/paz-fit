@@ -1,21 +1,21 @@
 .lift--1 .lift__week-table,
 .lift--1 .lift__week-header,
-.page--gzcl .lift--press .lift__set--85 
+.page--gzcl .lift--press .lift__set--87_5 
 {background: rgba(212, 13, 13, 1);}
 
 .lift--2 .lift__week-table, 
 .lift--2 .lift__week-header,
-.page--gzcl .lift--deadlift .lift__set--85 
+.page--gzcl .lift--deadlift .lift__set--87_5
 {background: rgba(0, 187, 0, 1);}
 
 .lift--3 .lift__week-table, 
 .lift--3 .lift__week-header,
-.page--gzcl .lift--bench .lift__set--85 
+.page--gzcl .lift--bench .lift__set--87_5
 {background: rgba(23, 23, 189, 1);}
 
 .lift--4 .lift__week-table, 
 .lift--4 .lift__week-header,
-.page--gzcl .lift--squat .lift__set--85 
+.page--gzcl .lift--squat .lift__set--87_5
 {background: rgba(255, 112, 0, 1);}
 
 .lift__set--100
@@ -97,5 +97,5 @@
 
 }
 
-.page--gzcl .lift__set--85 {color: white; font-weight: bold}
-.page--gzcl .lift__set--65 { background: #aaa; color: white; font-weight: bold}
+.page--gzcl .lift__set--87_5 {color: white; font-weight: bold}
+.page--gzcl .lift__set--65_0 { background: #aaa; color: white; font-weight: bold}
