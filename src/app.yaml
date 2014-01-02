@@ -9,15 +9,13 @@ libraries:
   version: 2.6 
 
 handlers:
-- url: /authenticate
-  script: web.authenticate.app
 
 - url: /rest/.*
-  script: web.ds.app
+  script: src.main.python.ds.app
   login: required
 
 - url: /api/.*
-  script: web.api.app
+  script: src.main.python.api.app
 
 - url: /(index\.html)?
   static_files: index.html

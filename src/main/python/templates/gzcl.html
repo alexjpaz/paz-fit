@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+  <head>
+    <title>531 Month Cycle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/components/plate-table.css" rel="stylesheet">
+	<style>
+
+		.lift--1 .lift__week-table {background: rgba(212, 13, 13, 1);}
+		.lift--2 .lift__week-table {background: rgba(0, 187, 0, 1);}
+		.lift--3 .lift__week-table {background: rgba(23, 23, 189, 1);}
+		.lift--4 .lift__week-table {background: rgba(255, 112, 0, 1);}
+
+		.lift__fraction--85 { background: #444; color: white; font-weight: bold}
+		.lift__fraction--65 { background: #aaa; color: white; font-weight: bold}
+
+		.lift__month {
+		}
+
+		.lift__max {
+			text-align: center;
+		}
+
+		.lift__week {
+			padding: 0;
+			margin-bottom: 8px;
+		}
+
+		.lift__week-table {
+			border-radius: 2px;
+			margin-right:10px;
+			padding: 4px;
+		}
+
+		.lift__week table {
+			background-color: #fff;
+			margin-bottom: 0;
+		}
+
+		.lift__week thead {
+		}
+
+		.lift__week td,
+		.lift__week th {
+			padding: 4px !important;
+			text-align: center;
+		}
+		.lift__week-legend {
+			font-size: 10px;
+		}
+		.date {
+			margin-top: 20px;
+			font-size: 12px;
+			color: #aaa;
+		}
+	</style>
+  </head>
+  <body>
+	  <div class='container'>
+		  {% for lift, month in table.iteritems() %}
+		  <div class='lift lift--{{loop.index}}'>
+			  <div class='lift__month'>
+				  {% for week in ['X'] %}
+				  <div class='col-md-3 lift__week lift__week--{{week}}'>
+					  <div class='lift__week-table'>
+					  <table class='table table-bordered '>
+						  <thead>
+							  <tr>
+								  <td colspan='2'>{{ lift }}</td>
+								  <th colspan='6'>LIFT</th>
+							  </tr>
+							  <tr class='lift__week-legend'>
+								  <td>%</td>
+								  <td>W</td>
+								  <td>45</td>
+								  <td>35</td>
+								  <td>25</td>
+								  <td>10</td>
+								  <td>5</td>
+								  <td>2&frac12;</td>
+							  </tr>
+						  </thead>
+						  <tbody>
+							  {% for pct, plates in month[week].iteritems() | sort %}
+							  <tr class='lift__fraction--{{ (pct*100) | int }}'>
+								  <td>{{ (pct*100) | int }}%</td>
+								  {% for plate in plates %}
+								  <td>{{ plate | int }}</td>
+								  {% endfor %}
+							  </tr>
+							  {% endfor %}
+						  </tbody>
+					  </table>
+				  </div>
+				  </div>
+				  {% endfor %}
+			  </div>
+		  </div>
+		  {% endfor %}
+		  <div class='note'>
+			  <table>
+				  <tr>
+					  <th>T1</th>
+					  <td>85%+, 10-15 reps</td>
+				  </tr>
+				  <tr>
+					  <th>T2</th>
+					  <td>65%-85%+, 20-30 reps</td>
+				  </tr>
+				  <tr>
+					  <th>T3</th>
+					  <td><65%+, 30+</td>
+				  </tr>
+			  </table>
+		  </div>
+		  <div class='date'>
+			  <span>{{ today }}</span>
+		  </div>
+	  </div>
+  </body>
+</html>
+{% endautoescape %}

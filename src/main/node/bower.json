@@ -1,6 +1,6 @@
 {
   "name": "ajpaz531",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "https://github.com/alexjpaz/ajpaz531",
   "authors": [
     "Alex Paz <alexander.j.paz@ngc.com>"
@@ -25,5 +25,6 @@
     "momentjs": "~2.4.0",
     "bootstrap": "~3.0.3",
     "font-awesome": "~4.0.3"
-  }
+  },
+  "directory" : "static/bower_components"
 }
