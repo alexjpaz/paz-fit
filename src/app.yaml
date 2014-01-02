@@ -11,19 +11,19 @@ libraries:
 handlers:
 
 - url: /rest/.*
-  script: src.main.python.ds.app
+  script: python.ds.app
   login: required
 
 - url: /api/.*
-  script: src.main.python.api.app
+  script: python.api.app
 
 - url: /(index\.html)?
-  static_files: index.html
-  upload: index.html
+  static_files: assets/index.html
+  upload: assets/index.html
   login: required
 
 - url: /assets
   static_dir: assets
 
 - url: /bower_components
-  static_dir: bower_components
+  static_dir: node/bower_components
