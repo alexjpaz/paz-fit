@@ -26,4 +26,11 @@ indexes:
   properties:
   - name: lift
   - name: weight
+  - name: reps
+    direction: desc
+
+- kind: PersonalRecord
+  properties:
+  - name: lift
+  - name: weight
     direction: desc
