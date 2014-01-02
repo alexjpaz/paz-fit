@@ -1,12 +1,22 @@
-.lift--1 .lift__week-table {background: rgba(212, 13, 13, 1);}
-.lift--2 .lift__week-table {background: rgba(0, 187, 0, 1);}
-.lift--3 .lift__week-table {background: rgba(23, 23, 189, 1);}
-.lift--4 .lift__week-table {background: rgba(255, 112, 0, 1);}
+.lift--1 .lift__week-table,
+.lift--1 .lift__week-header
+{background: rgba(212, 13, 13, 1);}
 
-.lift__fraction--85 { background: #444; color: white; font-weight: bold}
-.lift__fraction--65 { background: #aaa; color: white; font-weight: bold}
+.lift--2 .lift__week-table, 
+.lift--2 .lift__week-header
+{background: rgba(0, 187, 0, 1);}
 
-.lift__month {
+.lift--3 .lift__week-table, 
+.lift--3 .lift__week-header
+{background: rgba(23, 23, 189, 1);}
+
+.lift--4 .lift__week-table, 
+.lift--4 .lift__week-header
+{background: rgba(255, 112, 0, 1);}
+
+
+.container {
+	padding-top: 10px;
 }
 
 .lift__max {
@@ -27,6 +37,7 @@
 .lift__week table {
 	background-color: #fff;
 	margin-bottom: 0;
+	width: 100%;
 }
 
 .lift__week thead {
@@ -36,6 +47,7 @@
 .lift__week th {
 	padding: 4px !important;
 	text-align: center;
+	border-right: 1px solid #ddd;
 }
 .lift__week-legend {
 	font-size: 10px;
@@ -46,3 +58,37 @@
 	color: #aaa;
 }
 
+.lift__week-header td,
+.lift__week-header th
+{
+	border: none !important;
+}
+
+.lift__week-header th {
+	font-size: 11px;
+}
+
+.lift__week-header {
+	color: #fafafa;
+	border: none !important;
+}
+
+.lift__week-legend { 
+}
+
+.lift__set td:nth-child(2) {
+	border-right: solid 2px #444;
+}
+
+.lift__week-legend td {
+	border-bottom: solid 2px #444 !important;
+}
+
+.lift__week-legend td:nth-child(2n+4),
+.lift__set td:nth-child(2n+4) {
+	background: rgba(0,0,0,0.05);
+
+}
+
+.page--gzcl .lift__set--85 { background: #444; color: white; font-weight: bold}
+.page--gzcl .lift__set--65 { background: #aaa; color: white; font-weight: bold}
