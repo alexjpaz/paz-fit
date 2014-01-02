@@ -9,9 +9,11 @@
     <link href="/assets/static/table/style.css" rel="stylesheet">
   </head>
   <body>
+	  {% set liftArray = ['press','deadlift','bench','squat'] %}
 	  <div class='container page--gzcl'>
 		  {% for lift, month in table.iteritems() %}
-		  <div class='lift lift--{{loop.index}}'>
+		  {% set currentLift = liftArray[loop.index-1] %}
+		  <div class='lift lift--{{loop.index}} lift--{{currentLift}}'>
 			  <div class='lift__month'>
 				  {% for week in ['X'] %}
 				  <div class='col-md-3 lift__week lift__week--{{week}}'>
@@ -20,7 +22,7 @@
 						  <thead>
 							  <tr class='lift__week-header'>
 								  <th colspan='2'>{{ lift }}</th>
-								  <th colspan='6'>LIFT</th>
+								  <th colspan='6'>{{ currentLift }}</th>
 							  </tr>
 							  <tr class='lift__week-legend'>
 								  <td>%</td>

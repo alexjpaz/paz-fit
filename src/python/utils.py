@@ -29,6 +29,12 @@ config = {
 	}
 }
 
+class WeekTable(object):
+	press=0
+	deadlift=0
+	bench=0
+	squat=0
+
 def calculate_plates(weight=None):
 	oneside = []
 	number_of_plates = 0
