@@ -1,4 +1,4 @@
-angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-list', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator) {
+angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-list', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator, $location) {
 	$scope.date = $routeParams.date || moment().format('YYYY-MM-DD'); 
 	$scope.isNew = $routeParams.isNew;
 
@@ -9,6 +9,10 @@ angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-list', 
 
 	$scope.params = {}
 
+	angular.forEach($location.search(), function(value, key) {
+		$scope.params[key] = value;
+	});
+
 	$scope.getPersonalRecords  = function(params) {
 		console.debug('params',params);
 		PersonalRecordDao.find(params).then(function(records) {
@@ -18,4 +22,9 @@ angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-list', 
 	};
 
 	$scope.$watch('params', $scope.getPersonalRecords, true);
+	$scope.$watch('params', function(params) {
+		angular.forEach(params, function(value, key) {
+			$location.search(key, value);
+		});
+	}, true);
 });

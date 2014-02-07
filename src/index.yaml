@@ -26,6 +26,13 @@ indexes:
   properties:
   - name: lift
   - name: weight
+  - name: date
+    direction: desc
+
+- kind: PersonalRecord
+  properties:
+  - name: lift
+  - name: weight
   - name: reps
     direction: desc
 
@@ -33,4 +40,16 @@ indexes:
   properties:
   - name: lift
   - name: weight
+    direction: desc
+
+- kind: PersonalRecord
+  properties:
+  - name: weight
+  - name: date
+    direction: desc
+
+- kind: PersonalRecord
+  properties:
+  - name: weight
+  - name: reps
     direction: desc

@@ -21,7 +21,12 @@
 				<label for='date'>Date</label>
 				<input type='date' ng-model='dto.date' placeholder='Date' class='form-control' />
 			</div>
-			<button class='btn btn-primary' ng-click='saveChanges()'>Save Changes</button>
+			<button class='btn btn-primary btn-save--{{ saveStatuts }}' ng-click='saveChanges()'>
+				<span ng-if='!saveStatus'>Save Changes</span>
+				<span ng-if='saveStatus == "saving"'>Saving</span>
+				<span ng-if='saveStatus == "saved"'>Saved</span>
+				<span ng-if='saveStatus == "error"'>Error</span>
+			</button>
 		</form>
 	</div>
 </div>

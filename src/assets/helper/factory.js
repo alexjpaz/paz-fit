@@ -65,7 +65,8 @@ angular.module('helper')
 
 							return deferred.promise;
 						},
-					}
+					},
+					reloadOnSearch: false
 				};
 				$routeProvider.when(urlPattern, routeConfigObj);
 			};

@@ -23,7 +23,18 @@ angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-edit', 
 	};
 
 	$scope.saveChanges = function() {
-		PersonalRecordDao.save($scope.dto);
+		var promise = PersonalRecordDao.save($scope.dto);
+
+		$scope.saveStatus = null;
+
+		$scope.saveStatus = 'saving';
+
+		promise.then(function() {
+			$scope.saveStatus = 'saved';
+		}, function() {
+			$scope.saveStatus = 'error';
+		});
+
 	};
 
 	if(!$scope.isNew) {

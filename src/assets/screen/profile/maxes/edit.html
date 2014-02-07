@@ -18,7 +18,12 @@
 				<label>Squat</label>
 				<input  type='number' min='5' max='1000' step='5' value='100' class='form-control' ng-model='record.squat' required />
 			</div>
-			<button class='btn btn-primary' ng-click='saveChanges()' ng-disabled='!MaxForm.$valid'>Save Changes</button>
+			<button class='btn btn-primary btn-save--{{ saveStatuts }}' ng-click='saveChanges()' ng-disabled='!MaxForm.$valid'>
+				<span ng-if='!saveStatus'>Save Changes</span>
+				<span ng-if='saveStatus == "saving"'>Saving</span>
+				<span ng-if='saveStatus == "saved"'>Saved</span>
+				<span ng-if='saveStatus == "error"'>Error</span>
+			</button>
 		</form>
 	</div>
 </div>

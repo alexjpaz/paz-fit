@@ -1,4 +1,4 @@
-angular.module('app').lazy.ScreenFactory('screen-profile-maxes-edit', function($scope, $injector, $routeParams, Database, DatastoreSync) {
+angular.module('app').lazy.ScreenFactory('screen-profile-maxes-edit', function($scope, $injector, $routeParams, $location, Database, DatastoreSync) {
 	var MaxesDao = $injector.get('MaxesDao');
 
 	$scope.date = $routeParams.date; 
@@ -19,7 +19,16 @@ angular.module('app').lazy.ScreenFactory('screen-profile-maxes-edit', function($
 	};
 
 	$scope.saveChanges = function() {
-		MaxesDao.save($scope.record).then();
+		var promise = MaxesDao.save($scope.record);
+		$scope.saveStatus = null;
+
+		$scope.saveStatus = 'saving';
+
+		promise.then(function() {
+			$scope.saveStatus = 'saved';
+		}, function() {
+			$scope.saveStatus = 'error';
+		});
 	};
 
 	$scope.getMaxes();
