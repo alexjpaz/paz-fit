@@ -14,9 +14,7 @@ angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-list', 
 	});
 
 	$scope.getPersonalRecords  = function(params) {
-		console.debug('params',params);
 		PersonalRecordDao.find(params).then(function(records) {
-			console.debug('records', records);
 			$scope.records = records;
 		});
 	};

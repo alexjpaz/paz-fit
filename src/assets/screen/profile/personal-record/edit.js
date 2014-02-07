@@ -22,6 +22,10 @@ angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-edit', 
 		});
 	};
 
+	$scope.$watch('dto', function(dto) {
+		$scope.estMax = FiveThreeOneCalculator.max(dto.weight, dto.reps);
+	}, true);
+
 	$scope.saveChanges = function() {
 		var promise = PersonalRecordDao.save($scope.dto);
 
