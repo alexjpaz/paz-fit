@@ -1,0 +1,19 @@
+.pr-graph {
+	height: 200px;
+	border: 1px solid #777;
+	background: #fff;
+	margin-bottom: 20px;
+	overflow: hidden;
+}
+
+.pr-graph__dot {
+	stroke-width: 10px;
+	stroke: red;
+	stroke-linecap: round;
+}
+
+.pr-graph__path {
+	fill: none;
+	stroke: blue;
+	stroke-width: 4px;
+}

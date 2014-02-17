@@ -1,5 +1,10 @@
 angular.module('app')
 .config(function($provide) {
+
+	$provide.factory('d3', function() {
+		return d3;
+	});
+
 	$provide.service('FiveThreeOneCalculator', function() {
 		this.max = function(weight, reps) {
 			var max = (weight*reps*0.0333 + weight);

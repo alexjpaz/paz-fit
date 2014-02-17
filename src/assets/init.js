@@ -35,6 +35,7 @@ head.load('/bower_components/jquery/jquery.min.js', function() {
 	respository.add('/assets/components/maxes');
 	respository.add('/assets/components/plate-table');
 	respository.add('/assets/components/pr-list');
+	respository.add('/assets/components/pr-graph');
 	respository.add('/assets/components/pr-add');
 	respository.add('/assets/components/c-calendar');
 	respository.add('/assets/components/c-table');
@@ -58,5 +59,7 @@ head.load('/bower_components/jquery/jquery.min.js', function() {
 
 
 	head.load('/bower_components/bootstrap/dist/js/bootstrap.min.js');
+	head.load('/bower_components/bootstrap/dist/js/bootstrap.min.js');
+	head.load('bower_components/d3/d3.min.js');
 	head.load('/assets/style.css');
 });
