@@ -8,5 +8,14 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 		$scope.$watch($attrs.prList, function(list) {
 			$scope.list = list;
 		});
+
+		$scope.highlight = function(pr) {
+
+			angular.forEach($scope.list, function(pr) {
+				pr.$highlight = false;
+			});
+
+			pr.$highlight = true;
+		};
 	});
 });

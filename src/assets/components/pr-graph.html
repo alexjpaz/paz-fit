@@ -3,11 +3,14 @@
 		<g transform='translate({{ el.mx }}, {{ el.my }})' >
 			<g class='pr-graph__g--press'>
 				<path class='pr-graph__path' ng-attr-d='{{ line(records) || "M0 0 Z" }}' />
-				<g class='pr-graph__data-point' ng-repeat='r in records' ng-attr-transform='{{ translate(r) }}')>
-					<line class='pr-graph__dot' />
-					<text>{{ r._date }},{{ r.max | number:3 }}</text>
+				<g class='pr-graph__data-point' ng-repeat='r in records' ng-mouseover='highlight(r)' ng-attr-transform='{{ translate(r) }}')>
+					<line class='pr-graph__dot' ng-class='{"pr-graph__dot--hl": r.r.$highlight}' />
 				</g>
 			</g>
+		</g>
+		<g ng-repeat='t in sy.ticks()' ng-attr-transform='translate(0, {{ sy(t) }})' class='pr-graph__xaxis'>
+			<line ng-attr-x2='{{ el.width }}'></line>
+			<text>{{ t }}</text>
 		</g>
 	</svg>
 </div>

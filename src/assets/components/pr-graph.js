@@ -55,14 +55,24 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 						_date: r.date,
 						date: moment(r.date, "YYYY-MM-DD"),
 						max: FiveThreeOneCalculator.max(r.weight, r.reps),
-						lift: r.lift
+						lift: r.lift,
+						r: r
 					});
 				});	
 
 				sx.domain(d3.extent(records, extentX)).range([0, (el.width-el.mx*2)])
-				sy.domain(d3.extent(records, extentY)).range([0, (el.height-el.my*2)]) 
+				sy.domain(d3.extent(records, extentY)).range([(el.height-el.my*2), 0]) 
 				$scope.records = records;
 			}
+
+			var oldhl = null;
+			$scope.highlight = function(r) {
+				if(oldhl != null) {
+					oldhl.$highlight = false;
+				}
+				r.r.$highlight = true;
+				oldhl = r.r;;
+			};
 
 			$scope.$watch('prGraph', update);
 		}

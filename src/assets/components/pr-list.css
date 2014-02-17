@@ -4,3 +4,7 @@
 
 .pr-list__row {
 }
+
+.pr-list__row--hl {
+	background: rgb(255, 234, 235);
+}
