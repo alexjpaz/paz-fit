@@ -54,7 +54,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 					records.push({
 						_date: r.date,
 						date: moment(r.date, "YYYY-MM-DD"),
-						max: FiveThreeOneCalculator.max(r.reps, r.weight),
+						max: FiveThreeOneCalculator.max(r.weight, r.reps),
 						lift: r.lift
 					});
 				});	
