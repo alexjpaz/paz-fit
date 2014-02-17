@@ -1,9 +1,11 @@
 <div class='pr-graph'>
 	<svg ng-attr-width='{{ el.width }}' ng-attr-height='{{ el.height }}'>
-		<g transform='translate({{ el.mx }}, {{ el.my }})' class='pr-graph__g--{{ r.lift }}'>
-			<path class='pr-graph__path' ng-attr-d='{{ line(records) || "M0 0 Z" }}' />
-			<g ng-repeat='r in records' ng-attr-transform='{{ translate(r) }}')>
-				<line class='pr-graph__dot' />
+		<g transform='translate({{ el.mx }}, {{ el.my }})' >
+			<g class='pr-graph__g--press'>
+				<path class='pr-graph__path' ng-attr-d='{{ line(records) || "M0 0 Z" }}' />
+				<g ng-repeat='r in records' ng-attr-transform='{{ translate(r) }}')>
+					<line class='pr-graph__dot' />
+				</g>
 			</g>
 		</g>
 	</svg>

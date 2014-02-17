@@ -6,14 +6,16 @@
 	overflow: hidden;
 }
 
+.pr-graph__g--press {
+	stroke: blue;
+}
+
 .pr-graph__dot {
 	stroke-width: 10px;
-	stroke: red;
 	stroke-linecap: round;
 }
 
 .pr-graph__path {
 	fill: none;
-	stroke: blue;
 	stroke-width: 4px;
 }
