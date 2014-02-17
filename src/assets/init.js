@@ -47,14 +47,12 @@ head.load('/bower_components/jquery/jquery.min.js', function() {
 
 	console.log(respository);
 	head.load(respository.assets, function() {
-		angular.element(document).ready(function() {
-			try{
-				angular.bootstrap(document, ['app']);
-			} catch(e) {
-				console.error(e.message);
-				document.write('<pre>'+e+'</pre>');
-			}
-		});
+		try{
+			angular.bootstrap(document, ['app']);
+		} catch(e) {
+			console.error(e.message);
+			document.write('<pre>'+e+'</pre>');
+		}
 	});
 
 
