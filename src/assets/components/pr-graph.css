@@ -10,6 +10,16 @@
 	stroke: blue;
 }
 
+.pr-graph__data-point text {
+	cursor: pointer;
+	stroke: red;
+	visibility: hidden;
+}
+
+.pr-graph__data-point:hover text {
+	visibility: visible;
+}
+
 .pr-graph__dot {
 	stroke-width: 10px;
 	stroke-linecap: round;

@@ -52,6 +52,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 				records = []
 				angular.forEach(data, function(r) {
 					records.push({
+						_date: r.date,
 						date: moment(r.date, "YYYY-MM-DD"),
 						max: FiveThreeOneCalculator.max(r.reps, r.weight),
 						lift: r.lift

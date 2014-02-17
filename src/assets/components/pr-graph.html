@@ -3,8 +3,9 @@
 		<g transform='translate({{ el.mx }}, {{ el.my }})' >
 			<g class='pr-graph__g--press'>
 				<path class='pr-graph__path' ng-attr-d='{{ line(records) || "M0 0 Z" }}' />
-				<g ng-repeat='r in records' ng-attr-transform='{{ translate(r) }}')>
+				<g class='pr-graph__data-point' ng-repeat='r in records' ng-attr-transform='{{ translate(r) }}')>
 					<line class='pr-graph__dot' />
+					<text>{{ r._date }},{{ r.max | number:3 }}</text>
 				</g>
 			</g>
 		</g>
