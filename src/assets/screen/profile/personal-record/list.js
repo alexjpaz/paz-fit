@@ -25,4 +25,13 @@ angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-list', 
 			$location.search(key, value);
 		});
 	}, true);
+
+	var highlighedPr = null;
+	$scope.$on('screen-profile-personal-record-list__highlight-pr', function(e, pr) {
+		if(highlighedPr != null) {
+			highlighedPr.$highlight = false;
+		}
+		pr.$highlight = true;
+		highlighedPr = pr;
+	});
 });

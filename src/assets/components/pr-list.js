@@ -10,12 +10,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 		});
 
 		$scope.highlight = function(pr) {
-
-			angular.forEach($scope.list, function(pr) {
-				pr.$highlight = false;
-			});
-
-			pr.$highlight = true;
+			$scope.$emit('screen-profile-personal-record-list__highlight-pr', pr);
 		};
 	});
 });

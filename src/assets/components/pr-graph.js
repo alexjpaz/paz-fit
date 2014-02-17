@@ -65,13 +65,8 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 				$scope.records = records;
 			}
 
-			var oldhl = null;
 			$scope.highlight = function(r) {
-				if(oldhl != null) {
-					oldhl.$highlight = false;
-				}
-				r.r.$highlight = true;
-				oldhl = r.r;;
+				$scope.$emit('screen-profile-personal-record-list__highlight-pr', r.r);
 			};
 
 			$scope.$watch('prGraph', update);
