@@ -29,6 +29,11 @@
 	stroke: red;
 }
 
+.pr-graph__dot--selected {
+	stroke: rgb(201, 33, 216);
+	stroke-width: 20px;
+}
+
 .pr-graph__path {
 	fill: none;
 	stroke-width: 4px;

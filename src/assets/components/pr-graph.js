@@ -65,9 +65,44 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 				$scope.records = records;
 			}
 
+			function updateDelta() {
+				if($scope.selectedNodes.length == 2) {
+					$scope.delta = +$scope.selectedNodes[0].max - +$scope.selectedNodes[1].max;
+				} else {
+					$scope.delta = 0;
+				}
+			}
+
 			$scope.highlight = function(r) {
 				$scope.$emit('screen-profile-personal-record-list__highlight-pr', r.r);
 			};
+
+			$scope.select = function($event, r) {
+				if($event.ctrlKey) {
+					if($scope.selectedNodes.length == 2) {
+						$scope.selectedNodes[1] = r;
+					} else {
+						$scope.selectedNodes.push(r);
+					}
+				}
+				updateDelta();
+			};
+
+			$scope.deselect = function($event, r) {
+				if($event.ctrlKey) {
+					angular.forEach($scope.selectedNodes, function(n,i) {
+						if(n === r) {
+							$scope.selectedNodes.splice(i,1);
+						}
+					});
+				} else {
+					$scope.selectedNodes = [];
+				}
+				updateDelta();
+			};
+
+			$scope.selectedNodes = [];
+			$scope.delta = 0;
 
 			$scope.$watch('prGraph', update);
 		}

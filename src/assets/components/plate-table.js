@@ -13,7 +13,6 @@ angular.module('app').config(function(ComponentFactoryProvider){
 			$scope.$watch('max', updateTable);
 			$scope.$watch('week', updateTable);
 
-
 		},
 		scope: {'max':'=','week':'='}
 	});
