@@ -4,6 +4,7 @@
 	background: #fff;
 	margin-bottom: 20px;
 	overflow: hidden;
+	position: relative;
 }
 
 .pr-graph__g--press {
@@ -23,6 +24,7 @@
 .pr-graph__dot {
 	stroke-width: 10px;
 	stroke-linecap: round;
+	cursor: pointer;
 }
 
 .pr-graph__dot--hl {
@@ -41,4 +43,10 @@
 
 .pr-graph__xaxis {
 	stroke: rgba(0,0,0,0.15);
+}
+
+.pr-graph__delta {
+	position: absolute;
+	right: 0;
+	bottom: 0;
 }

@@ -16,10 +16,14 @@
 				</g>
 			</g>
 		</g>
-		<g ng-repeat='t in sy.ticks()' ng-attr-transform='translate(0, {{ sy(t) }})' class='pr-graph__xaxis'>
-			<line ng-attr-x2='{{ el.width }}'></line>
-			<text>{{ t }}</text>
+		<g transform='translate(0, 5)'>
+			<g ng-repeat='t in syTicks' ng-attr-transform='translate(0, {{ sy(t) }})' class='pr-graph__xaxis'>
+				<line ng-attr-x2='{{ el.width }}'></line>
+				<text>{{ t }}</text>
+			</g>
 		</g>
-		<text transform='translate(0, {{ el.height - 20 }})'>&Delta; {{ delta | number:3 }}</text>
 	</svg>
+	<div class='pr-graph__html'>
+		<div class='pr-graph__delta'>&Delta; {{ delta | number:3 }}</span>
+	</div>
 </div>

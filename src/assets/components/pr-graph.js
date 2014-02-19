@@ -63,6 +63,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 				sx.domain(d3.extent(records, extentX)).range([0, (el.width-el.mx*2)])
 				sy.domain(d3.extent(records, extentY)).range([(el.height-el.my*2), 0]) 
 				$scope.records = records;
+				$scope.syTicks = sy.ticks(12);
 			}
 
 			function updateDelta() {
