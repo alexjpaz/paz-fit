@@ -1,7 +1,6 @@
 <div class='pr-graph'>
 	<svg ng-attr-width='{{ el.width }}' ng-attr-height='{{ el.height }}'>
 		<g transform='translate({{ el.mx }}, {{ el.my }})' >
-			<text transform='translate(0, {{ el.height - 20 }})'>&Delta; {{ delta | number:3 }}</text>
 			<g class='pr-graph__g--press'>
 				<path class='pr-graph__path' ng-attr-d='{{ line(records) || "M0 0 Z" }}' />
 				<g class='pr-graph__data-point' ng-repeat='r in records' 
@@ -21,5 +20,6 @@
 			<line ng-attr-x2='{{ el.width }}'></line>
 			<text>{{ t }}</text>
 		</g>
+		<text transform='translate(0, {{ el.height - 20 }})'>&Delta; {{ delta | number:3 }}</text>
 	</svg>
 </div>

@@ -78,7 +78,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 			};
 
 			$scope.select = function($event, r) {
-				if($event.ctrlKey) {
+				if($event.ctrlKey) { // TODO: probably should remove this as tablets dont have a ctrl button :(
 					if($scope.selectedNodes.length == 2) {
 						$scope.selectedNodes[1] = r;
 					} else {
