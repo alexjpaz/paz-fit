@@ -1,11 +1,9 @@
 from google.appengine.ext import db
 
-class Derp(db.Expando):
-	pass
-
 class Post(db.Expando):
 	modified_date = db.DateProperty(auto_now=True)
 	creation_date = db.DateProperty(auto_now_add=True)
+	post_date = db.DateProperty()
 	title = db.StringProperty()
 	content = db.StringProperty()
 	
@@ -21,3 +19,4 @@ class PersonalRecord(db.Model):
 	reps = db.IntegerProperty()
 	lift = db.StringProperty()
 	date = db.DateProperty(auto_now_add=True)
+	post = db.ReferenceProperty(Post)

@@ -7,7 +7,7 @@ head.load('/bower_components/jquery/jquery.min.js', function() {
 		this.add = function(assetUrl) {
 			assetSeed += 1;
 			var asset = {}
-			asset[assetSeed] = (assetUrl+".js?v=2");
+			asset[assetSeed] = (assetUrl+".js?v=3");
 			this.assets.push(asset);
 		};
 
@@ -50,8 +50,12 @@ head.load('/bower_components/jquery/jquery.min.js', function() {
 		try{
 			angular.bootstrap(document, ['app']);
 		} catch(e) {
-			console.error(e.message);
-			document.write('<pre>'+e+'</pre>');
+			if(/App Already Bootstrapped with this Element/.test(e.message)) {
+				console.log('WARNING: already bootstrapped');
+			} else {
+				console.error(e.message);
+				document.write('<pre>'+e+'</pre>');
+			}
 		}
 	});
 
