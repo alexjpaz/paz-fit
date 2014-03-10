@@ -51,8 +51,15 @@
 		  </div>
 		  {% endfor %}
 		  <div class='date'>
+			  {% set p = table.keys()[0] %}
+			  {% set d = table.keys()[1] %}
+			  {% set b = table.keys()[2] %}
+			  {% set s = table.keys()[3] %}
+			  <a href='{{ "531?p=%s&d=%s&b=%s&s=%s" | format(*(p-5,d-10,b-5,s-10)) }}'>-</a>
 			  <span>{{ today }}</span>
+			  <a href='{{ "531?p=%s&d=%s&b=%s&s=%s" | format(*(p+5,d+10,b+5,s+10)) }}'>+</a>
 		  </div>
+		  <div class='' contenteditable>CLICK TO ADD NOTE</div>
 	  </div>
   </body>
 </html>
