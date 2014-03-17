@@ -27,3 +27,6 @@ handlers:
 
 - url: /bower_components
   static_dir: node/bower_components
+
+- url: /dist
+  static_dir: node/dist
