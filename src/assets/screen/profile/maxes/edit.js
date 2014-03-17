@@ -1,4 +1,6 @@
-angular.module('app').lazy.ScreenFactory('screen-profile-maxes-edit', function($scope, $injector, $routeParams, $location, Database, DatastoreSync) {
+angular.module('app').config(function(ScreenFactoryProvider) {
+	var ScreenFactory = ScreenFactoryProvider.$get();
+	ScreenFactory.build('screen-profile-maxes-edit', function($scope, $injector, $routeParams, $location, Database, DatastoreSync) {
 	var MaxesDao = $injector.get('MaxesDao');
 
 	$scope.date = $routeParams.date; 
@@ -33,4 +35,5 @@ angular.module('app').lazy.ScreenFactory('screen-profile-maxes-edit', function($
 
 	$scope.getMaxes();
 
+});
 });

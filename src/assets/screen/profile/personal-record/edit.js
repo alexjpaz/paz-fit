@@ -1,4 +1,6 @@
-angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-edit', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator) {
+angular.module('app').config(function(ScreenFactoryProvider) {
+	var ScreenFactory = ScreenFactoryProvider.$get();
+	ScreenFactory.build('screen-profile-personal-record-edit', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator) {
 	$scope.date = $routeParams.date || moment().format('YYYY-MM-DD'); 
 	$scope.isNew = $routeParams.isNew;
 
@@ -44,4 +46,6 @@ angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-edit', 
 	if(!$scope.isNew) {
 		$scope.getPersonalRecord();
 	}
+});
+
 });

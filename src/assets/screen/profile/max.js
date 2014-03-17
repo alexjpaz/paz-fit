@@ -1,4 +1,6 @@
-App.lazy.ScreenFactory('screen-profile-max', function($scope, Database) {
+angular.module('app').config(function(ScreenFactoryProvider) {
+	var ScreenFactory = ScreenFactoryProvider.$get();
+	ScreenFactory.build('screen-profile-max', function($scope, Database) {
 
 	$scope.getMaxes = function() {
 		Database.from('Maxes').list().done(function(records) {
@@ -21,3 +23,5 @@ App.lazy.ScreenFactory('screen-profile-max', function($scope, Database) {
 
 	$scope.getMaxes();
 });
+});
+

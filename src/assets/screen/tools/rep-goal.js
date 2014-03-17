@@ -1,4 +1,6 @@
-angular.module('app').lazy.ScreenFactory('screen-tools-rep-goal', function($scope, FiveThreeOneCalculator, Database) {
+angular.module('app').config(function(ScreenFactoryProvider) {
+	var ScreenFactory = ScreenFactoryProvider.$get();
+	ScreenFactory.build('screen-tools-rep-goal', function($scope, FiveThreeOneCalculator, Database) {
 	$scope.mdl = {};
 
 	$scope.useMax = function(lift) {
@@ -30,4 +32,5 @@ angular.module('app').lazy.ScreenFactory('screen-tools-rep-goal', function($scop
 		console.log('apaz');
 		$scope.getRepGoal($scope.mdl.max, $scope.mdl.weight);
 	}, true);
+});
 });

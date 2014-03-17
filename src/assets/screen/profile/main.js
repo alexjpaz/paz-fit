@@ -1,4 +1,6 @@
-angular.module('app').lazy.ScreenFactory('screen-profile-main', function($scope, PersonalRecordDao, MaxesDao, CalendarEventRepository, CalendarUtils, FiveThreeOneCalculator) {
+angular.module('app').config(function(ScreenFactoryProvider) {
+	var ScreenFactory = ScreenFactoryProvider.$get();
+	ScreenFactory.build('screen-profile-main', function($scope, PersonalRecordDao, MaxesDao, CalendarEventRepository, CalendarUtils, FiveThreeOneCalculator) {
 	$scope.events = new CalendarEventRepository();
 
 	$scope.repgoal = function(max, fraction) {
@@ -46,4 +48,5 @@ angular.module('app').lazy.ScreenFactory('screen-profile-main', function($scope,
 	};
 
 	$scope.getProfileData();
+});
 });

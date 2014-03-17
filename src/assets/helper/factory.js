@@ -1,3 +1,11 @@
+/*
+ * Module: helper
+ *
+ */
+angular.module('helper',[])
+.config(function(){})
+.run(function(){})
+
 angular.module('helper')
 .config(function($provide, $compileProvider, $routeProvider) { 
 	$provide.provider('AssetLoader', function() {

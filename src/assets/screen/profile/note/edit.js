@@ -1,4 +1,6 @@
-angular.module('app').lazy.ScreenFactory('screen-profile-note-edit', function($scope, $routeParams, $injector, FiveThreeOneCalculator) {
+angular.module('app').config(function(ScreenFactoryProvider) {
+	var ScreenFactory = ScreenFactoryProvider.$get();
+	ScreenFactory.build('screen-profile-note-edit', function($scope, $routeParams, $injector, FiveThreeOneCalculator) {
 	var PersonalRecordDao = $injector.get('PersonalRecordDao');
 	var MaxesDao = $injector.get('MaxesDao');
 
@@ -27,4 +29,6 @@ angular.module('app').lazy.ScreenFactory('screen-profile-note-edit', function($s
 		$scope.reptarget = FiveThreeOneCalculator.repgoal(liftMax, liftWeight);
 		$scope.estMax = FiveThreeOneCalculator.max(liftWeight, liftReps);
 	}, true);
+});
+
 });

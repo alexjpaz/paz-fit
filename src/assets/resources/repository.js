@@ -1,3 +1,9 @@
+/*
+ * Module: helper
+ *
+ */
+angular.module('resources',[])
+.config(function(){})
 angular.module('resources').config(function($provide) {
 
 	$provide.factory('DaoFactory', function($http, $q) {

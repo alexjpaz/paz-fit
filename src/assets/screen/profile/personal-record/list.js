@@ -1,4 +1,6 @@
-angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-list', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator, $location) {
+angular.module('app').config(function(ScreenFactoryProvider) {
+	var ScreenFactory = ScreenFactoryProvider.$get();
+	ScreenFactory.build('screen-profile-personal-record-list', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator, $location) {
 	$scope.date = $routeParams.date || moment().format('YYYY-MM-DD'); 
 	$scope.isNew = $routeParams.isNew;
 
@@ -34,4 +36,6 @@ angular.module('app').lazy.ScreenFactory('screen-profile-personal-record-list', 
 		pr.$highlight = true;
 		highlighedPr = pr;
 	});
+});
+
 });

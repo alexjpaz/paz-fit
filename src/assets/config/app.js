@@ -1,18 +1,4 @@
-/*
- * Module: helper
- *
- */
-angular.module('resources',[])
-.config(function(){})
-.run(function(){})
 
-/*
- * Module: helper
- *
- */
-angular.module('helper',[])
-.config(function(){})
-.run(function(){})
 
 angular.module('app',['ngResource','ngRoute','helper','resources'])
 .config(function($provide){
@@ -22,6 +8,7 @@ angular.module('app',['ngResource','ngRoute','helper','resources'])
 		$rootScope.ApplicationEnum = ApplicationEnum;
 	});
 })
+
 
 .config(function($provide, ComponentFactoryProvider, ScreenFactoryProvider) {
 

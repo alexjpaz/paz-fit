@@ -2,12 +2,27 @@
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-			<script src="bower_components/headjs/dist/1.0.0/head.min.js"></script>
+		<script src="bower_components/headjs/dist/1.0.0/head.min.js"></script>
+		<style>@import url('assets/style.css');</style>
 	</head>
 	<body>
 		<div> 
 			<div app-container></div>
 		</div>
-		<script src="assets/init.js?v=4"></script>
+		<script src="dist/lib.js?v=5"></script>
+		<script src="dist/app.js?v=5"></script>
+		<script src="dist/screen.js?v=5"></script>
+		<script>
+		try{
+			angular.bootstrap(document, ['app']);
+		} catch(e) {
+			if(/App Already Bootstrapped with this Element/.test(e.message)) {
+				console.log('WARNING: already bootstrapped');
+			} else {
+				console.error(e.message);
+				document.write('<pre>'+e+'</pre>');
+			}
+		}
+		</script>
 	</body>
 </html>
