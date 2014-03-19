@@ -10,9 +10,13 @@ module.exports = function (grunt) {
 						'../assets/helper/enum.js',
 						'../assets/helper/tools.js',
 						'../assets/config/routes.js',
-						'../assets/components/**/*.js',
+						'../assets/components/**/*.js'
 						],
 						dest: 'dist/app.js',
+				},
+				distcss: {
+					src: ['../assets/**/*.css'],
+					dest: 'dist/app.css',
 				},
 				screen: {
 					src: ['../assets/screen/**/*.js',
