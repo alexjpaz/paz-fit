@@ -29,8 +29,6 @@ module.exports = function (grunt) {
 						'bower_components/angular-resource/angular-resource.js',
 						'bower_components/angular-route/angular-route.js',
 						'bower_components/bootstrap/dist/js/bootstrap.min.js',
-						'bower_components/bootstrap/dist/js/bootstrap.min.js',
-						'bower_components/bootstrap/dist/js/bootstrap.min.js',
 						'bower_components/d3/d3.min.js',
 						'bower_components/momentjs/min/moment.min.js',
 						'../assets/lib/ydn.db-iswu-core-e-qry-dev.js'
