@@ -1,3 +1,6 @@
+import logging
+log = logging.getLogger(__name__)
+
 import math 
 from collections import OrderedDict
 
@@ -16,6 +19,14 @@ config = {
 	"bar": 45,
 	"bbb": 0.6,
 	"plates": [45,35,25,10,5,2.5],
+	"num_plates": { # at home setup
+		'45': 4,
+		'35' : 4,
+		'25' : 4,
+		'10' : 4,
+		'5'  : 8,
+		'2.5': 4
+	},
 	"method": {
 		"531": {
 			'3x5': [0.65,0.75,0.85],
@@ -43,13 +54,20 @@ def calculate_plates(weight=None):
 
 	for plate in config["plates"]:
 		number_of_plates = math.floor((weight / plate) / 2)
+
+		count = (config["num_plates"][str(plate)] / 2)
+
 		# decrement weight
-		if number_of_plates > 0 :
-			weight = (weight - (number_of_plates*plate*2))
+		if number_of_plates > count:
+			actual_number_of_plates = count
+		else:
+			print count
+			actual_number_of_plates = number_of_plates
 
 
+		weight = (weight - (actual_number_of_plates*plate*2))
 
-		oneside.append(number_of_plates)
+		oneside.append(actual_number_of_plates)
 
 	return oneside
 

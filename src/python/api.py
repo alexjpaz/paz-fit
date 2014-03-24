@@ -19,6 +19,7 @@ def write_html(response, result, templatepath):
 	template = JINJA_ENVIRONMENT.get_template(templatepath)
 	template_values = {
 		"table": result,
+		"config": utils.config,
 		"today": date.today()
 	}
 
