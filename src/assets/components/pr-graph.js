@@ -1,7 +1,7 @@
 angular.module('app').config(function(ComponentFactoryProvider) {
 	var ComponentFactory = ComponentFactoryProvider.$get();
 	ComponentFactory.build('pr-graph', {
-		scope: {'prGraph':'='},
+		scope: {'prGraph':'=', 'prGraphMaxes':'=', 'prGraphKey':'@'},
 		controller: function($scope, $element, d3, moment, FiveThreeOneCalculator) {
 
 			var el = {
@@ -27,6 +27,12 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 			$scope.translate = function(r) {
 				var x = sx(r.date);
 				var y = sy(r.max);
+				return "translate("+x+","+y+")";
+			};
+
+			$scope.translateMax = function(m) {
+				var x = sx(m.date);
+				var y = sy(m.max);
 				return "translate("+x+","+y+")";
 			};
 
@@ -64,6 +70,19 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 				sy.domain(d3.extent(records, extentY)).range([(el.height-el.my*2), 0]) 
 				$scope.records = records;
 				$scope.syTicks = sy.ticks(12);
+			}
+
+			function updateMaxes(data) {
+				maxes = [];
+
+				angular.forEach(data, function(m) {
+					maxes.push({
+						date: moment(m.date, "YYYY-MM-DD"),
+						max: m[$scope.prGraphKey]
+					});
+				});
+
+				$scope.maxes = maxes;
 			}
 
 			function updateDelta() {
@@ -106,6 +125,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 			$scope.delta = 0;
 
 			$scope.$watch('prGraph', update);
+			$scope.$watch('prGraphMaxes', updateMaxes);
 		}
 	});
 });

@@ -11,10 +11,19 @@
 	stroke: blue;
 }
 
+.pr-graph__maxes {
+	stroke: red;
+	stroke-width: 2px;
+}
+
 .pr-graph__data-point text {
 	cursor: pointer;
 	stroke: red;
 	visibility: hidden;
+}
+
+.pr-graph__data-point--maxes {
+	stroke: red;
 }
 
 .pr-graph__data-point:hover text {

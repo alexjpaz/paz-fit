@@ -13,5 +13,6 @@ angular.module('app').config(function(RouteBuilderProvider) {
 	RouteBuilder.when('/profile/note', 'profile/note/list');
 	RouteBuilder.when('/profile/note/edit', 'profile/note/edit');
 	RouteBuilder.when('/profile/day/:date', 'profile/day/view');
+	RouteBuilder.when('/profile/graph', 'profile/graph/index');
 });
 
