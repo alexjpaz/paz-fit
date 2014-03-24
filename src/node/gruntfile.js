@@ -47,7 +47,7 @@ module.exports = function (grunt) {
 				}
 			},
 			watch: {
-				js:  { files: 'js/*.js', tasks: [ 'uglify' ] },
+				js:  { files: '../assets/**', tasks: [ 'concat' ] },
 			}
 	});
 
