@@ -44,7 +44,7 @@
 
 	</svg>
 	<div class='pr-graph__html'>
-		<div class='pr-graph__left' ng-if='selectedNode'>{{ selectedNode.max | number:2 }},{{ selectedNode.date }}</div>
+		<div class='pr-graph__left' ng-if='selectedNode'>{{ selectedNode.max | number:2 }},{{ selectedNode.date.toDate() | date:'yyyy-MM-dd' }}</div>
 		<div class='pr-graph__delta'> &Delta; {{ delta | number:3 }}</div>
 	</div>
 </div>
