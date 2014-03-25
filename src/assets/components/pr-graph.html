@@ -11,7 +11,7 @@
 		<g transform='translate({{ el.mx }}, {{ el.my }})' >
 			<g class='pr-graph__g--press'>
 				<!-- Estimated Max -->
-				<g class='pr-graph__g pr-graph__g--em'>
+				<g class='pr-graph__g pr-graph__g--em' ng-hide='hide.es'>
 					<path class='pr-graph__path pr-graph__path--em' ng-attr-d='{{ line(records) || "M0 0 Z" }}' />
 
 					<!-- Estimated Max Nodes -->
@@ -24,7 +24,7 @@
 				</g>
 
 				<!-- Training Max -->
-				<g class='pr-graph__g pr-graph__g--tm'>
+				<g class='pr-graph__g pr-graph__g--tm' ng-hide='hide.tm'>
 					<path class='pr-graph__path pr-graph__path--tm' ng-attr-d='{{ lineStep(maxes) || "M0 0 Z" }}' />
 					<!-- Training Maxes -->
 					<g class='pr-graph__data-point pr-graph__data-point--maxes' 
@@ -48,6 +48,7 @@
 
 	</svg>
 	<div class='pr-graph__html'>
+		<pr-graph-dropdown></pr-graph-dropdown>
 		<div class='pr-graph__left' ng-if='selectedNode'>{{ selectedNode.max | number:2 }},{{ selectedNode.date.toDate() | date:'yyyy-MM-dd' }}</div>
 		<div class='pr-graph__delta'> &Delta; {{ delta | number:3 }}</div>
 	</div>

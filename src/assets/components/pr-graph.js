@@ -2,7 +2,19 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 	var ComponentFactory = ComponentFactoryProvider.$get();
 	ComponentFactory.build('pr-graph', {
 		scope: {'prGraph':'=', 'prGraphMaxes':'=', 'prGraphKey':'@'},
-		controller: function($scope, $element, d3, moment, FiveThreeOneCalculator) {
+		controller: function($scope, $element, d3, moment, FiveThreeOneCalculator, jQuery) {
+			$scope.hide = {};
+
+			var $el_drop = $element.find('pr-graph-x-dropdown');
+			$element.bind('contextmenu', function(ev) {
+				ev.preventDefault();
+				$scope.$broadcast('prGraphDropdown.menu', ev);
+				$scope.$apply();
+			});
+
+			$scope.$on('prGraphDropdown.toggle', function($event, type) {
+				$scope.hide[type] = !$scope.hide[type];
+			});
 
 			var el = {
 				width: $element.width(),

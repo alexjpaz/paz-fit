@@ -3,8 +3,11 @@
 	border: 1px solid #777;
 	background: #fff;
 	margin-bottom: 20px;
-	overflow: hidden;
 	position: relative;
+}
+
+.pr-graph svg {
+	overflow: hidden;
 }
 
 .pr-graph__g--press {
@@ -89,4 +92,11 @@
 	position: absolute;
 	left: 0;
 	bottom: 0;
+}
+
+.pr-graph__dropdown {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: red;
 }

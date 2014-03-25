@@ -1,6 +1,10 @@
 angular.module('app')
 .config(function($provide) {
 
+	$provide.factory('jQuery', function() {
+		return jQuery;
+	});
+
 	$provide.factory('d3', function() {
 		return d3;
 	});
