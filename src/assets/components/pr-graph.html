@@ -6,7 +6,7 @@
 				<path class='pr-graph__path' ng-attr-d='{{ line(records) || "M0 0 Z" }}' />
 
 				<!-- Training Max -->
-				<path class='pr-graph__path' ng-attr-d='{{ lineStep(maxes) || "M0 0 Z" }}' />
+				<path class='pr-graph__path pr-graph__path--tm' ng-attr-d='{{ lineStep(maxes) || "M0 0 Z" }}' />
 
 				<!-- Estimated Max Nodes -->
 				<g class='pr-graph__data-point' ng-repeat='r in records' 
