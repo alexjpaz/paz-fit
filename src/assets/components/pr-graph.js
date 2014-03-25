@@ -13,6 +13,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 			};
 
 			var records = [];
+			var maxes = [];
 
 			var sx = d3.time.scale()
 			var sy = d3.scale.linear()
@@ -21,6 +22,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 			// bind to angular scope
 			$scope.el = el;
 			$scope.records = records;
+			$scope.maxes = maxes;
 			$scope.sx = sx;
 			$scope.sy = sy;
 
@@ -83,10 +85,12 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 					});
 				});
 
-				maxes.push({
-					date: moment('9999'),
-					max: -1
-				});
+				if(maxes.length > 0) {
+					maxes.unshift({
+							date: moment('2015-12-01', "YYYY-MM-DD"),
+							max: maxes.slice(-1)[0].max
+					});
+				}
 
 				$scope.maxes = maxes;
 			}
