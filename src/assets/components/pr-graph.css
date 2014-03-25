@@ -22,10 +22,6 @@
 	visibility: hidden;
 }
 
-.pr-graph__data-point--maxes {
-	stroke: red;
-}
-
 .pr-graph__data-point:hover text {
 	visibility: visible;
 }
@@ -50,8 +46,12 @@
 	stroke-width: 4px;
 }
 
-.pr-graph__path--tm {
-	stroke: rgba(255, 0, 0, 0.2);
+.pr-graph__g--tm {
+	stroke: rgba(255, 112, 0, 0.69)
+}
+
+.pr-graph__g--em {
+	stroke: rgba(161, 19, 255, 0.72)
 }
 
 .pr-graph__xaxis {
