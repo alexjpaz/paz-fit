@@ -1,5 +1,13 @@
 <div class='pr-graph'>
 	<svg ng-attr-width='{{ el.width }}' ng-attr-height='{{ el.height }}'>
+		<!-- Axis -->
+		<g transform='translate(0, 5)'>
+			<g ng-repeat='t in syTicks' ng-attr-transform='translate(0, {{ sy(t) }})' class='pr-graph__xaxis'>
+				<line ng-attr-x2='{{ el.width }}'></line>
+				<text>{{ t }}</text>
+			</g>
+		</g>
+		<!-- DATA -->
 		<g transform='translate({{ el.mx }}, {{ el.my }})' >
 			<g class='pr-graph__g--press'>
 				<!-- Estimated Max -->
@@ -33,13 +41,7 @@
 			</g>
 		</g>
 
-		<!-- Axis -->
-		<g transform='translate(0, 5)'>
-			<g ng-repeat='t in syTicks' ng-attr-transform='translate(0, {{ sy(t) }})' class='pr-graph__xaxis'>
-				<line ng-attr-x2='{{ el.width }}'></line>
-				<text>{{ t }}</text>
-			</g>
-		</g>
+
 	</svg>
 	<div class='pr-graph__html'>
 		<div class='pr-graph__left' ng-if='selectedNode'>{{ selectedNode.max | number:2 }},{{ selectedNode.date }}</div>

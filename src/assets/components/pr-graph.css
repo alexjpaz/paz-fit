@@ -51,7 +51,7 @@
 }
 
 .pr-graph__path--tm {
-	stroke: red;
+	stroke: rgba(255, 0, 0, 0.2);
 }
 
 .pr-graph__xaxis {
