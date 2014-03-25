@@ -37,6 +37,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 			};
 
 			$scope.line = d3.svg.line().x(lx).y(ly).interpolate("monotone");
+			$scope.lineStep = d3.svg.line().x(lx).y(ly).interpolate("step-after");
 
 			function lx(r) {
 				return sx(r.date);

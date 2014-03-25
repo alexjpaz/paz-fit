@@ -2,20 +2,28 @@
 	<svg ng-attr-width='{{ el.width }}' ng-attr-height='{{ el.height }}'>
 		<g transform='translate({{ el.mx }}, {{ el.my }})' >
 			<g class='pr-graph__g--press'>
+				<!-- Estimated Max -->
 				<path class='pr-graph__path' ng-attr-d='{{ line(records) || "M0 0 Z" }}' />
+
+				<!-- Training Max -->
+				<path class='pr-graph__path' ng-attr-d='{{ lineStep(maxes) || "M0 0 Z" }}' />
+
+				<!-- Estimated Max Nodes -->
 				<g class='pr-graph__data-point' ng-repeat='r in records' 
 						ng-click='select($event, r)'
 						ng-mouseover='highlight(r)' 
 						ng-attr-transform='{{ translate(r) }}')>
 					<line class='pr-graph__dot' ng-class='{"pr-graph__dot--hl": r.r.$highlight}' />
 				</g>
+
+				<!-- Highlighted Nodes -->
 				<g ng-repeat='n in selectedNodes track by $index'
 						ng-click='deselect($event, n)'
 						ng-attr-transform='{{ translate(n) }}'>
 					<line class='pr-graph__dot pr-graph__dot--selected' />
 				</g>
 
-				<!-- Maxes -->
+				<!-- Training Maxes -->
 				<g class='pr-graph__data-point pr-graph__data-point--maxes' 
 						ng-repeat='m in maxes' 
 						ng-attr-transform='{{ translateMax(m) }}')
@@ -24,6 +32,8 @@
 				</g>
 			</g>
 		</g>
+
+		<!-- Axis -->
 		<g transform='translate(0, 5)'>
 			<g ng-repeat='t in syTicks' ng-attr-transform='translate(0, {{ sy(t) }})' class='pr-graph__xaxis'>
 				<line ng-attr-x2='{{ el.width }}'></line>
@@ -32,7 +42,7 @@
 		</g>
 	</svg>
 	<div class='pr-graph__html'>
-		<div class='pr-graph__left'>{{ selectedNode.max }},{{ selectedNode.date }}</div>
+		<div class='pr-graph__left' ng-if='selectedNode'>{{ selectedNode.max | number:2 }},{{ selectedNode.date }}</div>
 		<div class='pr-graph__delta'> &Delta; {{ delta | number:3 }}</div>
 	</div>
 </div>
