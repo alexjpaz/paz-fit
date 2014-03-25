@@ -10,17 +10,16 @@
 					<line class='pr-graph__dot' ng-class='{"pr-graph__dot--hl": r.r.$highlight}' />
 				</g>
 				<g ng-repeat='n in selectedNodes track by $index'
-					ng-click='deselect($event, n)'
-					ng-attr-transform='{{ translate(n) }}'>
+						ng-click='deselect($event, n)'
+						ng-attr-transform='{{ translate(n) }}'>
 					<line class='pr-graph__dot pr-graph__dot--selected' />
 				</g>
 
-				<g ng-repeat='m in maxes' 
-					ng-attr-transform='{{ translateMax(m) }}'>
-					<line class='pr-graph__maxes' x2='100' />
-				</g>
-				<g class='pr-graph__data-point pr-graph__data-point--maxes' ng-repeat='m in maxes' 
-						ng-attr-transform='{{ translateMax(m) }}')>
+				<!-- Maxes -->
+				<g class='pr-graph__data-point pr-graph__data-point--maxes' 
+						ng-repeat='m in maxes' 
+						ng-attr-transform='{{ translateMax(m) }}')
+						ng-mouseover='highlight(m)' >
 					<line class='pr-graph__dot' ng-class='{"pr-graph__dot--hl": r.r.$highlight}' />
 				</g>
 			</g>
