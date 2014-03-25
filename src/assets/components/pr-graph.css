@@ -54,13 +54,33 @@
 	stroke: rgba(0,0,0,0.15);
 }
 
+.pr-graph__xaxis text {
+	stroke: rgba(0,0,0,0.15);
+
+}
+
 .pr-graph__delta {
 	position: absolute;
 	right: 0;
 	bottom: 0;
+	background: rgba(209, 81, 209, 1);
+	border-radius: 4px;
+	padding: 2px;
+	line-height: 12px;
+	font-size: 13px;
+	color: #fff;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.56);
 }
 
 .pr-graph__left {
+	background: rgba(209, 81, 209, 1);
+	border-radius: 4px;
+	padding: 2px;
+	line-height: 12px;
+	font-size: 13px;
+	color: #fff;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.56);
+
 	position: absolute;
 	left: 0;
 	bottom: 0;
