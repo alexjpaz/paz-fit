@@ -95,6 +95,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 
 			$scope.highlight = function(r) {
 				$scope.$emit('screen-profile-personal-record-list__highlight-pr', r.r);
+				$scope.selectedNode = r.max;
 			};
 
 			$scope.select = function($event, r) {

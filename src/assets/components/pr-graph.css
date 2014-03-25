@@ -59,3 +59,9 @@
 	right: 0;
 	bottom: 0;
 }
+
+.pr-graph__left {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
