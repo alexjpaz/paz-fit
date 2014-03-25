@@ -47,11 +47,11 @@
 }
 
 .pr-graph__g--tm {
-	stroke: rgba(255, 112, 0, 0.69)
+	stroke: rgb(184, 33, 33);
 }
 
 .pr-graph__g--em {
-	stroke: rgba(161, 19, 255, 0.72)
+	stroke: rgba(0, 0, 170, 0.7)
 }
 
 .pr-graph__xaxis {
