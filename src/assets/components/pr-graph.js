@@ -116,6 +116,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 			}
 
 			$scope.highlight = function(r) {
+				$scope.$emit('prGraph.highlight', r);
 				$scope.$emit('screen-profile-personal-record-list__highlight-pr', r.r);
 				$scope.selectedNode = r;
 			};
@@ -129,6 +130,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 					}
 				}
 				updateDelta();
+				$scope.$emit('prGraph.select', r, clickEvent);
 			};
 
 			$scope.deselect = function($event, r) {
@@ -142,6 +144,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 					$scope.selectedNodes = [];
 				}
 				updateDelta();
+				$scope.$emit('prGraph.deselect', r, clickEvent);
 			};
 
 			$scope.selectedNodes = [];
