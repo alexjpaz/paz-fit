@@ -83,6 +83,11 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 					});
 				});
 
+				maxes.push({
+					date: moment('9999'),
+					max: -1
+				});
+
 				$scope.maxes = maxes;
 			}
 
