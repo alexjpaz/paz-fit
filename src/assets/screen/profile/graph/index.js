@@ -1,6 +1,6 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
-	ScreenFactory.build('screen-profile-graph-index', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator, $location, MaxesDao) {
+	ScreenFactory.build('screen-profile-graph-index', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator, $location, MaxesDao, moment) {
 		var each = angular.forEach;
 
 		$scope.records = {};
@@ -30,6 +30,11 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 
 		$scope.getMaxes({
 			'ordering': '-date'
+		});
+
+		$scope.$on('prGraph.select', function($event, r, clickEvent) {
+			$location.path('/profile/personal-record/edit')
+			$location.search('date', moment(r.date).format('YYYY-MM-DD'));
 		});
 	});
 

@@ -122,6 +122,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 			};
 
 			$scope.select = function($event, r) {
+				$scope.$emit('prGraph.select', r, $event);
 				if($event.ctrlKey) { // TODO: probably should remove this as tablets dont have a ctrl button :(
 					if($scope.selectedNodes.length == 2) {
 						$scope.selectedNodes[1] = r;
@@ -130,7 +131,6 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 					}
 				}
 				updateDelta();
-				$scope.$emit('prGraph.select', r, clickEvent);
 			};
 
 			$scope.deselect = function($event, r) {
