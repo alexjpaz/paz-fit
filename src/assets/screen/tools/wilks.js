@@ -38,7 +38,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 
 		angular.forEach(params, function(param) {
 			var lift = params.feq_lift;
-			PersonalRecordDao.find(params).then(function(records) {
+			PersonalRecordDao.find(param).then(function(records) {
 				var r = records[0];
 				var max = FiveThreeOneCalculator.max(r.weight, r.reps);
 				$scope.m.lift[lift] = max;
