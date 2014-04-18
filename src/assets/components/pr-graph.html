@@ -49,7 +49,7 @@
 	</svg>
 	<pr-graph-dropdown></pr-graph-dropdown>
 	<div class='pr-graph__html' ng-hide='hide.extra'>
-		<div class='pr-graph__left' ng-if='selectedNode'>{{ selectedNode.max | number:2 }},{{ selectedNode.date.toDate() | date:'yyyy-MM-dd' }}</div>
+		<div class='pr-graph__left' ng-if='selectedNode'>{{ selectedNode.weight }}x{{ selectedNode.reps}}~{{ selectedNode.max | number:2 }} on {{ selectedNode.date.toDate() | date:'yyyy-MM-dd' }}</div>
 		<div class='pr-graph__delta'> &Delta; {{ delta | number:3 }}</div>
 	</div>
 </div>

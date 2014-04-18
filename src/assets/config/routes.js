@@ -4,6 +4,7 @@ angular.module('app').config(function(RouteBuilderProvider) {
 	RouteBuilder.when('/dashboard', 'dashboard');
 	RouteBuilder.when('/tools/plate-calculator', 'tools/plate-calculator');
 	RouteBuilder.when('/tools/rep-goal', 'tools/rep-goal');
+	RouteBuilder.when('/tools/wilks', 'tools/wilks');
 	RouteBuilder.when('/profile', 'profile/main');
 	RouteBuilder.when('/profile/personal-record', 'profile/personal-record/list');
 	RouteBuilder.when('/profile/personal-record/add', 'profile/personal-record/add');
