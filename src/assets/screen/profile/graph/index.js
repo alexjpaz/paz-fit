@@ -20,7 +20,6 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		$scope.getMaxes = function(params) {
 			MaxesDao.find(params).then(function(maxes) {
 				$scope.maxes = maxes;
-				console.debug(maxes);
 			});
 		};
 

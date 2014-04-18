@@ -3,7 +3,12 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 	ScreenFactory.build('screen-tools-wilks', function($scope, FiveThreeOneCalculator, PersonalRecordDao) {
 		$scope.m = {
 			weight: 900,
-			bodyweight: 200
+			bodyweight: 200,
+			lift: {
+				bench: 0,
+				squat: 0,
+				deadlift: 0
+			}
 		};
 
 		function update() {
@@ -39,9 +44,13 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		angular.forEach(params, function(param) {
 			var lift = params.feq_lift;
 			PersonalRecordDao.find(param).then(function(records) {
+				if(angular.isUndefined(records)) return;
+				console.debug('apaz',records);
 				var r = records[0];
-				var max = FiveThreeOneCalculator.max(r.weight, r.reps);
-				$scope.m.lift[lift] = max;
+				if(r) {
+					var max = FiveThreeOneCalculator.max(r.weight, r.reps);
+					$scope.m.lift[r.lift] = max;
+				}
 			});
 		});
 
@@ -49,6 +58,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		$scope.$watch('m.weight', update);
 		$scope.$watch('m.bodyweight', update);
 		$scope.$watch('m.lift', function(l) {
+			if(angular.isUndefined(l)) return;
 			$scope.m.weight = (l.deadlift+l.bench+l.squat);
 		}, true);
 	});
