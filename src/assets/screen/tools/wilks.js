@@ -1,7 +1,10 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
 	ScreenFactory.build('screen-tools-wilks', function($scope, FiveThreeOneCalculator, PersonalRecordDao) {
-		$scope.m = {};
+		$scope.m = {
+			weight: 900,
+			bodyweight: 200
+		};
 
 		function update() {
 			$scope.m.output = wilks($scope.m.weight, $scope.m.bodyweight);
