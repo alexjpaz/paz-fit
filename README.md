@@ -1,7 +1,6 @@
-PazFit
-========
+# PazFit
 
-Personal fitness tracking, because why not.
+## Personal fitness tracking, because why not.
 
 * Pretty graphs to show progress
 * Plate calculator to show what plates to put on the bar for a given weight
