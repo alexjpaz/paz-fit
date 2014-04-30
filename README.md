@@ -2,6 +2,9 @@ PazFit
 ========
 
 * Pretty graphs to show progress
+* Plate calculator to show what plates to put on the bar for a given weight
+* Estimated max from weight and reps
+* Estimated Wilks points
 
 Technologies
 =======
