@@ -13,6 +13,5 @@
 * AngularJs 1.1.x
 * Google App Engine / [appengine-rest-server](https://code.google.com/p/appengine-rest-server/)
 * Drone.io (as a CI server)
-* 
 
 [DEMO](ajpaz531.appspot.com)
