@@ -15,4 +15,4 @@
 * Drone.io (as a CI server)
 
 #### Other resources
-[DEMO](ajpaz531.appspot.com)
+[DEMO](http://ajpaz531.appspot.com)
