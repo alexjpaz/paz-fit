@@ -24,6 +24,9 @@
 				<span ng-if='saveStatus == "saved"'>Saved</span>
 				<span ng-if='saveStatus == "error"'>Error</span>
 			</button>
+
+			<a class='btn btn-sm btn-default' ng-if='uriEncodedMaxes' ng-href='api/table/531?{{uriEncodedMaxes}}'>531 Cycle</a>
+			<a class='btn btn-sm btn-default' ng-if='uriEncodedMaxes' ng-href='api/table/gzcl?{{uriEncodedMaxes}}'>GZCL Method</a>
 		</form>
 	</div>
 </div>

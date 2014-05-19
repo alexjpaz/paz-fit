@@ -10,6 +10,14 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		MaxesDao.find(params).then(function(records) {
 			var Maxes = records[0];
 
+			$scope.uriEncodedMaxes = $.param({
+					p: Maxes.press,
+					d: Maxes.deadlift,
+					b: Maxes.bench,
+					s: Maxes.squat
+			});
+
+
 			if(angular.isDefined(Maxes)) {
 				$scope.record = Maxes;
 			} else {
