@@ -1,0 +1,40 @@
+<div class='screen-watcher-index'>
+	<h1 class='page-header'>Watchers</h1>
+	<table class='table table-bordered'>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Endpoint</th>
+				<th>Path</th>
+				<th>Mode</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat='w in watchers track by w.name'>
+				<td>
+					<a href='#/watcher/{{ w.name }}'>{{ w.name }}</a>
+				</td>
+				<td>
+					<span class='label label-primary'>{{ w.sourceEndpointName }}</span>
+					<span class='label label-success'>{{ w.destinationEndpointName }}</span>
+				</td>
+				<td><small>{{ w.path }}</small></td>
+				<td>
+					<span class='label label-info'>{{ w.mode }}</span>
+				</td>
+				<td>
+					<span class='label label-default'>{{ w.status }}</span>
+					<small class='text-muted'>{{ w.lastUpdateTime | fromNow }}</small>
+
+					<div class='pull-right btn-group'>
+						<a title='Restart Watcher' class='btn btn-default btn-xs' ng-click='refresh(w)' ng-disabled='w.status !== "ERROR"'><i fa='refresh'></i></a>
+						<a href='#/watcher/{{ w.name }}/request' class='btn btn-default btn-xs'><i fa='envelope'></i></a>
+						<a href='#/watcher/{{ w.name }}' class='btn btn-default btn-xs'><i fa='pencil'></i></a>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<a href='#/watcher/new' class='btn btn-default'><i fa='plus'></i> Create Watcher</a>
+</div>

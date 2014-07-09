@@ -1,0 +1,230 @@
+#!/bin/bash
+#
+#	/etc/rc.d/init.d/ngBioBroker
+#
+#	Northrop Grumman's BioBroker provides a web UI and exposes 
+#	web service SOAP endpoints for the exchange of biometric data
+#	amongst parties.
+#	
+# Version: 1.0
+#
+#
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+prog="NG BioBroker Simulator - Regional Partner B"
+SERVICE_NAME="ngBioBrokerSimulatorB"
+SERVICE_CONFIG=/etc/sysconfig/$SERVICE_NAME
+JAR_NAME=biobrokerSimulator.jar
+PROG_HOME=${PROG_HOME:-"/opt/ngBioBroker"}
+PROG_JAR=$(ls $PROG_HOME/$JAR_NAME)
+PROG_LOG=$PROG_HOME/logs/biobrokerSimulatorB.log
+JAVA_OPTS=" -Dorg.slf4j.simpleLogger.defaultLogLevel=INFO -Dlog4j.rootLogger=INFO -Dxms256m -Dxmx512m"
+JAR_OPTS=" --server.port=8091 --spring.datasource.url=jdbc:hsqldb:file:$PROG_HOME/dbPartnerB --logging.file=$PROG_LOG -s SOURCE_PARTNER_B -d DEST_PARTNER_B -w /home/biobroker/DIR_B"
+
+# define the java jvm
+[ ! -z $JAVA_HOME ] && JAVA=$JAVA_HOME/bin/java || JAVA=java
+
+# define the user under which BioBroker will run, or use 'RUNASIS' to run as the current user
+PROG_USER=${PROG_USER:-"biobroker"}
+
+# pull in the sysconfig
+#. $SERVICE_CONFIG
+
+# set the pid file location
+PROG_PID_DIR=/var/run/$SERVICE_NAME
+PROG_PIDFILE=${PROG_PIDFILE:-"$PROG_PID_DIR/$SERVICE_NAME-B.pid"}
+
+# Determine how system should be started
+[ $(whoami) = $PROG_USER ] && RUNAS="" || RUNAS="su - $PROG_USER -c "
+
+function status {
+
+        RUNNING_PID=0
+
+        if [ -d $PROG_PID_DIR ] && [ -f "$PROG_PIDFILE" ]
+        then
+                TMP_PID=`cat $PROG_PIDFILE`
+                TMP_PID_CHECK=`ps -p $TMP_PID -o pid=`
+                if [ "$TMP_PID_CHECK" != "" ]
+                then
+                        RUNNING_PID=$TMP_PID
+                        return 0  # core core is running
+                else
+                        return 1  # core core is stopped, but pid file exists
+                fi
+        fi
+
+        return 3 # core core is stopped
+
+}
+
+function stop {
+
+        status
+        if [ $? -ne 0 ]
+        then
+                echo "$prog is already stopped"
+                echo
+                rm -f $PROG_PIDFILE 2> /dev/null
+                return 0
+        else
+                echo -n "Stopping $prog"
+                kill $RUNNING_PID
+
+                RUNNING_PID=1
+                COUNT=0
+                while [ $RUNNING_PID -ne 0 ] && [ $COUNT -lt 40 ]
+                do
+                        sleep 1
+                        status
+                        echo -n .
+                        COUNT=$[$COUNT+1]
+                        if [ $COUNT -eq 39 ]
+                        then
+                                [ "$BOOTUP" != "verbose" -a -z "${LSB:-}" ] && echo_failure
+                                echo "Shutdown has failed to stop $prog."
+                                echo "Use \"$0 force-stop\" to force a shutdown."
+                                echo
+                                exit $?
+                        fi
+                done
+        fi
+
+        status
+        if [ $? -ne 3 ]
+        then
+                [ "$BOOTUP" != "verbose" -a -z "${LSB:-}" ] && echo_success
+                echo
+                rm -f $PROG_PIDFILE
+        else
+                [ "$BOOTUP" != "verbose" -a -z "${LSB:-}" ] && echo_failure
+                echo
+        fi
+        return $RETVAL
+
+}
+
+function force_stop {
+
+        status
+        if [ $? -ne 0 ]
+        then 
+                echo "$prog is already stopped"
+                echo
+                rm -f $PROG_PIDFILE 2>/dev/null
+                return 0
+        else
+                echo -n "Forcibly stopping $prog"
+                kill -9 $RUNNING_PID 2>/dev/null
+                sleep 1
+        fi
+
+        status
+        if [ $? -ne 0 ]; then
+                [ "$BOOTUP" != "verbose" -a -z "${LSB:-}" ] && echo_success
+                rm -f $PROG_PIDFILE
+                echo
+        else
+                [ "$BOOTUP" != "verbose" -a -z "${LSB:-}" ] && echo_failure
+                echo
+        fi
+        return $RETVAL
+
+}
+
+function start {
+
+	if [ ! -d $PROG_PID_DIR ]; then
+		mkdir $PROG_PID_DIR
+		chown $PROG_USER:$PROG_USER $PROG_PID_DIR
+	fi
+
+        status
+        if [ $? -eq 0 ]
+        then
+                echo "$prog (pid $RUNNING_PID) is already running."
+                echo
+                exit 100
+        fi
+
+        echo -n "Starting $prog: "
+        START_CMD="$JAVA $JAVA_OPTS -jar $PROG_JAR $JAR_OPTS"
+
+        if [ "$RUNAS" ]
+        then
+                $RUNAS "$START_CMD > $PROG_LOG 2>&1 & echo \$! > $PROG_PIDFILE"
+        else
+                cd $PROG_HOME
+                $START_CMD > /dev/null 2>&1 &
+                echo $! > $PROG_PIDFILE
+        fi
+
+        COUNT=0
+        while [ $COUNT -lt 40 ]
+        do
+                if [ "$(netstat -an | grep 8091)" ] 
+                then
+                        break
+                fi
+                sleep 1
+                echo -n .
+                COUNT=$[$COUNT+1]
+        done
+
+        status
+        if [ $? -eq 0 ]
+        then
+                [ "$BOOTUP" != "verbose" -a -z "${LSB:-}" ] && echo_success
+                echo
+        else
+                [ "$BOOTUP" != "verbose" -a -z "${LSB:-}" ] && echo_failure
+                rm -f $PROG_PIDFILE
+                echo
+        fi
+}
+
+
+case "$1" in
+start)
+        start
+        echo
+        ;;
+stop)
+        stop
+        echo
+        ;;
+force-stop)
+        force_stop
+        echo
+        ;;
+restart)
+        stop && sleep 5 && start
+        echo
+        ;;
+force-restart)
+        force_stop && sleep 5 && start
+        echo
+        ;;
+status)
+        status
+        RET=$?
+        if [ $RET -eq 0 ]
+        then
+                echo "$prog (pid $RUNNING_PID) is running"
+        elif [ $RET -eq 1 ]; then
+                echo "$prog is dead but pidfile ($PROG_PIDFILE) exists"
+        else
+                echo "$prog is not running."
+        fi
+        echo
+        exit $RET
+        ;;
+*)
+        echo "usage: $0 (start|stop|force-stop|restart|force-restart|status|help)"
+        echo
+esac
+
+exit $RETVAL
+

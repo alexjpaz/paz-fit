@@ -1,0 +1,71 @@
+.overlay {
+	position: fixed;
+	top:0;
+	left: 0;
+	z-index: 9000;
+}
+
+.overlay__container {
+	position: relative;
+	z-index: 9001;
+}
+
+.overlay__component--free {}
+
+.overlay__component--top-left,
+.overlay__component--top-middle,
+.overlay__component--top-right,
+.overlay__component--bottom-left,
+.overlay__component--bottom-middle,
+.overlay__component--bottom-right
+{
+	position: fixed;
+}
+
+.overlay__component--top-left,
+.overlay__component--top-middle,
+.overlay__component--top-right
+{
+	top: 16px;
+}
+
+.overlay__component--bottom-left,
+.overlay__component--bottom-middle,
+.overlay__component--bottom-right
+{
+	bottom: 16px;
+}
+
+.overlay__component--top-middle,
+.overlay__component--bottom-middle {
+	left: 50%;
+	margin-left: -400px;
+	width: 800px;
+}
+
+.overlay__component--top-left,
+.overlay__component--bottom-left {
+	left: 0;
+	margin-left: 16px;
+}
+
+.overlay__component--top-right,
+.overlay__component--bottom-right {
+	right: 0;
+	margin-right: 16px;
+}
+
+
+.overlay .alert {
+	margin-bottom: 0;
+}
+
+.overlay .alert > .alert {
+	margin-top: 20px;
+}
+
+.overlay--shaded {
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.5);
+}

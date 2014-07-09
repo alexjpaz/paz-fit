@@ -1,0 +1,72 @@
+.app-web .block {
+	border: 1px solid #ccc;
+	border-top: 0;
+	background: #fff;
+	margin: 1em 0em;
+}
+
+.app-portal .block,
+.app-embedded .block {
+	margin-bottom: 16px;
+	border: 1px solid #517B94;
+}
+
+.app-web .block--nav {
+	border: 1px solid #ccc;
+	background: #fff;
+	margin: 1em 0em;
+}
+
+.app-web .block__body {
+	margin: 1em;
+	min-height: .25em;
+}
+
+.app-portal .block__body,
+.app-embedded .block__body {
+	margin: 1em;
+	min-height: .25em;
+}
+
+.app-web .block__header {
+	border-left: 0;
+	border-right: 0;
+	border-radius: 0;
+	
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	min-height: 3em;
+	background: fafafa;
+}
+
+.app-web .block__title {
+	float: left;
+	padding-top: 5px;
+	padding-left: 8px;
+	font-size: 16px;
+}
+
+.app-portal .block__title,
+.app-embedded .block__title {
+	padding-top: 5px;
+	padding-left: 8px;
+	color: #01375D;
+}
+
+.app-portal .block__header,
+.app-embedded .block__header {
+	border-left: 0;
+	border-right: 0;
+	padding-bottom: 6px;
+
+	background: #799FB9;
+}
+
+.app-web .block__header > div {
+	padding-top: 10px;
+}
+
+.block__header .btn-group {
+	margin-top: 0 !important;
+}
+

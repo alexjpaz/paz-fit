@@ -1,0 +1,11 @@
+<div class='block PContentBorder'>
+	<div class='block__header clearfix'>
+		<div class='block__title'>{{ blockTitle || cBlock }}</div>
+		<div class='pull-right' ng-if='blockHelp'>
+			<div class="btn-group">
+				<a href='#/help/{{helpTopic}}' class="btn btn-mini"><i class='icon-question'></i></a>
+			</div>
+		</div>
+	</div>
+	<div class='block__body clearfix' ng-transclude></div>
+</div>

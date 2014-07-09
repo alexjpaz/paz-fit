@@ -1,0 +1,17 @@
+<div class='screen-login'>
+	<div block block-title='Login Portlet'>
+		<div ng-if'!isLoggedIn'>
+			<p>Welcome {{ username }}</p>
+			<a href ng-click='logout()'>Logout</a>
+		</div>
+		<form ng-if='isLoggedIn'>
+			<div class='form-control'>
+				<label>Username</label> <input type='text' ng-model='creds.username' />
+			</div>
+			<div class='form-control'>
+				<label>Password</label> <input type='password' ng-model='creds.password' />
+			</div>
+			<button>Login</button>
+		</form>
+	</div>
+</div>

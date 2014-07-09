@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<link rel="shortcut icon" href="../../assets/ico/favicon.ico" />
+
+<title>BioBroker Simulator</title>
+
+<!-- Bootstrap core CSS -->
+<link href='webjars/bootstrap/3.1.1/css/bootstrap.min.css' rel='stylesheet' />
+<link href='webjars/font-awesome/4.1.0/css/font-awesome.css' rel='stylesheet' />
+
+<!-- Custom styles for this template -->
+<link href="public/dashboard.css" rel="stylesheet" />
+<link href="wro/app.css" rel="stylesheet" />
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="webjars/html5shiv/3.7.0/html5shiv.min.js"></script>
+      <script src="webjars/respond/1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+	<div overlay=''></div> 
+	<div layout-nav-bar=''></div>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar">
+				<div layout-sidebar=''></div>
+			</div>
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<div ng-view=''></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="webjars/angular-file-upload/1.4.0/angular-file-upload-shim.min.js"></script> 
+	<script src="webjars/jquery/1.11.1/jquery.min.js"></script>
+	<script src='webjars/momentjs/2.7.0/min/moment.min.js'></script>
+	<script src="webjars/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+	<script src="webjars/angularjs/1.2.17/angular.js"></script>
+	<script src="webjars/angularjs/1.2.17/angular-route.js"></script>
+	<script src="webjars/angularjs/1.2.17/angular-resource.js"></script>
+	<script src="webjars/angular-file-upload/1.4.0/angular-file-upload.min.js"></script> 
+
+	<script src="wro/app.js?minimize=false"></script>
+
+	<script th:inline="javascript">
+			/*<![CDATA[*/
+				angular.module('app').constant('OverrideAppConfig', {
+					"contextPath": /*[[${#httpServletRequest.contextPath}]]*/,
+					"restUrl": /*[[${#httpServletRequest.contextPath}]]*/,
+					"applicationName": "Biobroker Simulator",
+					"developerMode": true,
+					"bioBrokerUrl": "http://localhost:8080",
+					//"html5mode": true
+				});
+			/*]]>*/
+	</script>
+	<script src='assets/config/bootstrap.js'></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+.dashboard-event-status {
+}
+
+.dashboard-event-status .label {
+	background: #999;
+}
+
+.dashboard-event-status .label--ERROR { background: #E24646; }
+.dashboard-event-status .label--ERROR i.fa:before { content: '\f071'; }
+
+.dashboard-event-status .label--INITIALIZATION { background: #00B; }
+.dashboard-event-status .label--INITIALIZATION i.fa:before { content: '\f135'; }
+
+.dashboard-event-status .label--DATABASE_SEARCH_REQUEST_FROM_BIO_BROKER { background: #00A; }
+.dashboard-event-status .label--DATABASE_SEARCH_REQUEST_FROM_BIO_BROKER i.fa:before { content: '\f1c0'; }
+
+.dashboard-event-status .label--REQUEST_TO_BIO_BROKER { background: #0A0; }
+.dashboard-event-status .label--REQUEST_TO_BIO_BROKER i.fa:before { content: '\f061'; }
+
+.dashboard-event-status .label--RESPONSE_FROM_BIO_BROKER { background: #0B0; }
+.dashboard-event-status .label--RESPONSE_FROM_BIO_BROKER i.fa:before { content: '\f060'; }
+
+

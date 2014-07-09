@@ -1,0 +1,32 @@
+.screen-dashboard {
+
+}
+
+
+.screen-dashboard__top  {
+	margin-bottom: 30px;
+}
+
+.screen-dashboard__top p {
+	background: rgba(0, 0, 0, 0);
+	border: 1px solid rgba(0,0,0,0.1);
+	display: block;
+	padding: 11px;
+	margin-bottom: 1px;
+
+	border: 1px solid rgba(0,0,0,0.1);
+	padding: 8px;
+	margin-bottom: 4px;
+}
+
+.screen-dashboard__top p b {
+	float: right;
+}
+
+.screen-dashboard__tx-c-action {
+	width: 80%;
+}
+
+.screen-dashboard__status {
+	text-align: center;
+}
