@@ -1,1 +1,0 @@
-mvn spring-boot:run -Ddebug -Dsimulator.sourceEndpointName=SOURCE_AU_IMMI -Dspring.thymeleaf.cache=false -Djavax.xml.accessExternalSchema=all -Dserver.port=8090 

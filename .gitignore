@@ -2,3 +2,6 @@ node_modules
 venv/
 bower_components/
 src/node/dist
+.classpath
+.project
+.settings
