@@ -58,6 +58,17 @@ class GZCLTableHandler(webapp2.RequestHandler):
 
 		write_html(self.response, result, 'gzcl.html')
 
+class TemplateHandler(webapp2.RequestHandler):
+    def get(self, template=None):
+		self.response.headers['Content-Type'] = 'text/html'
+		template = JINJA_ENVIRONMENT.get_template(template+'.html')
+		template_values = {
+			"request": self.request,
+			"response": self.response,
+			"utils": utils
+		}
+		self.response.write(template.render(template_values))
+
 class PlateHandler(webapp2.RequestHandler):
     def get(self):
 		weight = int(self.request.get('weight'))
@@ -79,11 +90,10 @@ class GoalHandler(webapp2.RequestHandler):
 
 		write_json(self.response, result)
 
-app = webapp2.WSGIApplication([
+app = webapp2.WSGIApplication(routes=[
 	('/api/authenticate', DerpAuthenticationHandler),
-	('/api/table/531', TableMonthHandler),
-	('/api/table/gzcl', GZCLTableHandler),
 	('/api/plates', PlateHandler),
-	('/api/goal', PlateHandler)
+	('/api/goal', PlateHandler),
+	webapp2.Route('/api/table/<template>', handler=TemplateHandler, name='home')
 ], debug=True)
 

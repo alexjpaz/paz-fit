@@ -46,26 +46,25 @@ class WeekTable(object):
 	bench=0
 	squat=0
 
-def calculate_plates(weight=None):
+def calculate_plates(weight=None, sides=2):
 	oneside = []
 	number_of_plates = 0
 
 	weight = weight - config["bar"]
 
 	for plate in config["plates"]:
-		number_of_plates = math.floor((weight / plate) / 2)
+		number_of_plates = math.floor((weight / plate) / sides)
 
-		count = (config["num_plates"][str(plate)] / 2)
+		count = (config["num_plates"][str(plate)] / sides)
 
 		# decrement weight
 		if number_of_plates > count:
 			actual_number_of_plates = count
 		else:
-			print count
 			actual_number_of_plates = number_of_plates
 
 
-		weight = (weight - (actual_number_of_plates*plate*2))
+		weight = (weight - (actual_number_of_plates*plate*sides))
 
 		oneside.append(actual_number_of_plates)
 
@@ -76,9 +75,12 @@ def generate_month(maxes, method):
 	month = OrderedDict()
 
 	for mm in maxes:
-		month[mm] = {}
+		lift = mm[0]
+		lift_max = int(mm[1])
+		
+		month[lift_max] = {}
 		for week in config['method'][method].keys():
-			month[mm][week] = generate_week(mm, week, method)
+			month[lift_max][week] = generate_week(lift_max, week, method)
 
 	return month
 
