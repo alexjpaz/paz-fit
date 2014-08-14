@@ -16,7 +16,7 @@
     "url": "https://github.com/alexjpaz/ajpaz531/issues"
   },
   "dependencies": {
-    "bower": "~1.2.8",
+    "bower": "~1.3.4",
     "uglify-js": "~2.4.6",
     "grunt-cli": "~0.1.11",
     "grunt-contrib-uglify": "~0.2.4",
