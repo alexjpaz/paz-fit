@@ -20,7 +20,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			angular.forEach(records, function(record) {
 				var event  = new Object();
 				event.label = record.lift+" "+record.weight+"x"+record.reps; 
-				event.href = '#/profile/personal-record/edit?date='+record.date;
+				event.href = '#/profile/personal-record/edit?key='+record.key;
 				event.type = 'PersonalRecord';
 				$scope.events.put(record.date, event);
 			});
@@ -30,7 +30,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			angular.forEach(records, function(record) {
 				var event  = new Object();
 				event.label = [record.press, record.deadlift, record.bench, record.squat].join('-');
-				event.href = '#/profile/maxes/edit?date='+record.date;
+				event.href = '#/profile/maxes/edit?key='+record.key;
 				event.type = 'Maxes';
 				$scope.events.put(record.date, event);
 			});

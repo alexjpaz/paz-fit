@@ -87,6 +87,27 @@ angular.module('resources').config(function($provide) {
 			return deffered.promise;
 		};
 
+		Dao.prototype.remove = function(entity) {
+			var deffered = $q.defer();
+			var httpConfig = {
+				url: '/rest/'+this.storeName+'/'+entity.key,
+				method: 'DELETE',
+			};
+
+			var httpPromise = this._http(httpConfig);
+
+			var deffered = $q.defer();
+
+			var _this = this;
+			httpPromise.then(function(response) {
+				console.debug('DELETE', response);
+				deffered.resolve(records);
+			});
+
+			return deffered.promise;
+
+		};
+
 		function DaoFactory(storeName, extendo) {
 			var dao = new Dao(storeName);
 			return dao; 

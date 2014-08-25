@@ -1,12 +1,12 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
-	ScreenFactory.build('screen-profile-maxes-edit', function($scope, $injector, $routeParams, $location, Database, DatastoreSync) {
+	ScreenFactory.build('screen-profile-maxes-edit', function($scope, $injector, $routeParams, $location, Database, DatastoreSync, $window) {
 	var MaxesDao = $injector.get('MaxesDao');
 
-	$scope.date = $routeParams.date; 
+	$scope.key = $routeParams.key; 
 
 	$scope.getMaxes  = function() {
-		var params = {"feq_date": $scope.date};
+		var params = {"feq_key": $scope.key};
 		MaxesDao.find(params).then(function(records) {
 			var Maxes = records[0];
 
@@ -39,6 +39,20 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		}, function() {
 			$scope.saveStatus = 'error';
 		});
+	};
+
+	$scope.remove = function() {
+		var remove = $window.confirm('Are you sure you want to remove this Max?');
+		if(!remove) return;
+
+		var promise = MaxesDao.remove($scope.record);
+
+		promise.then(function() {
+			$location.path('/');
+		}, function() {
+			$window.alert('error deleting');
+		});
+
 	};
 
 	$scope.getMaxes();

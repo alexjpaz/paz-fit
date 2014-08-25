@@ -1,14 +1,11 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
-	ScreenFactory.build('screen-profile-maxes-list', function($scope, $routeParams, Database, DatastoreSync) {
+	ScreenFactory.build('screen-profile-maxes-list', function($scope, $routeParams, MaxesDao) {
 	$scope.date = $routeParams.date; 
 
 	$scope.getMaxesList  = function() {
-		var promise = Database.values('Maxes');
-		
-		promise.done(function(records) {
-			$scope.maxesList = records;
-			$scope.$apply();
+		MaxesDao.find().then(function(maxes) {
+			$scope.maxes = maxes;
 		});
 	};
 

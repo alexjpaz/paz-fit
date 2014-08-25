@@ -1,7 +1,7 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
 	ScreenFactory.build('screen-profile-personal-record-edit', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator) {
-	$scope.date = $routeParams.date || moment().format('YYYY-MM-DD'); 
+		$scope.key = $routeParams.key;
 	$scope.isNew = $routeParams.isNew;
 
 	$scope.dto = {
@@ -10,7 +10,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 	};
 
 	$scope.getPersonalRecord  = function() {
-		var params = {"feq_date": $scope.date};
+		var params = {"feq_key": $scope.key};
 		PersonalRecordDao.find(params).then(function(records) {
 			var PersonalRecord = records[0];
 
@@ -41,6 +41,19 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			$scope.saveStatus = 'error';
 		});
 
+	};
+
+	$scope.remove = function() {
+		var remove = $window.confirm('Are you sure you want to remove this Entity?');
+		if(!remove) return;
+
+		var promise = PersonalRecordDao.remove($scope.dto);
+
+		promise.then(function() {
+			$location.path('/');
+		}, function() {
+			$window.alert('error deleting');
+		});
 	};
 
 	if(!$scope.isNew) {
