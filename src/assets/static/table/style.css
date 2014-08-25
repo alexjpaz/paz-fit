@@ -107,4 +107,8 @@
 
 .td--check {
 	color: #eee;
+	height: 40px;
+	line-height: 40px;
+	border-top-color: #000 !important;
+	border-right-color: #000 !important;
 }
