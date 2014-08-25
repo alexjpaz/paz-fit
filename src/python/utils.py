@@ -2,6 +2,7 @@ import logging
 log = logging.getLogger(__name__)
 
 import math 
+import json
 from collections import OrderedDict
 
 class Config(object):
@@ -45,6 +46,13 @@ class WeekTable(object):
 	deadlift=0
 	bench=0
 	squat=0
+
+def parse_sides(param):
+	sides = 2
+	if '_1' in param: 
+		sides = 1
+
+	return sides
 
 def calculate_plates(weight=None, sides=2):
 	oneside = []
@@ -98,3 +106,6 @@ def generate_week(max_weight=0, week=None, method='531'):
 
 def goal(max_weight, weight):
 	return int(round(37-36*weight/(max_weight+5)));
+
+def get_pretty_print(json_object):
+    return json.dumps(json_object, sort_keys=True, indent=4, separators=(',', ': '))

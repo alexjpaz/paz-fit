@@ -97,5 +97,10 @@
 
 }
 
+.lift__check {
+	border: 1px black solid;
+	height: 16px;
+}
+
 .page--gzcl .lift__set--87_5 {color: white; font-weight: bold}
 .page--gzcl .lift__set--65_0 { background: #aaa; color: white; font-weight: bold}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% autoescape true %}
+{% set acc = request.GET.items() %}
+{% set bbb = utils.config.bbb %}
+<html>
+  <head>
+    <title>531 Month Cycle Accessory Checklist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/components/plate-table.css" rel="stylesheet">
+    <link href="/assets/static/table/style.css" rel="stylesheet">
+  </head>
+  <body>
+	  <div class='container page--531'>
+		  {% for lift, weight in acc %}
+		  {% set sides = utils.parse_sides(lift) %}
+		  {% set plates = utils.calculate_plates(500, sides) %}
+		  <div class='row lift lift--{{loop.index}}'>
+			  {% for week in ['3x5','3x3','531','DL'] %}
+			  <div class='col-md-3 lift__week lift__week--{{week}}'>
+				  <div class='lift__week-table'>
+					  <table class='table'>
+						  <thead>
+							  <tr class='lift__week-header'>
+								  <th colspan='8'>{{ lift }}</th>
+							  </tr>
+							  <tr class='lift__week-legend'>
+								  <td>%</td>
+								  <td>W</td>
+								  <td>45</td>
+								  <td>35</td>
+								  <td>25</td>
+								  <td>10</td>
+								  <td>5</td>
+								  <td>2&frac12;</td>
+							  </tr>
+						  </thead>
+						  <tbody>
+							  <tr class='lift__set lift_set--100'>
+								  <td>{{ (bbb*100) | int }}</td>
+								  <td>{{ weight }}</td>
+								  {% for plate in plates %}
+								  <td>{{ plate | int }}</td>
+								  {% endfor %}
+							  </tr>
+						  </tbody>
+					  </table>
+				  </div>
+			  </div>
+			  {% endfor %}
+		  </div>
+		  {% endfor %}
+	  </div>
+  </body>
+</html>
+{% endautoescape %}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% autoescape true %}
+{% set acc = request.GET.items() %}
+{% set bbb = utils.config.bbb %}
+<html>
+  <head>
+    <title>531 Month Cycle Accessory Checklist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/components/plate-table.css" rel="stylesheet">
+    <link href="/assets/static/table/style.css" rel="stylesheet">
+  </head>
+  <body>
+	  <div class='container page--531'>
+		  {% for lift in [1,2,3,4] %}
+		  <div class='row lift lift--{{loop.index}}'>
+			  {% for week in ['3x5','3x3','531','DL'] %}
+			  <div class='col-md-3 lift__week lift__week--{{week}}'>
+				  <div class='lift__week-table'>
+					  <table class='table'>
+						  <tbody>
+							  {% for set in [1,2] %}
+							  <tr>
+								  {% for set in [1,2,3,4,5,6,7] %}
+								  <td>&#10004;</td>
+								  {% endfor %}
+							  </tr>
+							  {% endfor %}
+						  </tbody>
+					  </table>
+				  </div>
+				  <div class='lift__week-table'>
+					  <table class='table'>
+						  <tbody>
+							  {% for set in [1,2] %}
+							  <tr>
+								  {% for set in [1,2,3,4,5] %}
+								  <td>&#10004;</td>
+								  {% endfor %}
+							  </tr>
+							  {% endfor %}
+						  </tbody>
+					  </table>
+				  </div>
+			  </div>
+				  {% endfor %}
+			  {{ month }}
+		  </div>
+		  {% endfor %}
+	  </div>
+  </body>
+</html>
+{% endautoescape %}
