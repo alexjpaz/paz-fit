@@ -29,6 +29,7 @@ angular.module('app',['ngResource','ngRoute','helper','resources'])
 	ScreenFactory.build('screen-dashboard', function() {
 	});
 })
+
 .config(function($provide, SchemaManagerProvider) {
 	SchemaManagerProvider.addStore({
 		name: '_metadata',
@@ -82,4 +83,10 @@ angular.module('app',['ngResource','ngRoute','helper','resources'])
 })
 .run(function($injector) {
 	$injector.get('App');
+})
+
+.run(function($http, $rootScope) {
+	$http.get('/api/env').then(function(rsp) {
+		$rootScope.env = rsp.data;
+	});
 });

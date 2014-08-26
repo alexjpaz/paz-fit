@@ -4,6 +4,8 @@ import json
 import logging
 import jinja2 
 import os
+import datetime
+
 from google.appengine.api import users
 
 from datetime import date
@@ -86,14 +88,27 @@ class GoalHandler(webapp2.RequestHandler):
 class GoalHandler(webapp2.RequestHandler):
     def get(self):
 		result = {}
-
-
 		write_json(self.response, result)
+
+class EnvironmentHandler(webapp2.RequestHandler):
+    def get(self):
+
+	version_id = self.request.environ["CURRENT_VERSION_ID"].split('.')[1]
+	timestamp = long(version_id)  / pow(2,28)
+	derp = datetime.datetime.fromtimestamp(timestamp).strftime("%d/%m/%y %X")
+
+	result = {
+		"versionId": version_id,
+		"timestamp": timestamp,
+		"derp": derp
+	}
+	write_json(self.response, result)
 
 app = webapp2.WSGIApplication(routes=[
 	('/api/authenticate', DerpAuthenticationHandler),
 	('/api/plates', PlateHandler),
 	('/api/goal', PlateHandler),
+	('/api/env', EnvironmentHandler),
 	webapp2.Route('/api/table/<template>', handler=TemplateHandler, name='home')
 ], debug=True)
 
