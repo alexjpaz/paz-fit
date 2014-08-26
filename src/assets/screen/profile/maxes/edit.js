@@ -62,6 +62,21 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 
 		if(angular.isDefined($scope.key)) {
 			$scope.getMaxes();
+		} else {
+			var params = {"fle_date": $routeParams.date, "ordering": "-date"};
+			MaxesDao.find(params).then(function(records) {
+				var Maxes = records[0];
+
+				var record = angular.copy(Maxes);
+
+				delete record.key;
+				record.date = $routeParams.date;
+				record.press += 5;
+				record.deadlift += 10;
+				record.bench += 5;
+				record.squat += 10;
+				$scope.record = record;
+			});
 		}
 	});
 });
