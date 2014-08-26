@@ -9,6 +9,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		$scope.getMaxes  = function() {
 			var params = {"feq_key": $scope.key};
 			MaxesDao.find(params).then(function(records) {
+				$scope.$loading = false;
 				var Maxes = records[0];
 
 				$scope.uriEncodedMaxes = $.param({
@@ -60,11 +61,13 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 
 		};
 
+		$scope.$loading = true;
 		if(angular.isDefined($scope.key)) {
 			$scope.getMaxes();
 		} else {
 			var params = {"fle_date": $routeParams.date, "ordering": "-date"};
 			MaxesDao.find(params).then(function(records) {
+			$scope.$loading = false;
 				var Maxes = records[0];
 
 				var record = angular.copy(Maxes);
