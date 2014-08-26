@@ -51,6 +51,7 @@ def parse_sides(param):
 	sides = 2
 	if '_1' in param: 
 		sides = 1
+		config["bar"] = 0
 
 	return sides
 

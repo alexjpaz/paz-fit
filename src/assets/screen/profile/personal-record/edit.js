@@ -1,64 +1,69 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
-	ScreenFactory.build('screen-profile-personal-record-edit', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator, $window) {
+	ScreenFactory.build('screen-profile-personal-record-edit', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator, $window, $location) {
 		$scope.key = $routeParams.key;
-	$scope.isNew = $routeParams.isNew;
+		$scope.isNew = $routeParams.isNew;
+		var r = $scope.r = $routeParams;
 
-	$scope.dto = {
-		date: $scope.date,
-		reps: 5
-	};
+		$scope.dto = {
+			date: $scope.date,
+			reps: 5
+		};
 
-	$scope.getPersonalRecord  = function() {
-		var params = {"feq_key": $scope.key};
-		PersonalRecordDao.find(params).then(function(records) {
-			var PersonalRecord = records[0];
+		$scope.getPersonalRecord  = function() {
+			var params = {"feq_key": $scope.key};
+			PersonalRecordDao.find(params).then(function(records) {
+				var PersonalRecord = records[0];
 
-			if(angular.isDefined(PersonalRecord)) {
-				$scope.dto = PersonalRecord;
-			} else {
-				$scope.record = {
-					date: $scope.date
-				};
+				if(angular.isDefined(PersonalRecord)) {
+					$scope.dto = PersonalRecord;
+				} else {
+					$scope.record = {
+						date: $scope.date
+					};
+				}
+			});
+		};
+
+		$scope.$watch('dto', function(dto) {
+			$scope.estMax = FiveThreeOneCalculator.max(dto.weight, dto.reps);
+		}, true);
+
+		$scope.saveChanges = function() {
+			if(angular.isUndefined($scope.dto.key)) {
+				$scope.dto.date = $scope.r.date;
 			}
-		});
-	};
 
-	$scope.$watch('dto', function(dto) {
-		$scope.estMax = FiveThreeOneCalculator.max(dto.weight, dto.reps);
-	}, true);
+			var promise = PersonalRecordDao.save($scope.dto);
 
-	$scope.saveChanges = function() {
-		var promise = PersonalRecordDao.save($scope.dto);
+			$scope.saveStatus = null;
 
-		$scope.saveStatus = null;
+			$scope.saveStatus = 'saving';
 
-		$scope.saveStatus = 'saving';
+			promise.then(function() {
+				$scope.saveStatus = 'saved';
+			}, function() {
+				$scope.saveStatus = 'error';
+			});
 
-		promise.then(function() {
-			$scope.saveStatus = 'saved';
-		}, function() {
-			$scope.saveStatus = 'error';
-		});
+		};
 
-	};
+		$scope.remove = function() {
+			var remove = $window.confirm('Are you sure you want to remove this Entity?');
+			if(!remove) return;
 
-	$scope.remove = function() {
-		var remove = $window.confirm('Are you sure you want to remove this Entity?');
-		if(!remove) return;
+			var promise = PersonalRecordDao.remove($scope.dto);
 
-		var promise = PersonalRecordDao.remove($scope.dto);
+			promise.then(function() {
+				$location.path('/');
+			}, function() {
+				$window.alert('error deleting');
+			});
+		};
 
-		promise.then(function() {
-			$location.path('/');
-		}, function() {
-			$window.alert('error deleting');
-		});
-	};
-
-	if(!$scope.isNew) {
-		$scope.getPersonalRecord();
-	}
-});
+		if(angular.isDefined($scope.key)) {
+			$scope.getPersonalRecord();
+		}
+	});
 
 });

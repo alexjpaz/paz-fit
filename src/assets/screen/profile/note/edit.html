@@ -17,5 +17,9 @@
 		</tbody>
 	</table>
 	<a href='#/profile/personal-record/edit?date={{ date }}' class='btn btn-primary'>Add Personal Record</a>
-	<a href='#/profile/maxes/edit?date={{ date }}' class='btn btn-primary'>Set Maxes</a>
+
+	<span ng-switch on='mdl.Maxes.key == null'>
+		<a ng-switch-when='true' href='#/profile/maxes/edit?key={{ mdl.Maxes.key }}' class='btn btn-primary'>Set Maxes</a>
+		<a ng-switch-default href='#/profile/maxes/edit?date={{ date }}' class='btn btn-primary'>Add Maxes</a>
+	</span>
 </div>

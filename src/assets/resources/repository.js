@@ -100,8 +100,7 @@ angular.module('resources').config(function($provide) {
 
 			var _this = this;
 			httpPromise.then(function(response) {
-				console.debug('DELETE', response);
-				deffered.resolve(records);
+				deffered.resolve(response);
 			});
 
 			return deffered.promise;
