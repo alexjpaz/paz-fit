@@ -1,6 +1,8 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
 	ScreenFactory.build('screen-profile-note-edit', function($scope, $routeParams, $injector, FiveThreeOneCalculator) {
+		$scope.loaded = {};
+
 		var PersonalRecordDao = $injector.get('PersonalRecordDao');
 		var MaxesDao = $injector.get('MaxesDao');
 
@@ -11,11 +13,13 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		var params = {"feq_date": $scope.date,"ordering": '-date'};
 		PersonalRecordDao.find(params).then(function(records) {
 			$scope.mdl.PersonalRecord = records[0];
+			$scope.loaded.pr = true;
 		});
 
 		params = {"fle_date": $scope.date,"ordering": '-date'};
 		MaxesDao.find(params).then(function(records) {
 			$scope.mdl.Maxes = records[0];
+			$scope.loaded.maxes = true;
 		});
 
 		$scope.$watch('mdl', function() {

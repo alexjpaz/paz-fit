@@ -3,7 +3,6 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 	ScreenFactory.build('screen-profile-personal-record-edit', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator, $window, $location) {
 		$scope.key = $routeParams.key;
 		$scope.isNew = $routeParams.isNew;
-		$scope.$loading = true;
 		var r = $scope.r = $routeParams;
 
 		$scope.dto = {
@@ -64,6 +63,8 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		};
 
 		if(angular.isDefined($scope.key)) {
+			$scope.$loading = true;
+
 			$scope.getPersonalRecord();
 		}
 	});
