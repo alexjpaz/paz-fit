@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+  <head>
+    <title>531 Month Cycle Accessory Checklist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/components/plate-table.css" rel="stylesheet">
+    <link href="/assets/static/table/style.css" rel="stylesheet">
+  </head>
+  <body>
+	  <div class='container'>
+
+		  {% for template in tmpl.list_templates() %}
+		  <a href='{{template}}' class='btn btn-info btn-block btn-lg'>{{ template }}</a>
+		  {% endfor %}
+
+	  </div>
+  </body>
+</html>
+{% endautoescape %}

@@ -1,5 +1,6 @@
 import webapp2
 import utils
+import tmpl
 import json
 import logging
 import jinja2 
@@ -61,13 +62,14 @@ class GZCLTableHandler(webapp2.RequestHandler):
 		write_html(self.response, result, 'gzcl.html')
 
 class TemplateHandler(webapp2.RequestHandler):
-    def get(self, template=None):
+    def get(self, template="index"):
 		self.response.headers['Content-Type'] = 'text/html'
 		template = JINJA_ENVIRONMENT.get_template(template+'.html')
 		template_values = {
 			"request": self.request,
 			"response": self.response,
-			"utils": utils
+			"utils": utils,
+			"tmpl": tmpl
 		}
 		self.response.write(template.render(template_values))
 
@@ -109,6 +111,8 @@ app = webapp2.WSGIApplication(routes=[
 	('/api/plates', PlateHandler),
 	('/api/goal', PlateHandler),
 	('/api/env', EnvironmentHandler),
-	webapp2.Route('/api/table/<template>', handler=TemplateHandler, name='home')
+	webapp2.Route('/api/table/<template>', handler=TemplateHandler, name='home'),
+	webapp2.Route(r'/api/table/', handler=TemplateHandler, name='home2'),
+	webapp2.Route(r'/api/table', handler=TemplateHandler, name='home3')
 ], debug=True)
 
