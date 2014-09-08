@@ -10,6 +10,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			reps: 5
 		};
 
+
 		$scope.getPersonalRecord  = function() {
 			var params = {"feq_key": $scope.key};
 			PersonalRecordDao.find(params).then(function(records) {
@@ -64,8 +65,19 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 
 		if(angular.isDefined($scope.key)) {
 			$scope.$loading = true;
-
 			$scope.getPersonalRecord();
+		} else {
+			console.debug(moment)
+			var date = moment(r.date,'YYYY-MM-DD');
+
+			if(!date.isValid()) {
+				date = moment();
+			}
+
+			formattedDate = date.format('YYYY-MM-DD');
+
+			$scope.dto.date = formattedDate;
+			$scope.date = formattedDate;
 		}
 	});
 
