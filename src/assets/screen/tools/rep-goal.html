@@ -3,16 +3,26 @@
 			<form role='form'>
 				<div class='form-group'>
 					<label for='weight'>Max</label>
-					<input type='number' ng-model='mdl.max' placeholder='Max' class='form-control' />
-					<div class='rep-goal__from btn-group'>
-						<button class='btn btn-default btn-xs' ng-click='useMax(lift)' ng-repeat='lift in ApplicationEnum.LIFT'>{{ lift }}</button>
+					<div class='input-group'>
+						<input type='number' ng-model='mdl.max' placeholder='Max' class='form-control' />
+						<div class='input-group-btn'>
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class='fa fa-copy'></span></button>
+							<ul class="dropdown-menu" role="menu">
+								<li ng-repeat='lift in ApplicationEnum.LIFT'><a href ng-click='useMax(lift)'>{{ lift }}</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 				<div class='form-group'>
 					<label for='weight'>Weight</label>
-					<input type='number' ng-model='mdl.weight' placeholder='Weight (lbs)' class='form-control' />
-					<div class='rep-goal__use-fraction btn-group'>
-						<button class='btn btn-default btn-xs' ng-click='useFraction(fraction)' ng-repeat='fraction in ApplicationEnum.FRACTION'>{{ fraction * 100 }}%</button>
+					<div class='input-group'>
+						<input type='number' ng-model='mdl.weight' placeholder='Weight (lbs)' class='form-control' />
+						<div class='input-group-btn'>
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">%</button>
+							<ul class="dropdown-menu" role="menu">
+								<li ng-repeat='fraction in ApplicationEnum.FRACTION'><a href ng-click='useFraction(fraction)'>{{ fraction * 100 }}%</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 				<hr />
@@ -22,4 +32,4 @@
 				</div>
 			</form>
 		</div>
-</div>
+	</div>
