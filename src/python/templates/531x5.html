@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 {% autoescape true %}
 {% set table = utils.generate_month(request.GET.items(),'531') %}
-{% set p = request.get('p') | int() %}
+{% set p = request.get('p1') | int() %}
 {% set d = request.get('d') | int() %}
 {% set b = request.get('b') | int() %}
 {% set s = request.get('s') | int() %}
-{% set startDate = request.get('startDate') %}
 <html>
   <head>
     <title>531 Month Cycle</title>
@@ -16,8 +15,9 @@
   </head>
   <body>
 	  <div class='container page--531'>
+		  <h3>531 Single Lift for 1/4 Year</h3>
 		  {% for lift, month in table.iteritems() %}
-		  <div class='row lift lift--{{loop.index}}'>
+		  <div class='row lift lift--default'>
 			  <div class='lift__month'>
 				  {% for week in ['3x5','3x3','531','DL'] %}
 				  <div class='col-md-3 lift__week lift__week--{{week}}'>
@@ -56,15 +56,6 @@
 			  </div>
 		  </div>
 		  {% endfor %}
-		  <div class='date'>
-			  <span>{{ startDate }}</span>
-		  </div>
-		  <div class='' contenteditable>CLICK TO ADD NOTE</div>
-		  <div class='date'>
-			  <a href='{{ "531?p=%s&d=%s&b=%s&s=%s" | format(*(p-5,d-10,b-5,s-10)) }}' class='btn btn-primary btn-xs'>Prev</a>
-			  <span>{{ today }}</span>
-			  <a href='{{ "531?p=%s&d=%s&b=%s&s=%s" | format(*(p+5,d+10,b+5,s+10)) }}' class='btn btn-primary btn-xs'>Next</a>
-		  </div>
 	  </div>
   </body>
 </html>

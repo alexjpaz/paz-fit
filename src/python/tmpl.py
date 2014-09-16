@@ -9,3 +9,4 @@ def list_templates():
 		templates.append(f)
 
 	return templates
+
