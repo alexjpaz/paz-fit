@@ -9,7 +9,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		$scope.$watch('m.fiveMonths', function(fiveMonths) {
 			var lifts = {};
 
-			for(var i=0;i<5;i++) {
+			for(var i=0;i<fiveMonths.cycles;i++) {
 				lifts['lift'+i] = fiveMonths.max+(fiveMonths.increment*i);
 			}
 
