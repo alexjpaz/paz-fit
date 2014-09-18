@@ -23,11 +23,10 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		});
 	};
 
-	$scope.isEffectiveMax = function(mx) {
+	$scope.isFutureMax = function(mx) {
 		var flag = false;
 
 		flag = momentToday.isBefore(mx.date);
-		console.debug(mx.date, momentToday.format('YYYY-MM-DD'), flag);
 
 		return flag;
 	};
