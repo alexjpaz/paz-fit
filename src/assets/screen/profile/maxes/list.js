@@ -1,6 +1,10 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
 	ScreenFactory.build('screen-profile-maxes-list', function($scope, $routeParams, MaxesDao, $http) {
+	$scope. v = {
+		today: moment().format('YYYY-MM-DD')
+	};
+
 	$scope.date = $routeParams.date; 
 
 	$scope.getMaxesList  = function() {

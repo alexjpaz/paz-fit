@@ -11,7 +11,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat='mx in maxes'>
+			<tr ng-repeat='mx in maxes' ng-click='{"info": mx.date === v.today}'>
 				<td>{{ mx.date }}</td>
 				<td>{{ mx.press }}</td>
 				<td>{{ mx.deadlift }}</td>
