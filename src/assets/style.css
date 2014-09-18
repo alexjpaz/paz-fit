@@ -1,2 +1,7 @@
 @import url(/bower_components/bootstrap/dist/css/bootstrap.min.css);
 @import url(/bower_components/font-awesome/css/font-awesome.css);
+
+.input--noborder {
+	background: none;
+	border: none;
+}

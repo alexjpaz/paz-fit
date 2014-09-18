@@ -65,6 +65,8 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		if(angular.isDefined($scope.key)) {
 			$scope.getMaxes();
 		} else {
+			$scope.record = {};
+			$scope.record.date = $routeParams.date;
 			var params = {"fle_date": $routeParams.date, "ordering": "-date"};
 			MaxesDao.find(params).then(function(records) {
 			$scope.$loading = false;

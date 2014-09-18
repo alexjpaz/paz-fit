@@ -5,7 +5,7 @@
 	<div ng-hide='$loading'>
 		<h4>
 			<span class='text-success' ng-show='record.key == null'>NEW </span>
-			<span>Maxes {{ r.date }}</span>
+			<span ng-click='v.editDate = true'>Maxes for <input type='date' ng-model='record.date' class='input--noborder' /></span>
 		</h4>
 		<div>
 			<form name='MaxForm'>

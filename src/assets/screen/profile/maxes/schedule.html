@@ -1,0 +1,56 @@
+<div class='screen-profile-maxes-schedule'>
+	<h4>Maxes Schedule</h4>
+
+	<form>
+
+		<div class='form-group'>
+			<label>Start Date</label>
+			<input type='date' ng-model='v.startDate' class='form-control' />
+		</div>
+		<div class='form-group'>
+			<label>Press</label>
+			<div max-lift-input='v.press'></div>
+		</div>
+		<div class='form-group'>
+			<label>Deadlift</label>
+			<div max-lift-input='v.deadlift'></div>
+		</div>
+		<div class='form-group'>
+			<label>Bench</label>
+			<div max-lift-input='v.bench'></div>
+		</div>
+		<div class='form-group'>
+			<label>Squat</label>
+			<div max-lift-input='v.squat'></div>
+		</div>
+		<div class='form-group'>
+			<label>Cycles</label>
+			<input type='number' ng-model='v.cycles' class='form-control' />
+		</div>
+	</form>
+
+	<table class='table table-bordered'>
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Press</th>
+				<th>Deadlift</th>
+				<th>Bench</th>
+				<th>Squat</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat='mx in projectedMaxes'>
+				<td>{{ mx.date }}</td>
+				<td>{{ mx.press }}</td>
+				<td>{{ mx.deadlift }}</td>
+				<td>{{ mx.bench }}</td>
+				<td>{{ mx.squat }}</td>
+			</tr>
+		</tbody>
+	</table>
+	<button ng-click='save(projectedMaxes)' class='btn btn-primary'>Save Schedule</button>
+
+	<div class='alert' ng-show='request.error'>Error Saving</div>
+	<div class='alert alert-success' ng-show='request.success'>Saved!</div>
+</div>
