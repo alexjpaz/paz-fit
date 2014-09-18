@@ -10,6 +10,8 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 
 		$scope.mdl = {};
 
+		$scope.calc = {};
+
 		var params = {"feq_date": $scope.date,"ordering": '-date'};
 		PersonalRecordDao.find(params).then(function(records) {
 			$scope.mdl.PersonalRecord = records[0];
@@ -22,6 +24,22 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			$scope.loaded.maxes = true;
 		});
 
+		$scope.FiveThreeOneCalculator = FiveThreeOneCalculator;
+
+		$scope.classCompare = function(actual, target) {
+			var clazz = "warning";
+
+			if(actual > target) {
+				clazz = "success";
+			}
+
+			if(actual < target) {
+				clazz = "danger";
+			}
+
+			return clazz;
+		};
+
 		$scope.$watch('mdl', function() {
 			if(angular.isUndefined($scope.mdl.PersonalRecord)) return;
 			if(angular.isUndefined($scope.mdl.Maxes)) return;
@@ -30,8 +48,16 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			var liftWeight = $scope.mdl.PersonalRecord.weight;
 			var liftReps = $scope.mdl.PersonalRecord.reps;
 
-			$scope.reptarget = FiveThreeOneCalculator.repgoal(liftMax, liftWeight);
-			$scope.estMax = FiveThreeOneCalculator.max(liftWeight, liftReps);
+			var calc = {};
+			calc.liftMax =  liftMax;
+			calc.liftWeight = liftWeight;
+			calc.liftReps = liftReps;
+			calc.reptarget = FiveThreeOneCalculator.repgoal(liftMax, liftWeight);
+			calc.actualEstMax = FiveThreeOneCalculator.max(liftWeight, liftReps);
+			calc.targetEstMax = FiveThreeOneCalculator.max(liftWeight, calc.reptarget);
+
+			$scope.calc = calc;
+
 		}, true);
 	});
 
