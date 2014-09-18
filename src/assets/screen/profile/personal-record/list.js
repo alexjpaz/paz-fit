@@ -1,6 +1,6 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
-	ScreenFactory.build('screen-profile-personal-record-list', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator, $location) {
+	ScreenFactory.build('screen-profile-personal-record-list', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator, $location, MaxesDao) {
 	$scope.date = $routeParams.date || moment().format('YYYY-MM-DD'); 
 	$scope.isNew = $routeParams.isNew;
 
@@ -19,6 +19,11 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		PersonalRecordDao.find(params).then(function(records) {
 			$scope.records = records;
 		});
+
+		MaxesDao.find(params).then(function(maxes) {
+			$scope.maxes = maxes;
+		});
+		
 	};
 
 	$scope.$watch('params', $scope.getPersonalRecords, true);
