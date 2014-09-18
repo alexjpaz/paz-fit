@@ -5,3 +5,10 @@
 	background: none;
 	border: none;
 }
+
+.label--maxes::before { content: "M"; padding-right: 4px }
+.label--maxes { background: rgb(200,0,0); }
+
+
+.label--delta::before { content: "\0394";  padding-right: 4px}
+.label--delta { background: rgb(128,0,128); }

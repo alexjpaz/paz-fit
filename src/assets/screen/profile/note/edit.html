@@ -12,9 +12,16 @@
 		</thead>
 		<tr>
 				<td>{{ mdl.PersonalRecord.lift }} - {{ mdl.PersonalRecord.weight }}</td>
-				<td>{{ mdl.PersonalRecord.reps }} ({{  calc.actualEstMax | number:3 }})</td>
-				<td ng-class='classCompare(mdl.PersonalRecord.reps, calc.reptarget)'>{{ calc.reptarget }} ({{ calc.targetEstMax | number:3 }})</td>
-				<td ng-class='classCompare(calc.actualEstMax, calc.liftMax)'>{{ calc.liftMax  }}</td>
+				<td>{{ mdl.PersonalRecord.reps }} <span class='label label--maxes'>{{ calc.actualEstMax | number:3 }}</span></td>
+				<td>
+					<span>{{ calc.reptarget }}</span>
+					<!--<span class='label label--maxes'>{{ calc.targetEstMax | number:3 }}</span>-->
+					<span class='label label--delta'>{{ calc.actualEstMax - calc.targetEstMax | number:0 }}</span>
+				</td>
+				<td>
+					<span>{{ calc.liftMax }}</span>
+					<span class='label label--delta'>{{ calc.actualEstMax - calc.liftMax | number:0 }}</span>
+				</td>
 			</tr>
 		</tbody>
 	</table>
