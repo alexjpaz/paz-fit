@@ -1,4 +1,6 @@
 <div class='screen-profile-maxes-list'>
+	<a href='#/profile/maxes/schedule' class='btn btn-default'>Schedule Cycles</a>
+	<hr />
 	<table class='table table-bordered'>
 		<thead>
 			<tr>
@@ -11,7 +13,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat='mx in maxes' ng-click='{"info": mx.date === v.today}'>
+			<tr ng-repeat='mx in maxes' ng-class='{"danger": !isEffectiveMax(mx) }' >
 				<td>{{ mx.date }}</td>
 				<td>{{ mx.press }}</td>
 				<td>{{ mx.deadlift }}</td>
@@ -23,5 +25,4 @@
 			</tr>
 		</tbody>
 	</table>
-	<a href='#/profile/maxes/schedule'>Schedule Cycles</a>
 </div>
