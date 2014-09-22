@@ -2,6 +2,10 @@
 	background-color: #fafafa;
 }
 
+.app-container__nav  {
+	padding: 0;
+}
+
 body {
 
 	background-color: #fafafa;

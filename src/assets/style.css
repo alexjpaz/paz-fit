@@ -12,3 +12,11 @@
 
 .label--delta::before { content: "\0394";  padding-right: 4px}
 .label--delta { background: rgb(128,0,128); }
+
+.entity__action--remove::before {
+	display: inline-block;
+	font-family: "FontAwesome";
+	content: '\f057';
+	padding-right: 8px;
+	color: rgb(128,0,0);
+}

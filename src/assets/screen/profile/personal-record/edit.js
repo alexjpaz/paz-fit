@@ -1,6 +1,6 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
-	ScreenFactory.build('screen-profile-personal-record-edit', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator, $window, $location) {
+	ScreenFactory.build('screen-profile-personal-record-edit', function($scope, $routeParams, PersonalRecordDao, MaxesDao, moment, FiveThreeOneCalculator, $window, $location) {
 		$scope.key = $routeParams.key;
 		$scope.isNew = $routeParams.isNew;
 		var r = $scope.r = $routeParams;

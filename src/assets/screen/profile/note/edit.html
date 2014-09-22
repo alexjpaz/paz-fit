@@ -1,43 +1,42 @@
 <div class='screen-profile-note-edit'>
-	
 	<h1 ng-hide='loaded.pr && loaded.maxes'><i class='fa fa-spinner fa-spin'></i></h1>
-	<table class='table table-bordered' ng-true='loaded.pr && loaded.maxes'>
-		<thead>
+	<div ng-show='loaded.pr && loaded.maxes'>
+		<table class='table table-bordered' ng-true='loaded.pr && loaded.maxes'>
+			<thead>
+				<tr>
+					<th>Lift</th>
+					<th>Actual</th>
+					<th>Target</th>
+					<th>Max</th>
+				</tr>
+			</thead>
 			<tr>
-				<th>Lift</th>
-				<th>Actual</th>
-				<th>Target</th>
-				<th>Max</th>
-			</tr>
-		</thead>
-		<tr>
-				<td>{{ mdl.PersonalRecord.lift }} - {{ mdl.PersonalRecord.weight }}</td>
-				<td>{{ mdl.PersonalRecord.reps }} <span class='label label--maxes'>{{ calc.actualEstMax | number:3 }}</span></td>
-				<td>
-					<span>{{ calc.reptarget }}</span>
-					<!--<span class='label label--maxes'>{{ calc.targetEstMax | number:3 }}</span>-->
-					<span class='label label--delta'>{{ calc.actualEstMax - calc.targetEstMax | number:0 }}</span>
-				</td>
-				<td>
-					<span>{{ calc.liftMax }}</span>
-					<span class='label label--delta'>{{ calc.actualEstMax - calc.liftMax | number:0 }}</span>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<h1 ng-hide='loaded.pr'><i class='fa fa-spinner fa-spin'></i></h1>
-	<span ng-switch on='mdl.PersonalRecord.key != null' ng-show='loaded.pr'>
-		<span ng-switch-when='true'>
-			<a-btn href='#/profile/personal-record/edit?key={{ mdl.PersonalRecord.key }}' i='pencil-square'>Edit Personal Record</a-btn>
+					<td>{{ mdl.PersonalRecord.lift }} - {{ mdl.PersonalRecord.weight }}</td>
+					<td>{{ mdl.PersonalRecord.reps }} <span class='label label--maxes'>{{ calc.actualEstMax | number:3 }}</span></td>
+					<td>
+						<span>{{ calc.reptarget }}</span>
+						<!--<span class='label label--maxes'>{{ calc.targetEstMax | number:3 }}</span>-->
+						<span class='label label--delta'>{{ calc.actualEstMax - calc.targetEstMax | number:0 }}</span>
+					</td>
+					<td>
+						<span>{{ calc.liftMax }}</span>
+						<span class='label label--delta'>{{ calc.actualEstMax - calc.liftMax | number:0 }}</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<span ng-switch on='mdl.PersonalRecord.key != null' ng-show='loaded.pr'>
+			<span ng-switch-when='true'>
+				<a-btn href='#/profile/personal-record/edit?key={{ mdl.PersonalRecord.key }}' i='pencil-square'>Edit Personal Record</a-btn>
+			</span>
+			<span ng-switch-default>
+				<a-btn href='#/profile/personal-record/edit?date={{ date }}' i='plus-square'>Add Personal Record</a-btn>
+		   </span>
 		</span>
-		<span ng-switch-default>
-			<a-btn href='#/profile/personal-record/edit?date={{ date }}' i='plus-square'>Add Personal Record</a-btn>
-	   </span>
-	</span>
 
-	<h1 ng-hide='loaded.maxes'><i class='fa fa-spinner fa-spin'></i></h1>
-	<span ng-show='loaded.maxes'>
-		<a-btn href='#/profile/maxes/edit?key={{ mdl.Maxes.key }}' disabled='{{ !mdl.Maxes.key }}' i='pencil-square'>Edit Maxes</a-btn>
-		<a-btn href='#/profile/maxes/edit?date={{ date }}' i='plus-square'>Add Maxes</a-btn>
-	</span>
+		<span ng-show='loaded.maxes'>
+			<a-btn href='#/profile/maxes/edit?key={{ mdl.Maxes.key }}' disabled='{{ !mdl.Maxes.key }}' i='pencil-square'>Edit Maxes</a-btn>
+			<a-btn href='#/profile/maxes/edit?date={{ date }}' i='plus-square'>Add Maxes</a-btn>
+		</span>
+	</div>
 </div>

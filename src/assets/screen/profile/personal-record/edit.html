@@ -41,9 +41,21 @@
 					<span ng-if='saveStatus == "error"'>Error</span>
 				</button>
 
-				<button class='btn btn-danger pull-right' ng-click='remove()'>Remove</button>
-				<a ng-href='#/profile/personal-record?feq_lift={{ dto.lift }}&ordering=-date&feq_weight={{ dto.weight }}' class='btn btn-default'>Review Lift</a>
-			</form>
+				<div class='pull-right'>
+					<div class="dropdown">
+						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+							<i class='fa fa-cog'></i>
+						</button>
+						<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><a ng-href='#/profile/personal-record?feq_lift={{ dto.lift }}&ordering=-date&feq_weight={{ dto.weight }}'>Review Past Attempts</a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><a ng-href='#/profile/note/edit?date={{ dto.date }}'>Review Note</a></li>
+								<li role="presentation" class="divider"></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href ng-click='remove()' class='entity__action--remove'>Remove</a></li>
+							</ul>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
