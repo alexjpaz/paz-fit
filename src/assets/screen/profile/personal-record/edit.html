@@ -6,15 +6,11 @@
 		<div class='clearfix'>
 			<h4>
 				<span class='text-success' ng-show='dto.key == null'>NEW </span>
-				<span>Personal Record for <input type='date' ng-model='dto.date' class='input--noborder''/></span>
+				<span>Personal Record for <input type='date' ng-model='dto.date' class='input--noborder' /></span>
 			</h4>
 		</div>
 		<div class='screen-profile-personal-record-edit__edit-form'>
 			<form role='form'>
-				<div class='form-group'>
-					<label>Date</label>
-					<input type='date' ng-model='dto.date' class='form-control' />
-				</div>
 				<div class='form-group'>
 					<label for='lift'>Lift</label>
 					<select ng-model='dto.lift' ng-options='lift for lift in ApplicationEnum.LIFT' class='form-control'>
