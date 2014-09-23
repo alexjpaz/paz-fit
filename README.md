@@ -1,6 +1,6 @@
 ## PazFit
 
-### Personal fitness tracking, because why not.
+### (Yet Another) Personal fitness tracking 
 
 #### Features
 * Pretty graphs to show progress
