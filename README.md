@@ -1,6 +1,6 @@
 ## PazFit
 
-### (Yet Another) Personal fitness tracking 
+### (Yet Another) Personal fitness tracking website
 
 #### Features
 * Pretty graphs to show progress
