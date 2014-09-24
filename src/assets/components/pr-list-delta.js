@@ -24,7 +24,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 				}
 			});
 			
-			orderedMaxes[0][pr.lift];
+			effectiveMax[pr.lift];
 			return effectiveMax;
 		}
 
