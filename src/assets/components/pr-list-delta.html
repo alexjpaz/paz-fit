@@ -19,7 +19,7 @@
 					<td class='text-center'><span class='label label-default label--estimatedMax'>{{ pr.calc.estimatedMax | number:2 }}</span></td>
 					<td class='text-center'><span class='label label-default label--deltaTargetMax'>{{ pr.calc.estimatedMax - pr.calc.targetMax | number:2 }}</span></td>
 					<td class='text-center'><span class='label label-default label--deltaTrainingMax'>{{ pr.calc.estimatedMax - pr.calc.effectiveMax | number:2 }}</span></td>
-					<td class='text-center'>
+					<td class='text-center' title='{{ pr | json }}'>
 						<span ng-show='pr.calc.estimatedMax > pr.calc.targetMax' class='icon--prGood'></span>
 						<span ng-show='pr.calc.estimatedMax <= pr.calc.targetMax && pr.calc.estimatedMax >= pr.calc.effectiveMax' class='icon--prMeh'></span>
 						<span ng-show='pr.calc.estimatedMax < pr.calc.effectiveMax' class='icon--prBad'></span>

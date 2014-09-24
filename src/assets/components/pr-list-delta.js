@@ -12,11 +12,12 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 		function getEffectiveMax(pr) {
 			var effectiveMax = null; 
 
+			console.debug('getEffectiveMax', pr.lift, orderedMaxes)
 			angular.forEach(orderedMaxes, function(om) {
 				if(effectiveMax != null) {
 					return
 				}
-				var omDate = moment(omDate, 'YYYY-MM-DD');
+				var omDate = moment(om.date, 'YYYY-MM-DD');
 				var prDate = moment(pr.date, 'YYYY-MM-DD');
 
 				if(!omDate.isAfter(prDate)) {
@@ -51,7 +52,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 
 		$scope.$watch($attrs.pMaxes, function(pMaxes) {
 			maxes = pMaxes;	
-			orderedMaxes = $filter('orderBy')(maxes, 'date');
+			orderedMaxes = $filter('orderBy')(maxes, 'date', true);
 			updateView();
 		});
 

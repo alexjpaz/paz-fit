@@ -10,7 +10,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 	};
 
 	$scope.v = {
-		pane: 'List'
+		pane: 'Delta'
 	};
 
 	$scope.params = {}
