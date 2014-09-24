@@ -16,10 +16,10 @@
 					<td>{{ pr.lift }}</td>
 					<td>{{ pr.weight }}</td>
 					<td>{{ pr.reps }} ({{ pr.calc.repTarget }})</td>
-					<td><span class='label label-default label--estimatedMax'>{{ pr.calc.estimatedMax }}</span></td>
-					<td><span class='label label-default label--deltaTargetMax'>{{ pr.calc.estimatedMax - pr.calc.targetMax | number:2 }}</span></td>
-					<td><span class='label label-default label--deltaTrainingMax'>{{ pr.calc.estimatedMax - pr.calc.effectiveMax | number:2 }}</span></td>
-					<td>
+					<td class='text-center'><span class='label label-default label--estimatedMax'>{{ pr.calc.estimatedMax }}</span></td>
+					<td class='text-center'><span class='label label-default label--deltaTargetMax'>{{ pr.calc.estimatedMax - pr.calc.targetMax | number:2 }}</span></td>
+					<td class='text-center'><span class='label label-default label--deltaTrainingMax'>{{ pr.calc.estimatedMax - pr.calc.effectiveMax | number:2 }}</span></td>
+					<td class='text-center'>
 						<span ng-show='pr.calc.estimatedMax > pr.calc.targetMax' class='icon--prGood'></span>
 						<span ng-show='pr.calc.estimatedMax < pr.calc.targetMax && pr.calc.estimatedMax > pr.calc.effectiveMax' class='icon--prMeh'></span>
 						<span ng-show='pr.calc.estimatedMax < pr.calc.effectiveMax' class='icon--prBad'></span>
