@@ -30,7 +30,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		}, true);
 
 		$scope.$watch('m.cycle', function(cycle) {
-			$scope.uriEncodedMaxes = $.param(cycle);
+			$scope.cycleParams = $.param(cycle);
 		},true);
 	});
 });
