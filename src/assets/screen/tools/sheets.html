@@ -1,27 +1,58 @@
 <div class='screen-tools-sheets'>
-	<ul class="nav nav-pills nav-justified">
-		<li><a ng-click='v.pane = "531single"'></a></li>
+	<ul class="nav nav-tabs nav-justified">
+		<li ng-class='{true:"active"}[v.pane === "531single"]'><a href ng-click='v.pane = "531single"'>531 Single Lift</a></li>
+		<li ng-class='{true:"active"}[v.pane === "531"]'><a href ng-click='v.pane = "531"'>531</a></li>
 	</ul>
-	<div ng-switch-on='v.pane'>
-	<article on='531single'>
-		<h3>531 cycles for a single lift</h3>
-		<div class='form-group'>
-			<label>Max</label>
-			<input type='number' ng-model='m.fiveMonths.max' class='form-control' />
-		</div>
-		<div class='form-group'>
-			<label>Cycles</label>
-			<select class='form-control' ng-model='m.fiveMonths.cycles' ng-options='c for c in [1,2,3,4,5,6,7,8,9,10]'>
-			</select>
-		</div>
-		<div class='form-group'>
-			<label>Increment</label>
-			<select class='form-control' ng-model='m.fiveMonths.increment'>
-				<option value='5'>5</option>
-				<option value='10'>10</option>
-			</select>
-		</div>
+	<div ng-switch on='v.pane'>
+		<article ng-switch-when='531'>
+			<h3>531</h3>
+			<div class='form-group'>
+				<label>Press</label>
+				<input type='number' ng-model='m.cycle.p' class='form-control' />
+			</div>
+			<div class='form-group'>
+				<label>Deadlift</label>
+				<input type='number' ng-model='m.cycle.d' class='form-control' />
+			</div>
+			<div class='form-group'>
+				<label>Bench</label>
+				<input type='number' ng-model='m.cycle.b' class='form-control' />
+			</div>
+			<div class='form-group'>
+				<label>Sqaut</label>
+				<input type='number' ng-model='m.cycle.s' class='form-control' />
+			</div>
+			<a class='btn btn-primary' ng-href='/api/table/531?{{ cycleParams }}'><i class='fa fa-external-link'> </i> 531 cycles</a>
+		</article>
 
-		<a class='btn btn-primary' ng-href='/api/table/531x5?{{ projectedMaxes }}'><i class='fa fa-table'></i> View Projected 531 Quarter</a>
-	</article>
+		<article ng-switch-when='531single'>
+			<h3>531 cycles for a single lift</h3>
+			<div class='form-group'>
+				<label>Max</label>
+				<div class='input-group'>
+					<input type='number' ng-model='m.fiveMonths.max' class='form-control' />
+					<div class='input-group-btn'>
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class='fa fa-copy'></span></button>
+						<ul class="dropdown-menu" role="menu">
+							<li ng-repeat='lift in ApplicationEnum.LIFT'><a href ng-click='useMax(lift)'>{{ lift }} ({{ r[lift[0]] }})</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class='form-group'>
+				<label>Cycles</label>
+				<select class='form-control' ng-model='m.fiveMonths.cycles' ng-options='c for c in [1,2,3,4,5,6,7,8,9,10]'>
+				</select>
+			</div>
+			<div class='form-group'>
+				<label>Increment</label>
+				<select class='form-control' ng-model='m.fiveMonths.increment'>
+					<option value='5'>5</option>
+					<option value='10'>10</option>
+				</select>
+			</div>
+
+			<a class='btn btn-primary' ng-href='/api/table/531x5?{{ projectedMaxes }}'><i class='fa fa-external-link'> </i> 531 cycles</a>
+		</article>
+	</div>
 </div>

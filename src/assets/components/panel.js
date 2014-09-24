@@ -4,6 +4,6 @@ angular.module('app').config(function(ComponentFactoryProvider){
 		replace: true,
 		transclude: true,
 		controller: function($scope) {},
-		scope: {'panelTitle':'='}
+		scope: {'panelTitle':'@'}
 	});
 });

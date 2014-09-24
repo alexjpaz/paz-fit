@@ -1,12 +1,14 @@
 <div class='screen-profile-main'>
 	<div class='row'>
 		<div class='col-md-12'>
-			<div c-calendar events='events'></div>
+			<panel panel-title='Events' class='panel-default'>
+				<div c-calendar events='events'></div>
+			</panel>
 		</div>
 	</div>
 	<div class='row'>
 		<div class='col-md-12'>
-			<panel panel-title='{{ "Maxes as of" + currentMaxes.date }}' class='panel-default'>
+			<panel panel-title='Maxes as of {{ currentMaxes.date }}' class='panel-default'>
 			<div class='screen-profile-main__maxes'>
 				<table class='table table-bordered' ng-if='currentMaxes'>
 					<thead>
@@ -36,8 +38,7 @@
 					</tbody>
 				</table>
 			</div>
-			<a class='btn btn-default' ng-disabled='uriEncodedMaxes' ng-href='#/tools/sheetz?{{uriEncodedMaxes}}'>Sheets</a>
-			<th><em>Maxes as of {{currentMaxes.date}}</em></th>
+			<a class='btn btn-default' ng-disabled='!uriEncodedMaxes' ng-href='#/tools/sheets?{{uriEncodedMaxes}}'>Sheets</a>
 		</div>
 		</panel>
 	</div>
