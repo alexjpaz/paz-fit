@@ -24,7 +24,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			$scope.records = records;
 		});
 
-		MaxesDao.find({}).then(function(maxes) {
+		MaxesDao.find({'ordering':'-date'}).then(function(maxes) {
 			$scope.dto.maxes = maxes;
 		});
 		

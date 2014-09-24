@@ -12,10 +12,12 @@
 			</thead>
 			<tbody>
 				<tr class='pr-list__row' ng-class='{"pr-list__row--hl" : pr.$highlight}' ng-repeat='pr in list track by $index' ng-mouseover='highlight(pr)'>
-					<td><a ng-href='#/profile/personal-record/edit?date={{pr.date}}'>{{ pr.date }}</td>
+					<td>
+						<a ng-href='#/profile/note/edit?date={{pr.date}}' class='btn btn-default btn-xs'>{{ pr.date }}</a>
+					</td>
 					<td>{{ pr.lift }}</td>
 					<td>{{ pr.weight }}</td>
-					<td>{{ pr.reps }} ({{ pr.calc.repTarget }})</td>
+					<td>{{ pr.reps }}<small class='text-muted'>/{{ pr.calc.repTarget }}</small></td>
 					<td class='text-center'><span class='label label-default label--estimatedMax'>{{ pr.calc.estimatedMax | number:2 }}</span></td>
 					<td class='text-center'><span class='label label-default label--deltaTargetMax'>{{ pr.calc.estimatedMax - pr.calc.targetMax | number:2 }}</span></td>
 					<td class='text-center'><span class='label label-default label--deltaTrainingMax'>{{ pr.calc.estimatedMax - pr.calc.effectiveMax | number:2 }}</span></td>
