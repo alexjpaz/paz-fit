@@ -35,8 +35,7 @@
 					</tbody>
 				</table>
 			</div>
-			<a class='btn btn-sm btn-default' ng-if='uriEncodedMaxes' ng-href='api/table/531?{{uriEncodedMaxes}}'>531 Cycle</a>
-			<a class='btn btn-sm btn-default' ng-if='uriEncodedMaxes' ng-href='api/table/gzcl?{{uriEncodedMaxes}}'>GZCL Method</a>
+			<a class='btn btn-default' ng-disabled='uriEncodedMaxes' ng-href='#/tools/sheetz?{{uriEncodedMaxes}}'>Sheets</a>
 			<th><em>Maxes as of {{currentMaxes.date}}</em></th>
 		</div>
 	</div>

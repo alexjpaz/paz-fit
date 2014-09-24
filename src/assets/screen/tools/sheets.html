@@ -1,5 +1,9 @@
 <div class='screen-tools-sheets'>
-	<div>
+	<ul class="nav nav-pills nav-justified">
+		<li><a ng-click='v.pane = "531single"'></a></li>
+	</ul>
+	<div ng-switch-on='v.pane'>
+	<article on='531single'>
 		<h3>531 cycles for a single lift</h3>
 		<div class='form-group'>
 			<label>Max</label>
@@ -19,5 +23,5 @@
 		</div>
 
 		<a class='btn btn-primary' ng-href='/api/table/531x5?{{ projectedMaxes }}'><i class='fa fa-table'></i> View Projected 531 Quarter</a>
-	</div>
+	</article>
 </div>

@@ -1,0 +1,9 @@
+<div class="panel">
+	<div class="panel-heading">
+		<span>{{ label }}</span>
+		<div class='pull-right'>
+			<a ng-click='c.showBody = !c.showBody'><i class='fa fa-cog'></i></a>
+		</div>
+	</div>
+	<div class="panel-body" ng-show='c.showBody' ng-transclude></div>
+</div>
