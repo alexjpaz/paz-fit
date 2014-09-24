@@ -2,5 +2,8 @@ language: python
 python:
   - "2.7"
 before_script:
-  - npm install grunt bower
-script: grunt
+  - npm install -g grunt bower
+script: 
+  - npm install
+  - bower install
+  - grunt
