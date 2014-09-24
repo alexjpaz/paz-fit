@@ -7,10 +7,9 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 
 		var maxes = {};
 		var list = {};
+		var orderedMaxes = null;
 
 		function getEffectiveMax(pr) {
-			var orderedMaxes = $filter('orderBy')(maxes, 'date');
-			console.debug('orderBy',orderedMaxes);
 			var effectiveMax = orderedMaxes[0][pr.lift];
 			return effectiveMax;
 		}
@@ -48,6 +47,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 
 		$scope.$watch($attrs.pMaxes, function(pMaxes) {
 			maxes = pMaxes;	
+			orderedMaxes = $filter('orderBy')(maxes, 'date');
 			updateView();
 		});
 
