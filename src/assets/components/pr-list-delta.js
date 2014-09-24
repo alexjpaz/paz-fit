@@ -13,13 +13,13 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 			var effectiveMax = null; 
 
 			angular.forEach(orderedMaxes, function(om) {
-				if(effectiveMax != null) continue;
+				if(effectiveMax != null) {
+					return
+				}
 				var omDate = moment(omDate, 'YYYY-MM-DD');
 				var prDate = moment(pr.date, 'YYYY-MM-DD');
 
-				if(omDate.isAfter(prDate)) {
-					continue;
-				} else {
+				if(!omDate.isAfter(prDate)) {
 					effectiveMax = om;
 				}
 			});
