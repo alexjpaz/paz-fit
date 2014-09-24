@@ -24,28 +24,18 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 				}
 			});
 			
-			effectiveMax[pr.lift];
-			return effectiveMax;
+			return effectiveMax[pr.lift];
 		}
 
 		function updateView() {
 			if(angular.isUndefined(maxes) || angular.isUndefined(list)) return;
 			angular.forEach(list, function(li) {
 				var effectiveMax = getEffectiveMax(li);
-
-				console.group('updateview');
 				li.calc = {};
 				li.calc.repTarget = FiveThreeOneCalculator.repgoal(+effectiveMax, +li.weight);
 				li.calc.estimatedMax = FiveThreeOneCalculator.max(li.weight, li.reps);
 				li.calc.targetMax = FiveThreeOneCalculator.max(li.weight, li.calc.repTarget);
 				li.calc.effectiveMax = effectiveMax;
-
-				console.debug(li);
-				console.debug(maxes);
-				console.debug(effectiveMax);
-				console.debug(li.calc);
-
-				console.groupEnd();
 			});
 							
 			$scope.list = list;
