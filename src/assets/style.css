@@ -18,9 +18,9 @@
 .label--estimatedMax { background: rgb(0,0,128); }
 .label--estimatedMax::before { content: "\2248M"; padding-right: 4px; color: rgba(255,255,255,0.5);}
 .label--deltaTargetMax { background: rgb(128, 0,128); }
-.label--deltaTargetMax::before { content: "\0394TM"; padding-right: 4px; }
+.label--deltaTargetMax::before { content: "\0394TM"; padding-right: 4px;color: rgba(255,255,255,0.5); }
 .label--deltaTrainingMax { background: rgb(200, 0, 0); }
-.label--deltaTrainingMax::before {content: "\0394TrM"; padding-right: 4px; }
+.label--deltaTrainingMax::before {content: "\0394TrM"; padding-right: 4px;color: rgba(255,255,255,0.5); }
 
 
 .icon--prGood::before,

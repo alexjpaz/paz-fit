@@ -1,6 +1,6 @@
 angular.module('app').config(function(ComponentFactoryProvider) {
 	var ComponentFactory = ComponentFactoryProvider.$get();
-	ComponentFactory.build('pr-list-delta', function($scope, $attrs, FiveThreeOneCalculator, $filter) {
+	ComponentFactory.build('pr-list-delta', function($scope, $attrs, FiveThreeOneCalculator, $filter, moment) {
 		$scope.estMax = function(pr) {
 			return FiveThreeOneCalculator.max(pr.weight, pr.reps);
 		};
@@ -10,7 +10,21 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 		var orderedMaxes = null;
 
 		function getEffectiveMax(pr) {
-			var effectiveMax = orderedMaxes[0][pr.lift];
+			var effectiveMax = null; 
+
+			angular.forEach(orderedMaxes, function(om) {
+				if(effectiveMax != null) continue;
+				var omDate = moment(omDate, 'YYYY-MM-DD');
+				var prDate = moment(pr.date, 'YYYY-MM-DD');
+
+				if(omDate.isAfter(prDate)) {
+					continue;
+				} else {
+					effectiveMax = om;
+				}
+			});
+			
+			orderedMaxes[0][pr.lift];
 			return effectiveMax;
 		}
 
