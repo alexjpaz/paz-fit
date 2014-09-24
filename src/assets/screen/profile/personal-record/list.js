@@ -9,6 +9,10 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		reps: 5
 	};
 
+	$scope.v = {
+		pane: 'List'
+	};
+
 	$scope.params = {}
 
 	angular.forEach($location.search(), function(value, key) {
@@ -20,8 +24,8 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			$scope.records = records;
 		});
 
-		MaxesDao.find(params).then(function(maxes) {
-			$scope.maxes = maxes;
+		MaxesDao.find({}).then(function(maxes) {
+			$scope.dto.maxes = maxes;
 		});
 		
 	};

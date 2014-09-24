@@ -11,19 +11,29 @@
 			<div class='form-group'>
 				<label>Weight</label>
 				<input type='number' step='5' min='45' max='900' ng-model='params.feq_weight' placeholder='Weight (lbs)' class='form-control' />
-		</div>
+			</div>
 			<div class='form-group'>
 				<label>Order By</label>
 				<select ng-model='params.ordering' ng-options='lift for lift in ApplicationEnum.PR_ORDER_BY' class='form-control'>
 					<option value=''>NONE</option>
 				</select>
 			</div>
-		</form>
-	</div>
-	<div class='screen-profile-personal-record-list__graph'>
-		<div pr-graph='records'></div>
-	</div>
-	<div class='screen-profile-personal-record-list__records'>
-		<div pr-list='records'></div>
+			<div class='form-group'>
+				<label>Perspective</label>
+					<ul class="nav nav-pills nav-justified">
+						<li ng-class='{true:"active"}[v.pane === "List"]'><a href ng-click='v.pane = "List"'>List</a></li>
+						<li ng-class='{true:"active"}[v.pane === "Delta"]'><a href ng-click='v.pane = "Delta"'>Delta</a></li>
+					</ul>
+			</form>
+		</div>
+		<div class='screen-profile-personal-record-list__graph'>
+			<div pr-graph='records' ng-if='params.ordering == "-date" && params.feq_lift != null'></div>
+			<div class='alert alert-info' ng-if='!(params.ordering == "-date" && params.feq_lift != null)'>Select a lift and order by date to show graph</div>
+		</div>
+		<div class='screen-profile-personal-record-list__records'>
+			<div ng-if='v.pane === "List"'><div pr-list='records'></div></div>
+			<div ng-if='v.pane === "Delta"'><div pr-list-delta='records' p-maxes='dto.maxes'></div></div>
+			<pre>{{ dto | json }}</pre>
+		</div>
 	</div>
 </div>

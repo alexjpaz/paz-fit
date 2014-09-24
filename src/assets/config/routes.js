@@ -10,6 +10,7 @@ angular.module('app').config(function(RouteBuilderProvider) {
 	RouteBuilder.when('/profile/personal-record', 'profile/personal-record/list');
 	RouteBuilder.when('/profile/personal-record/add', 'profile/personal-record/add');
 	RouteBuilder.when('/profile/personal-record/edit', 'profile/personal-record/edit');
+	RouteBuilder.when('/profile/personal-record/delta', 'profile/personal-record/delta');
 	RouteBuilder.when('/profile/maxes', 'profile/maxes/list');
 	RouteBuilder.when('/profile/maxes/edit', 'profile/maxes/edit');
 	RouteBuilder.when('/profile/maxes/schedule', 'profile/maxes/schedule');
