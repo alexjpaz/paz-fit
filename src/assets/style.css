@@ -22,6 +22,21 @@
 .label--deltaTrainingMax { background: rgb(200, 0, 0); }
 .label--deltaTrainingMax::before {content: "\0394TrM"; padding-right: 4px; }
 
+
+.icon--prGood::before,
+.icon--prMeh::before,
+.icon--prBad::before { 
+display: inline-block; 
+font-family: "FontAwesome"; 
+color: white; 
+padding: 0 4px;
+border-radius: 4px;
+}
+
+.icon--prGood::before { content: "\f164"; background: rgb(0, 200,0)}
+.icon--prMeh::before { content: "\f068"; background: rgb(255, 143,0)}
+.icon--prBad::before { content: "\f165"; background: rgb(200, 0,0)}
+
 .entity__action--remove::before {
 	display: inline-block;
 	font-family: "FontAwesome";
