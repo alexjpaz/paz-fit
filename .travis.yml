@@ -4,6 +4,8 @@ python:
 before_script:
   - npm install -g grunt-cli bower
 script: 
+  - cd src/node 
   - npm install
   - bower install
   - grunt
+  - cd ..
