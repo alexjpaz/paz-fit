@@ -102,7 +102,9 @@ class EnvironmentHandler(webapp2.RequestHandler):
 	result = {
 		"versionId": version_id,
 		"timestamp": timestamp,
-		"buildDate": buildDate
+		"buildDate": buildDate,
+		"GIT_COMMIT": self.request.environ["GIT_COMMIT"],
+		"BUILD_ID": self.request.environ["BUILD_ID"],
 	}
 	write_json(self.response, result)
 
