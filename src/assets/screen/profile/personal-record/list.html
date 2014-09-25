@@ -32,7 +32,7 @@
 	<div panel panel-title='Graph' class='panel-primary panel--full'>
 		<div class='screen-profile-personal-record-list__graph'>
 			<div  ng-if='params.ordering == "-date" && params.feq_lift != null'>
-				<div pr-graph='records' pr-graph-maxes='dto.maxes'></div>
+				<div pr-graph='records' pr-graph-maxes='dto.maxes' pr-graph-key='params.feq_lift'></div>
 			</div>
 			<div class='alert alert-info' ng-if='!(params.ordering == "-date" && params.feq_lift != null)'>
 				<span>Select a </span>
