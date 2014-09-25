@@ -140,9 +140,6 @@ angular.module('helper')
 						restrict: 'EA',
 						templateUrl: 'assets/components/'+component_name+'.html',
 						scope: true,
-						compile: function() {
-							head.load('assets/components/'+component_name+'.css');
-						},
 					};
 
 					var componentFactoryObj = {'derp':'haha'};
