@@ -79,12 +79,26 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 				records = []
 				angular.forEach(data, function(r) {
 					var estimatedMax = FiveThreeOneCalculator.max(r.weight, r.reps);
-					var repGoal = 5//FiveThreeOneCalculator.repgoal(r.weight, 200);
-					var effectiveMax = FiveThreeOneCalculator.getEffectiveMax(r.date, maxes);
+					var effectiveMax = null;
+					var rDate = moment(r.date, "YYYY-MM-DD");
+
+					angular.forEach(maxes, function(mm) {
+						if(effectiveMax == null) {
+							effectiveMax = mm;
+						}
+						if(mm.date.isBefore(rDate) && mm.date.isAfter(effectiveMax.date)) {
+							effectiveMax = mm;
+						}
+					});
+
+
+					var repGoal = FiveThreeOneCalculator.repgoal(r.weight, effectiveMax.max);
+
+					console.debug(effectiveMax, repGoal, estimatedMax);
 
 					records.push({
 						_date: r.date,
-						date: moment(r.date, "YYYY-MM-DD"),
+						date: rDate,
 						max: estimatedMax,
 						calcDelta: estimatedMax - FiveThreeOneCalculator.max(r.weight, repGoal),
 						lift: r.lift,
@@ -108,6 +122,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 					});
 				});
 
+				// I think I'm doing this for a FUTURE max so that it goes off the screen....
 				if(maxes.length > 0) {
 					maxes.unshift({
 							date: moment('2015-12-01', "YYYY-MM-DD"),
