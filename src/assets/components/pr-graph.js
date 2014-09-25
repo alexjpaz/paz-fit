@@ -50,6 +50,12 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 				return "translate("+x+","+y+")";
 			};
 
+			$scope.translateTarget = function(m) {
+				var x = sx(m.date);
+				var y = sy(m.max);
+				return "translate("+x+","+y+")";
+			};
+
 			$scope.line = d3.svg.line().x(lx).y(ly).interpolate("monotone");
 			$scope.lineStep = d3.svg.line().x(lx).y(ly).interpolate("step-before");
 
@@ -72,10 +78,15 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 			function update(data) {
 				records = []
 				angular.forEach(data, function(r) {
+					var estimatedMax = FiveThreeOneCalculator.max(r.weight, r.reps);
+					var repGoal = 5//FiveThreeOneCalculator.repgoal(r.weight, 200);
+					var effectiveMax = FiveThreeOneCalculator.getEffectiveMax(r.date, maxes);
+
 					records.push({
 						_date: r.date,
 						date: moment(r.date, "YYYY-MM-DD"),
-						max: FiveThreeOneCalculator.max(r.weight, r.reps),
+						max: estimatedMax,
+						calcDelta: estimatedMax - FiveThreeOneCalculator.max(r.weight, repGoal),
 						lift: r.lift,
 						r: r
 					});

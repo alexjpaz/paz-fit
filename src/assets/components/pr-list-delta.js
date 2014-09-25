@@ -12,7 +12,6 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 		function getEffectiveMax(pr) {
 			var effectiveMax = null; 
 
-			console.debug('getEffectiveMax', pr.lift, orderedMaxes)
 			angular.forEach(orderedMaxes, function(om) {
 				if(effectiveMax != null) {
 					return
@@ -31,7 +30,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 		function updateView() {
 			if(angular.isUndefined(maxes) || angular.isUndefined(list)) return;
 			angular.forEach(list, function(li) {
-				var effectiveMax = getEffectiveMax(li);
+				var effectiveMax = FiveThreeOneCalculator.getEffectiveMax(li);
 				li.calc = {};
 				li.calc.repTarget = FiveThreeOneCalculator.repgoal(+effectiveMax, +li.weight);
 				li.calc.estimatedMax = FiveThreeOneCalculator.max(li.weight, li.reps);

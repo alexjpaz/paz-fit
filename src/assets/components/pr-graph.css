@@ -34,6 +34,13 @@
 	cursor: pointer;
 }
 
+.pr-graph__dot-change {
+	stroke-width: 6px;
+	stroke: rgba(200, 0, 200, 1) !important;
+	stroke-linecap: round;
+	cursor: pointer;
+}
+
 .pr-graph__dot--hl {
 	stroke: red;
 }
@@ -53,7 +60,11 @@
 }
 
 .pr-graph__g--em {
-	stroke: rgba(0, 0, 170, 0.7)
+	stroke: rgba(0, 0, 170, 0.7);
+}
+
+.pr-graph__g--target {
+	stroke: rgb(200, 0, 200);
 }
 
 .pr-graph__xaxis {

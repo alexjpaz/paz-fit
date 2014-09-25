@@ -9,7 +9,7 @@ angular.module('app')
 		return d3;
 	});
 
-	$provide.service('FiveThreeOneCalculator', function() {
+	$provide.service('FiveThreeOneCalculator', function(moment) {
 		this.max = function(weight, reps) {
 			var max = (weight*reps*0.0333 + weight);
 			return max;
@@ -68,6 +68,24 @@ angular.module('app')
 
 		this.roundToNearestPlate = function(weight) {
 			return Math.round(weight / 5) * 5;
+		};
+
+		this.getEffectiveMax = function(prDate, orderedMaxes) {
+			var effectiveMax = null; 
+
+			angular.forEach(orderedMaxes, function(om) {
+				if(effectiveMax != null) {
+					return
+				}
+				var omDate = moment(om.date, 'YYYY-MM-DD');
+				var prDate = moment(prDate, 'YYYY-MM-DD');
+
+				if(!omDate.isAfter(prDate)) {
+					effectiveMax = om;
+				}
+			});
+			
+			return effectiveMax;
 		};
 	});
 })

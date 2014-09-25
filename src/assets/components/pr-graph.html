@@ -19,6 +19,7 @@
 							ng-click='select($event, r)'
 							ng-mouseover='highlight(r)' 
 							ng-attr-transform='{{ translate(r) }}')>
+						<line y2='{{ r.calcDelta }}' class='pr-graph__dot-change' />
 						<line class='pr-graph__dot' ng-class='{"pr-graph__dot--hl": r.r.$highlight}' />
 					</g>
 				</g>
