@@ -177,7 +177,6 @@ angular.module('helper')
 						restrict: 'C',
 						controller: controllerDef,
 						compile: function() {
-							head.load('assets/components/'+screen_name+'.css');
 						},
 					};
 
