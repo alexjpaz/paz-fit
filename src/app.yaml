@@ -32,5 +32,5 @@ handlers:
   static_dir: node/dist
 
 env_variables:
-    GIT_COMMIT: {{GIT_COMMIT}}
-    BUILD_ID: {{BUILD_ID}}
+    GIT_COMMIT: $GIT_COMMIT
+    BUILD_ID: $BUILD_ID
