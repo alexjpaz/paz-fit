@@ -97,12 +97,12 @@ class EnvironmentHandler(webapp2.RequestHandler):
 
 	version_id = self.request.environ["CURRENT_VERSION_ID"].split('.')[1]
 	timestamp = long(version_id)  / pow(2,28)
-	derp = datetime.datetime.fromtimestamp(timestamp).strftime("%d/%m/%y %X")
+	buildDate = datetime.datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %X")
 
 	result = {
 		"versionId": version_id,
 		"timestamp": timestamp,
-		"derp": derp
+		"buildDate": buildDate
 	}
 	write_json(self.response, result)
 
