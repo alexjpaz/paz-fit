@@ -1,7 +1,7 @@
 <div class='build-info'>
 	<p class='text-muted'>
-	<span>Build Information: {{ env.BUILD_ID }} on {{ env.buildDate }}</span>
-	<a ng-href='https://github.com/alexjpaz/paz-fit/commit/{{ env.GIT_COMMIT }}' class='text-muted'>{{ env.GIT_COMMIT.slice(0,7) }}</span>
+	<span>Build Information: <a ng-href='https://drone.io/github.com/alexjpaz/ajpaz531/{{ env.BUILD_ID }}'>{{ env.BUILD_ID }}</a> on {{ env.buildDate }}</span>
+	<a ng-href='https://github.com/alexjpaz/paz-fit/commit/{{ env.GIT_COMMIT }}'>{{ env.GIT_COMMIT.slice(0,7) }}</a>
 	</p>
 </div>
 
