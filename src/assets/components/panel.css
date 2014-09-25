@@ -1,0 +1,14 @@
+.panel--full .panel-body {
+	padding: 0;
+	
+}
+
+.panel__btn-visibility::before {
+	font-family: "FontAwesome";
+	display: inline-block;
+	content: "\f06e";
+}
+
+.panel__btn-visibility.true::before {
+	content: "\f070";
+}

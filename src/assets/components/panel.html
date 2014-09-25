@@ -1,7 +1,9 @@
 <div class="panel">
 	<div class="panel-heading">
 		<div class='btn-group pull-right'>
-			<a ng-click='c.hideBody = !c.hideBody' class='btn btn-default btn-xs'><i class='fa fa-eye'></i></a>
+			<a ng-click='c.hideBody = !c.hideBody' class='btn btn-default btn-xs'>
+				<span class='panel__btn-visibility {{ c.hideBody }}'></span>
+			</a>
 		</div>
 		<span>{{ panelTitle }}</span>
 	</div>
