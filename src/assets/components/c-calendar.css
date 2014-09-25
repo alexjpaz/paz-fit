@@ -84,3 +84,16 @@
 	color: #fff;
 	background-color: rgb(184, 33, 33) !important;
 }
+
+.c-calendar__event-icon::before {
+	font-family: "FontAwesome";
+	display: inline-block;
+}
+
+.c-calendar__event--PersonalRecord .c-calendar__event-icon::before {
+	content: "PR";
+}
+
+.c-calendar__event--Maxes .c-calendar__event-icon::before {
+	content: "M";
+}

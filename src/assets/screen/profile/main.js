@@ -1,6 +1,6 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
-	ScreenFactory.build('screen-profile-main', function($scope, PersonalRecordDao, MaxesDao, CalendarEventRepository, CalendarUtils, FiveThreeOneCalculator) {
+	ScreenFactory.build('screen-profile-main', function($scope, PersonalRecordDao, MaxesDao, CalendarEventRepository, CalendarUtils, FiveThreeOneCalculator, $location) {
 	$scope.events = new CalendarEventRepository();
 
 	$scope.repgoal = function(max, fraction) {
@@ -45,6 +45,11 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 					s: $scope.currentMaxes.squat,
 			});
 		});
+	};
+
+	$scope.selectDay = function(day) {
+		$location.path('/profile/note/edit')
+		$location.search('date',day.date.format('YYYY-MM-DD'));
 	};
 
 	$scope.getProfileData();
