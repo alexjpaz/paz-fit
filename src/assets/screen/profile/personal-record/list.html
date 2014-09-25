@@ -31,7 +31,9 @@
 	</div>
 	<div panel panel-title='Graph' class='panel-primary panel--full'>
 		<div class='screen-profile-personal-record-list__graph'>
-			<div pr-graph='records' ng-if='params.ordering == "-date" && params.feq_lift != null'></div>
+			<div  ng-if='params.ordering == "-date" && params.feq_lift != null'>
+				<div pr-graph='records' pr-graph-maxes='dto.maxes'></div>
+			</div>
 			<div class='alert alert-info' ng-if='!(params.ordering == "-date" && params.feq_lift != null)'>
 				<span>Select a </span>
 				<select ng-model='v.lift' ng-options='lift for lift in ApplicationEnum.LIFT' ng-change='params.feq_lift = v.lift; params.ordering = "-date"'>
