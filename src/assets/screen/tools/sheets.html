@@ -1,6 +1,7 @@
 <div class='screen-tools-sheets'>
 	<ul class="nav nav-tabs nav-justified">
 		<li ng-class='{true:"active"}[v.pane === "531single"]'><a href ng-click='v.pane = "531single"'>531 Single Lift</a></li>
+		<li ng-class='{true:"active"}[v.pane === "531day"]'><a href ng-click='v.pane = "531day"'>531 Day (mobile friendly)</a></li>
 		<li ng-class='{true:"active"}[v.pane === "531"]'><a href ng-click='v.pane = "531"'>531</a></li>
 		<li ng-class='{true:"active"}[v.pane === "GZCL"]'><a href ng-click='v.pane = "GZCL"'>GZCL</a></li>
 	</ul>
@@ -9,6 +10,33 @@
 			<h3>531</h3>
 			<div max-group='m.cycle'></div>
 			<a class='btn btn-primary' ng-href='/api/table/531?{{ cycleParams }}'><i class='fa fa-external-link'> </i> 531 cycles</a>
+		</article>
+
+		<article ng-switch-when='531day'>
+			<h3>531 Day</h3>
+			<div class='form-group'>
+				<label>Max</label>
+				<div class='input-group'>
+					<input type='number' ng-model="m['531day'].max" class='form-control' />
+					<div class='input-group-btn'>
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class='fa fa-copy'></span></button>
+						<ul class="dropdown-menu" role="menu">
+							<li ng-repeat='lift in ApplicationEnum.LIFT'><a href ng-click='useMax(lift)'>{{ lift }} ({{ r[lift[0]] }})</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class='form-group'>
+				<select ng-model="m['531day'].week" class='form-control'>
+					<option value=''>SELECT WEEK</option>
+					<option value='3x5'>3x5</option>
+					<option value='3x3'>3x3</option>
+					<option value='531'>3x5</option>
+					<option value='DL'>DL</option>
+				</select>
+			</div>
+
+			<a class='btn btn-primary' ng-href='/api/table/531day?{{ m["531day"] | paramString }}'><i class='fa fa-external-link'> </i> 531 cycles</a>
 		</article>
 
 		<article ng-switch-when='531single'>

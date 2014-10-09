@@ -10,7 +10,8 @@ module.exports = function (grunt) {
 						'../assets/helper/enum.js',
 						'../assets/helper/tools.js',
 						'../assets/config/routes.js',
-						'../assets/components/**/*.js'
+						'../assets/components/**/*.js',
+						'../assets/filter/**/*.js'
 						],
 						dest: 'dist/app.js',
 				},

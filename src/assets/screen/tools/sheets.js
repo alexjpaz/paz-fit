@@ -1,7 +1,17 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
-	ScreenFactoryProvider.$get().build('screen-tools-sheets', function($scope, FiveThreeOneCalculator, PersonalRecordDao, $routeParams) {
+	ScreenFactoryProvider.$get().build('screen-tools-sheets', function($scope, FiveThreeOneCalculator, PersonalRecordDao, $routeParams, MaxesDao) {
+
+		/** @var m model */
+		$scope.m = {};
 
 		var r = $scope.r = $routeParams;
+
+		if(r.latestMax) {
+
+		} else {
+
+		}
+
 		$scope.m = {
 			fiveMonths: {
 				increment: 5,

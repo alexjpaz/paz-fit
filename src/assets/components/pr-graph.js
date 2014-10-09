@@ -94,7 +94,6 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 
 					var repGoal = FiveThreeOneCalculator.repgoal(r.weight, effectiveMax.max);
 
-					console.debug(effectiveMax, repGoal, estimatedMax);
 
 					records.push({
 						_date: r.date,
