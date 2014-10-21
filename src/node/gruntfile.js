@@ -40,11 +40,7 @@ module.exports = function (grunt) {
 
 			uglify: {
 				files: { 
-					src: '../assets/**/.js',  // source files mask
-					dest: 'assets.min/',    // destination folder
-					expand: true,    // allow dynamic building
-					flatten: true,   // remove all unnecessary nesting
-					ext: '.min.js'   // replace .js to .min.js
+					'dist/lib.min.js': ['dist/lib.js']
 				}
 			},
 			watch: {
