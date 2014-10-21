@@ -10,33 +10,35 @@
 		<div class='col-md-12'>
 			<panel panel-title='Maxes as of {{ currentMaxes.date }}' class='panel-default'>
 			<div class='screen-profile-main__maxes'>
-				<table class='table table-bordered' ng-if='currentMaxes'>
-					<thead>
+				<div class="table-responsive">
+					<table class='table table-bordered' ng-if='currentMaxes'>
+						<thead>
+							<tr>
+								<th>*</th>
+								<th colspan='2' class='screen-profile-main__lift--press'>Press</th>
+								<th colspan='2' class='screen-profile-main__lift--deadlift'>Deadlift</th>
+								<th colspan='2' class='screen-profile-main__lift--bench'>Bench</th>
+								<th colspan='2' class='screen-profile-main__lift--squat'>Squat</th>
+							</tr>
+						</thead>
+						<tbody>
 						<tr>
-							<th>*</th>
-							<th colspan='2' class='screen-profile-main__lift--press'>Press</th>
-							<th colspan='2' class='screen-profile-main__lift--deadlift'>Deadlift</th>
-							<th colspan='2' class='screen-profile-main__lift--bench'>Bench</th>
-							<th colspan='2' class='screen-profile-main__lift--squat'>Squat</th>
+							<td>1RM</td>
+							<td colspan='2'>{{currentMaxes.press}}</td>
+							<td colspan='2'>{{currentMaxes.deadlift}}</td>
+							<td colspan='2'>{{currentMaxes.bench}}</td>
+							<td colspan='2'>{{currentMaxes.squat}}</td>
 						</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td>1RM</td>
-						<td colspan='2'>{{currentMaxes.press}}</td>
-						<td colspan='2'>{{currentMaxes.deadlift}}</td>
-						<td colspan='2'>{{currentMaxes.bench}}</td>
-						<td colspan='2'>{{currentMaxes.squat}}</td>
-					</tr>
-					<tr ng-repeat='fraction in [0.95,0.90,0.85,0.80,0.75,0.65] track by $index' class='screen-profile-main__pct'>
-						<td><em>{{fraction*100}}%</em></td>
-						<td ng-repeat-start='lift in ApplicationEnum.LIFT track by $index' ng-init='mx = maxFraction(currentMaxes[lift], fraction)'>
-							<a ng-href='#/profile/personal-record?feq_lift={{ lift }}&ordering=-date&feq_weight={{ mx }}'>{{ mx }}<small>lbs</small></a>
-						</td>
-						<td ng-repeat-end><strong>{{repgoal(currentMaxes[lift], fraction)}}</strong></td>
-					</tr>
-					</tbody>
-				</table>
+						<tr ng-repeat='fraction in [0.95,0.90,0.85,0.80,0.75,0.65] track by $index' class='screen-profile-main__pct'>
+							<td><em>{{fraction*100}}%</em></td>
+							<td ng-repeat-start='lift in ApplicationEnum.LIFT track by $index' ng-init='mx = maxFraction(currentMaxes[lift], fraction)'>
+								<a ng-href='#/profile/personal-record?feq_lift={{ lift }}&ordering=-date&feq_weight={{ mx }}'>{{ mx }}<small>lbs</small></a>
+							</td>
+							<td ng-repeat-end><strong>{{repgoal(currentMaxes[lift], fraction)}}</strong></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<a class='btn btn-default' ng-disabled='!uriEncodedMaxes' ng-href='#/tools/sheets?{{uriEncodedMaxes}}'>Sheets</a>
 		</div>

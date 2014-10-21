@@ -1,25 +1,27 @@
 <div class='plate-table'>
-	<table class='table table-bordered'>
-		<thead>
-			<tr>
-				<th>{{ max }}</th>
-				<th colspan='7'>{{ week }} {{ lift }}</th>
-			</tr>
-			<tr>
-				<th>%</th>
-				<th>W</th>
-				<th>45</th>
-				<th>35</th>
-				<th>25</th>
-				<th>10</th>
-				<th>5</th>
-				<th>2½</th>
-			</tr>
-		</thead>
-		<tbody>
+	<div class="table-responsive">
+		<table class='table table-bordered'>
+			<thead>
+				<tr>
+					<th>{{ max }}</th>
+					<th colspan='7'>{{ week }} {{ lift }}</th>
+				</tr>
+				<tr>
+					<th>%</th>
+					<th>W</th>
+					<th>45</th>
+					<th>35</th>
+					<th>25</th>
+					<th>10</th>
+					<th>5</th>
+					<th>2½</th>
+				</tr>
+			</thead>
+			<tbody>
 			<tr ng-repeat='(fraction, plates) in sets'>
 				<td ng-repeat='plate in plates track by $index' class='plate-table__plate--{{$index}}'>{{plate}}</td>
 			</tr>
-		</tbody>
-	</table>
+			</tbody>
+		</table>
+	</div>
 </div>

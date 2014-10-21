@@ -32,7 +32,6 @@ module.exports = function (grunt) {
 						'bower_components/bootstrap/dist/js/bootstrap.min.js',
 						'bower_components/d3/d3.min.js',
 						'bower_components/momentjs/min/moment.min.js',
-						'../assets/lib/ydn.db-iswu-core-e-qry-dev.js'
 						],
 						dest: 'dist/lib.js',
 				},
@@ -58,7 +57,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 
 	// register at least this one task
-	grunt.registerTask('default', ['concat']);
+	grunt.registerTask('default', ['concat','uglify']);
 
 
 };
