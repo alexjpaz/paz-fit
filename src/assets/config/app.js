@@ -30,41 +30,7 @@ angular.module('app',['ngResource','ngRoute','helper','resources'])
 	});
 })
 
-.config(function($provide, SchemaManagerProvider) {
-	SchemaManagerProvider.addStore({
-		name: '_metadata',
-		indexes: [
-			{keyPath: 'store'},
-			{keyPath: 'modified'},
-		]
-	});
 
-	SchemaManagerProvider.addStore({
-		name: 'PersonalRecord',
-		keyPath: 'date',
-		indexes: [
-			{keyPath: 'lift'},
-			{keyPath: 'reps', type: 'INTEGER'},
-			{keyPath: 'weight', type: 'INTEGER'}
-		]
-	});
-
-	SchemaManagerProvider.addStore({
-		name: 'Maxes',
-		keyPath: 'date',
-		indexes: [
-			{keyPath: 'press',type: 'INTEGER'},
-			{keyPath: 'deadlift',type: 'INTEGER'},
-			{keyPath: 'bench',type: 'INTEGER'},
-			{keyPath: 'squat',type: 'INTEGER'},
-			{
-				keyPath: 'date',
-				unique: true,
-				type: 'DATE'
-			},  
-		]
-	});
-})
 .config(function($injector, ScreenFactoryProvider, ComponentFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
 	var ComponentFactory = ComponentFactoryProvider.$get();

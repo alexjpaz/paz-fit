@@ -1,3 +1,4 @@
+console.debug('lol?')
 head.load('/bower_components/jquery/jquery.min.js', function() {
 
 	function AssetRepository() {

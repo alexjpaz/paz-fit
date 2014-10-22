@@ -7,23 +7,21 @@
 		<style>@import url('dist/app.css?v=5');</style>
 	</head>
 	<body>
-		<div> 
-			<div app-container></div>
-		</div>
+		<div app-container></div>
 		<script src="dist/lib.js?v=5"></script>
 		<script src="dist/app.js?v=5"></script>
 		<script src="dist/screen.js?v=5"></script>
 		<script>
-		try{
-			angular.bootstrap(document, ['app']);
-		} catch(e) {
-			if(/App Already Bootstrapped with this Element/.test(e.message)) {
-				console.log('WARNING: already bootstrapped');
-			} else {
-				console.error(e.message);
-				document.write('<pre>'+e+'</pre>');
+			try{
+				angular.bootstrap(document.documentElement, ['app']);
+			} catch(e) {
+				if(/App Already Bootstrapped with this Element/.test(e.message)) {
+					console.log('WARNING: already bootstrapped');
+				} else {
+					console.error(e.message);
+					document.write('<pre>'+e+'</pre>');
+				}
 			}
-		}
 		</script>
 	</body>
 </html>

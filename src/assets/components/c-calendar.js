@@ -126,7 +126,7 @@ angular.module('app').config(function($provide, ComponentFactoryProvider) {
 	var ComponentFactory = ComponentFactoryProvider.$get();
 	ComponentFactory.build('c-calendar', {
 		scope: {'events':'=','selectDay':'&cCalendar'},
-		controller: function($scope, Database, CalendarView, CalendarEventRepository, $location) {
+		controller: function($scope, CalendarView, CalendarEventRepository, $location) {
 			$scope.cssForDay = function(day) {
 				if(day == null) return;
 				var css = [];
