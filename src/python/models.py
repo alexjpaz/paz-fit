@@ -37,11 +37,10 @@ def export_all_the_things():
 	}
 
 	for m in qm.run():
-		print m.date
-		results["Maxes"].append(m)
+		result["Maxes"].append(m)
 
 	for p in qp.run():
-		results["PersonalRecord"].append(p)
+		result["PersonalRecord"].append(p)
 
 	return result
 
