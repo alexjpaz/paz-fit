@@ -9,7 +9,7 @@ import datetime
 import models
 
 from google.appengine.api import users
-from google.appengine.api import users
+from google.appengine.api import namespace_manager
 
 from datetime import date
 
