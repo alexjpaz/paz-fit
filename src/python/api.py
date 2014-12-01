@@ -9,6 +9,7 @@ import datetime
 import models
 
 from google.appengine.api import users
+from google.appengine.api import users
 
 from datetime import date
 
@@ -95,6 +96,9 @@ class GoalHandler(webapp2.RequestHandler):
 
 class ExportHandler(webapp2.RequestHandler):
 	def get(self):
+		user_namespace = users.get_current_user().user_id()
+		logging.info('Setting namespame to %s', user_namespace)
+		namespace_manager.set_namespace(user_namespace)
 		result = models.export_all_the_things()
 		write_json(self.response, result);
 
