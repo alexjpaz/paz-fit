@@ -37,10 +37,21 @@ def export_all_the_things():
 	}
 
 	for m in qm.run():
-		result["Maxes"].append(m)
+		result["Maxes"].append({
+			"press": m.press,
+			"deadlift": m.deadlift,
+			"bench": m.bench,
+			"squat": m.squat,
+			"date": m.date
+		})
 
 	for p in qp.run():
-		result["PersonalRecord"].append(p)
+		result["PersonalRecord"].append({
+			"weight": p.weight,
+			"reps": p.reps,
+			"lift": p.lift,
+			"date": p.date,
+		})
 
 	return result
 
