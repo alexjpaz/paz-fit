@@ -42,7 +42,8 @@ def export_all_the_things():
 			"deadlift": m.deadlift,
 			"bench": m.bench,
 			"squat": m.squat,
-			"date": m.date
+			"date": m.date.strftime("%Y-%m-%d")
+
 		})
 
 	for p in qp.run():
@@ -50,7 +51,7 @@ def export_all_the_things():
 			"weight": p.weight,
 			"reps": p.reps,
 			"lift": p.lift,
-			"date": p.date,
+			"date": p.date.strftime("%Y-%m-%d")
 		})
 
 	return result
