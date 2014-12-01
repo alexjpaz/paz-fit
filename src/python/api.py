@@ -3,9 +3,10 @@ import utils
 import tmpl
 import json
 import logging
-import jinja2 
+import jinja2
 import os
 import datetime
+import models
 
 from google.appengine.api import users
 
@@ -86,11 +87,18 @@ class GoalHandler(webapp2.RequestHandler):
 		weight = int(self.request.get('weight'))
 		result = utils.goal(max_weight, weight)
 		write_json(self.response, result)
-		
+
 class GoalHandler(webapp2.RequestHandler):
     def get(self):
 		result = {}
 		write_json(self.response, result)
+
+class ExportHandler(webapp2.RequestHandler):
+	def get(self):
+		result = models.export_all_the_things()
+		write_json(self.response, result);
+
+
 
 class EnvironmentHandler(webapp2.RequestHandler):
     def get(self):
@@ -110,6 +118,7 @@ class EnvironmentHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication(routes=[
 	('/api/authenticate', DerpAuthenticationHandler),
+	('/api/export', ExportHandler),
 	('/api/plates', PlateHandler),
 	('/api/goal', PlateHandler),
 	('/api/env', EnvironmentHandler),

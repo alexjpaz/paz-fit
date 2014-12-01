@@ -19,4 +19,31 @@ class PersonalRecord(db.Model):
 	reps = db.IntegerProperty()
 	lift = db.StringProperty()
 	date = db.DateProperty(auto_now_add=True)
-	post = db.ReferenceProperty(Post)
+	#post = db.ReferenceProperty(Post)
+
+
+def export_all_the_things():
+	qm = Maxes.all()
+	qm.order('date')
+
+	print qm.count()
+
+	qp = PersonalRecord.all()
+	qp.order('date')
+
+	result = {
+		"Maxes": [],
+		"PersonalRecord": []
+	}
+
+	for m in qm.run():
+		print m.date
+		results["Maxes"].append(m)
+
+	for p in qp.run():
+		results["PersonalRecord"].append(p)
+
+	return result
+
+
+
