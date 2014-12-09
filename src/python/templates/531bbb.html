@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% autoescape true %}
+{% set table = utils.generate_month(request.GET.items(),'531') %}
+{% set p = request.get('p') | int() %}
+{% set d = request.get('d') | int() %}
+{% set b = request.get('b') | int() %}
+{% set s = request.get('s') | int() %}
+{% set startDate = request.get('startDate') %}
+<html>
+  <head>
+    <title>531 Month Cycle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/bower_components/normalize.css/normalize.css" rel="stylesheet">
+    <link href="/assets/components/plate-table.css" rel="stylesheet">
+    <link href="/assets/static/table/style.css" rel="stylesheet">
+    <link href="/assets/static/table/print-fixer.css" rel="stylesheet">
+  </head>
+  <body>
+	  <div class='container page--531'>
+		  {% for lift, month in table.iteritems() %}
+		  <div class='row lift lift--{{loop.index}}'>
+			  <div class='lift__month'>
+				  {% for week in ['3x5','3x3','531','DL'] %}
+				  <div class='col-md-3 lift__week lift__week--{{week}}'>
+					  <div class='lift__week-table'>
+					  <table class='table'>
+						  <thead>
+							  <tr class='lift__week-header'>
+								  <th colspan='2'>{{ lift }}</th>
+								  <th colspan='6'>{{ week }}</th>
+							  </tr>
+							  <tr class='lift__week-legend'>
+								  <td>%</td>
+								  <td>W</td>
+								  <td>45</td>
+								  <td>35</td>
+								  <td>25</td>
+								  <td>10</td>
+								  <td>5</td>
+								  <td>2&frac12;</td>
+							  </tr>
+						  </thead>
+						  <tbody>
+							  {% for pct, plates in month[week].iteritems() | sort %}
+							  <tr class='lift__set lift_set--{{(pct*100)|int}}'>
+								  <td>{{ (pct*100) | int }}%</td>
+								  {% for plate in plates %}
+								  <td>{{ plate | int }}</td>
+								  {% endfor %}
+							  </tr>
+							  {% endfor %}
+						  </tbody>
+					  </table>
+				  </div>
+				  </div>
+				  {% endfor %}
+			  </div>
+		  </div>
+		  {% endfor %}
+		  <div class='date'>
+			  <span>{{ startDate }}</span>
+		  </div>
+		  <div class='' contenteditable>CLICK TO ADD NOTE</div>
+		  <div class='noprint'>
+		  <div class='date'>
+			  <a href='{{ "531?p=%s&d=%s&b=%s&s=%s" | format(*(p-5,d-10,b-5,s-10)) }}' class='btn btn-primary btn-xs'>Prev</a>
+			  <span>{{ today }}</span>
+			  <a href='{{ "531?p=%s&d=%s&b=%s&s=%s" | format(*(p+5,d+10,b+5,s+10)) }}' class='btn btn-primary btn-xs'>Next</a>
+		  </div>
+		  </div>
+	  </div>
+  </body>
+</html>
+{% endautoescape %}
