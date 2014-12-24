@@ -3,7 +3,7 @@
 }
 
 body{
-  -webkit-print-color-adjust:exact;
+	-webkit-print-color-adjust:exact;
 }
 
 .col-md-3 {
@@ -16,7 +16,12 @@ body{
 
 
 @media print {
-   	.noprint {
-	display: none;
-}
+	.noprint {
+		display: none;
+	}
+
+	.page-break {
+		page-break-after: always;
+		border: none;
+	}
 }

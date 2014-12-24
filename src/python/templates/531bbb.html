@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 {% autoescape true %}
-{% set table = utils.generate_month(request.GET.items(),'531') %}
 {% set p = request.get('p') | int() %}
 {% set d = request.get('d') | int() %}
 {% set b = request.get('b') | int() %}
 {% set s = request.get('s') | int() %}
+
+
+{% set pa = request.get('pa') | int() %}
+
+{% set max_lifts = [('p',p), ('d',d),('b',b),('s',s)] %}
+{% set table = utils.generate_month(max_lifts,'531') %}
 {% set startDate = request.get('startDate') %}
 <html>
   <head>
@@ -57,15 +62,42 @@
 			  </div>
 		  </div>
 		  {% endfor %}
+		  <hr class='page-break' />
+		  <div id='page2'>
+			  <div class='lift--0'>
+				  <table class='table'>
+					  <thead>
+						  <th>45</th>
+						  <th>35</th>
+						  <th>25</th>
+						  <th>10</th>
+						  <th>5</th>
+						  <th>2&frac12;</th>
+					  </thead>
+					  <tbody>
+						  <tr class='lift__set'>
+							  {% for plate in utils.calculate_plates(pa, 1, False) %}
+							  <td>{{ plate | int }}</td>
+							  {% endfor %}
+						  </tr>
+					  </tbody>
+				  </table>
+			  </div>
+		  </div>
 		  <div class='date'>
 			  <span>{{ startDate }}</span>
 		  </div>
 		  <div class='' contenteditable>CLICK TO ADD NOTE</div>
 		  <div class='noprint'>
 		  <div class='date'>
-			  <a href='{{ "531?p=%s&d=%s&b=%s&s=%s" | format(*(p-5,d-10,b-5,s-10)) }}' class='btn btn-primary btn-xs'>Prev</a>
-			  <span>{{ today }}</span>
-			  <a href='{{ "531?p=%s&d=%s&b=%s&s=%s" | format(*(p+5,d+10,b+5,s+10)) }}' class='btn btn-primary btn-xs'>Next</a>
+			  <div class='settings'>
+				  <p>Controls</p>
+				  <div class='settings__content'>
+					  <a href='{{ "531bbb?p=%s&d=%s&b=%s&s=%s" | format(*(p-5,d-10,b-5,s-10)) }}' class='btn btn-primary btn-xs'>Prev</a>
+					  <span>{{ today }}</span>
+					  <a href='{{ "531bbb?p=%s&d=%s&b=%s&s=%s" | format(*(p+5,d+10,b+5,s+10)) }}' class='btn btn-primary btn-xs'>Next</a>
+				  </div>
+			  </div>
 		  </div>
 		  </div>
 	  </div>
