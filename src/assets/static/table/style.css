@@ -149,3 +149,11 @@
 
 hr.page-break {
 }
+
+.table tr {
+	border-bottom: 1px solid #ddd;
+}
+
+.table tr:last-child {
+	border-bottom: none;
+}
