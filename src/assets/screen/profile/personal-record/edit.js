@@ -42,7 +42,12 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 
 			$scope.saveStatus = 'saving';
 
-			promise.then(function() {
+			promise.then(function(rsp) {
+				var key = rsp.data;
+				$scope.$loading = true;
+				$location.search('key', key);
+				$scope.key = key;
+				$scope.getPersonalRecord();
 				$scope.saveStatus = 'saved';
 			}, function() {
 				$scope.saveStatus = 'error';
@@ -67,7 +72,6 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			$scope.$loading = true;
 			$scope.getPersonalRecord();
 		} else {
-			console.debug(moment)
 			var date = moment(r.date,'YYYY-MM-DD');
 
 			if(!date.isValid()) {
