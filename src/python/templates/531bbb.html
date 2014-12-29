@@ -65,23 +65,30 @@
 		  <hr class='page-break' />
 		  <div id='page2'>
 			  <div class='lift--0'>
-				  <table class='table'>
-					  <thead>
-						  <th>45</th>
-						  <th>35</th>
-						  <th>25</th>
-						  <th>10</th>
-						  <th>5</th>
-						  <th>2&frac12;</th>
-					  </thead>
-					  <tbody>
+				  <div class='lift__weed-table'>
+					  <table class='table'>
+						  <thead>
+							  <tr class='lift__week-legend'>
+								  <th colspan='2'>Press</th>
+								  <th>45</th>
+								  <th>35</th>
+								  <th>25</th>
+								  <th>10</th>
+								  <th>5</th>
+								  <th>2&frac12;</th>
+							  </tr>
+						  </thead>
+						  <tbody>
 						  <tr class='lift__set'>
+							  <td></td>
+							  <td>{{ pa }}</td>
 							  {% for plate in utils.calculate_plates(pa, 1, False) %}
 							  <td>{{ plate | int }}</td>
 							  {% endfor %}
 						  </tr>
-					  </tbody>
-				  </table>
+						  </tbody>
+					  </table>
+				  </div>
 			  </div>
 		  </div>
 		  <div class='date'>
