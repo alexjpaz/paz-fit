@@ -10,7 +10,6 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			reps: 5
 		};
 
-
 		$scope.getPersonalRecord  = function() {
 			var params = {"feq_key": $scope.key};
 			PersonalRecordDao.find(params).then(function(records) {
@@ -37,8 +36,6 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			}
 
 			var promise = PersonalRecordDao.save($scope.dto);
-
-			$scope.saveStatus = null;
 
 			$scope.saveStatus = 'saving';
 
