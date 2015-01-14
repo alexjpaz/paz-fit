@@ -19,7 +19,7 @@ angular.module('helper')
 
 			this.screen = function(screenName, callback) {
 				this.load('assets/screen/'+screenName+'.js', callback);
-				this.load('assets/screen/'+screenName+'.css');
+				//this.load('assets/screen/'+screenName+'.css');
 			};
 		}
 

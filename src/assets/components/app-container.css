@@ -3,7 +3,7 @@
 }
 
 .app-container__nav  {
-	padding: 0;
+	padding: 0 !important;
 }
 
 body {

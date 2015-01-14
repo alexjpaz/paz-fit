@@ -130,6 +130,22 @@ angular.module('resources').config(function($provide) {
 
 	$provide.factory('PersonalRecordDao', function($http, $q, Database, DaoFactory) {
 		var PersonalRecordDao = DaoFactory('PersonalRecord');
+		PersonalRecordDao.findLatest = function() {
+			var params = {
+				"flt_date": moment().format('YYYY-MM-DD'),
+				"ordering": "-date",
+			};
+			return this.find(params);
+		};
+		PersonalRecordDao.findPrevious = function(date, lift) {
+			var params = {
+				"flt_date": date,
+				"feq_lift": lift,
+				"ordering": "-date",
+			};
+
+			return this.find(params);
+		};
 		return PersonalRecordDao;
 	});
 
@@ -140,7 +156,6 @@ angular.module('resources').config(function($provide) {
 			databaseInstance.addEventListener(type, function(event) {
 				var name = 'Database'+(type.charAt(0).toUpperCase() + type.slice(1));
 				$rootScope.$broadcast(name, event.name, event);
-				console.debug(name, event);
 			});
 		});
 
