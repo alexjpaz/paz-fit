@@ -1,6 +1,6 @@
 <div class='screen-profile-personal-record-edit'>
 	<div ng-show='$loading'>
-		<h1><i class='fa fa-spinner fa-spin'></i></h1>
+		<h1><i class='fa fa-spinner fa-spin'> </i></h1>
 	</div>
 	<div ng-hide='$loading'>
 		<div class='clearfix'>
@@ -47,15 +47,18 @@
 							<i class='fa fa-cog'></i>
 						</button>
 						<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><a ng-href='#/profile/personal-record?feq_lift={{ dto.lift }}&ordering=-date&feq_weight={{ dto.weight }}'>Review Past Attempts</a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><a ng-href='#/profile/note/edit?date={{ dto.date }}'>Review Note</a></li>
-								<li role="presentation" class="divider"></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href ng-click='remove()' class='entity__action--remove'>Remove</a></li>
-							</ul>
-						</div>
+							<li role="presentation">
+								<a ng-href='#/profile/personal-record?feq_lift={{ dto.lift }}&ordering=-date&feq_weight={{ dto.weight }}'>Review Past Attempts</a>
+							</li>
+							<li role="presentation">
+								<a ng-href='#/profile/note/edit?date={{ dto.date }}'>Review Note</a>
+							</li>
+							<li role="presentation" class="divider"></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href ng-click='remove()' class='entity__action--remove'>Remove</a></li>
+						</ul>
 					</div>
-				</form>
-			</div>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
