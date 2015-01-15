@@ -52,7 +52,7 @@
 							<td>{{ effectiveMax[dto.lift] }} </td>
 							<td>
 								{{ estMax | number:0 }} 
-								<span class='text-muted'>({{ dto.weight / effectiveMax[dto.lift] * 100 | number:1 }}%)</span>
+								<span class='text-muted'>(&asymp;{{ dto.weight / effectiveMax[dto.lift] * 100 | number:1 }}%)</span>
 							</td>
 							<td>
 								{{ targetReps }}

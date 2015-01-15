@@ -43,6 +43,10 @@ angular.module('app')
 			return max;
 		};
 
+		this.roundTo = function(value, step) {
+			return Math.round(value / step) * step;
+		};
+
 		this.repgoal = function(max, weight) {
 			weight = parseInt(weight);
 			max = parseInt(max);
@@ -116,6 +120,7 @@ angular.module('app')
 			return effectiveMax;
 		};
 	});
+
 })
 .config(function($provide) {
 	$provide.factory('CalendarUtils', function(moment) {

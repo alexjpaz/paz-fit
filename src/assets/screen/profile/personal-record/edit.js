@@ -119,7 +119,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 
 					var nextPct = PercentageProgressionMap.next(pct);
 
-					$scope.dto.weight = $scope.effectiveMax[$scope.dto.lift] * nextPct;
+					$scope.dto.weight = FiveThreeOneCalculator.roundTo($scope.effectiveMax[$scope.dto.lift] * nextPct, 5);
 				}
 			},
 			reps: function(data) {
