@@ -121,6 +121,7 @@ angular.module('resources').config(function($provide) {
 			var params = {
 				"flt_date": moment().format('YYYY-MM-DD'),
 				"ordering": "-date",
+				"page_size": 1
 			};
 
 			return this.find(params);
@@ -135,6 +136,7 @@ angular.module('resources').config(function($provide) {
 			var params = {
 				"flt_date": date,
 				"ordering": "-date",
+				"page_size": 1
 			};
 			return this.find(params);
 		};
@@ -143,6 +145,7 @@ angular.module('resources').config(function($provide) {
 				"flt_date": date,
 				"feq_lift": lift,
 				"ordering": "-date",
+				"page_size": 1
 			};
 
 			return this.find(params);
