@@ -1,18 +1,19 @@
 <div class='screen-profile-maxes-list'>
 	<a href='#/profile/maxes/schedule' class='btn btn-default'>Schedule Cycles</a>
 	<hr />
-	<table class='table table-bordered'>
-		<thead>
-			<tr>
-				<th>Date</th>
-				<th>Press</th>
-				<th>Deadlift</th>
-				<th>Bench</th>
-				<th>Squat</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
+	<div class='table-responsive'>
+		<table class='table table-bordered'>
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Press</th>
+					<th>Deadlift</th>
+					<th>Bench</th>
+					<th>Squat</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
 			<tr ng-repeat='mx in maxes' ng-class='{"danger": isFutureMax(mx) }'>
 				<td>
 					<a ng-href='#/profile/maxes/schedule?{{ mx | paramString }}'>{{ mx.date }}</a>
@@ -20,24 +21,25 @@
 				</td>
 				<td>
 					<span>{{ mx.press }}</span>
-					<span ng-show='!$first' class='text-muted'>( {{ mx.increment.press * 100 | number:1 }}%)</span>
+					<span ng-show='!$first' class='text-muted'>( {{ mx.increment.press * 100 | number:0 }}%)</span>
 				</td>
 				<td>
 					{{ mx.deadlift }}
-					<span ng-show='!$first' class='text-muted'>( {{ mx.increment.deadlift * 100 | number:1 }}%)</span>
+					<span ng-show='!$first' class='text-muted'>( {{ mx.increment.deadlift * 100 | number:0 }}%)</span>
 				</td>
 				<td>
 					{{ mx.bench }}
-					<span ng-show='!$first' class='text-muted'>( {{ mx.increment.bench * 100 | number:1 }}%)</span>
+					<span ng-show='!$first' class='text-muted'>( {{ mx.increment.bench * 100 | number:0 }}%)</span>
 				</td>
 				<td>
 					{{ mx.squat }}
-					<span ng-show='!$first' class='text-muted'>( {{ mx.increment.squat * 100 | number:1 }}%)</span>
+					<span ng-show='!$first' class='text-muted'>( {{ mx.increment.squat * 100 | number:0 }}%)</span>
 				</td>
 				<td>
 					<a href ng-click='remove(mx)' class='btn btn-danger btn-xs'><i class='fa fa-ban'></i></a>
 				</td>
 			</tr>
-		</tbody>
-	</table>
+			</tbody>
+		</table>
+	</div>
 </div>
