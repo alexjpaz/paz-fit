@@ -15,7 +15,6 @@
 					<td>{{ mdl.PersonalRecord.reps }} <span class='label label--estimatedMax'>{{ calc.actualEstMax | number:3 }}</span></td>
 					<td>
 						<span>{{ calc.reptarget }}</span>
-						<!--<span class='label label--maxes'>{{ calc.targetEstMax | number:3 }}</span>-->
 						<span class='label label--deltaTargetMax'>{{ calc.actualEstMax - calc.targetEstMax | number:0 }}</span>
 					</td>
 					<td>
@@ -25,18 +24,21 @@
 				</tr>
 			</tbody>
 		</table>
-		<span ng-switch on='mdl.PersonalRecord.key != null' ng-show='loaded.pr'>
-			<span ng-switch-when='true'>
-				<a-btn href='#/profile/personal-record/edit?key={{ mdl.PersonalRecord.key }}' i='pencil-square'>Edit Personal Record</a-btn>
+		
+		<div class='btn--expando'>
+			<span ng-switch on='mdl.PersonalRecord.key != null' ng-show='loaded.pr'>
+				<span ng-switch-when='true'>
+					<a-btn href='#/profile/personal-record/edit?key={{ mdl.PersonalRecord.key }}' i='pencil-square'>Edit Personal Record</a-btn>
+				</span>
+				<span ng-switch-default>
+					<a-btn href='#/profile/personal-record/edit?date={{ date }}' i='plus-square'>Add Personal Record</a-btn>
+				</span>
 			</span>
-			<span ng-switch-default>
-				<a-btn href='#/profile/personal-record/edit?date={{ date }}' i='plus-square'>Add Personal Record</a-btn>
-		   </span>
-		</span>
 
-		<span ng-show='loaded.maxes'>
-			<a-btn href='#/profile/maxes/edit?key={{ mdl.Maxes.key }}' disabled='{{ !mdl.Maxes.key }}' i='pencil-square'>Edit Maxes</a-btn>
-			<a-btn href='#/profile/maxes/edit?date={{ date }}' i='plus-square'>Add Maxes</a-btn>
-		</span>
+			<span ng-show='loaded.maxes'>
+				<a-btn href='#/profile/maxes/edit?key={{ mdl.Maxes.key }}' disabled='{{ !mdl.Maxes.key }}' i='pencil-square'>Edit Maxes</a-btn>
+				<a-btn href='#/profile/maxes/edit?date={{ date }}' i='plus-square'>Add Maxes</a-btn>
+			</span>
+		</div>
 	</div>
 </div>
