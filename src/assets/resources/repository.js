@@ -130,9 +130,10 @@ angular.module('resources').config(function($provide) {
 
 	$provide.factory('PersonalRecordDao', function($http, $q, Database, DaoFactory) {
 		var PersonalRecordDao = DaoFactory('PersonalRecord');
-		PersonalRecordDao.findLatest = function() {
+		PersonalRecordDao.findLatest = function(fromDate) {
+			var date = fromDate || moment().format('YYYY-MM-DD');
 			var params = {
-				"flt_date": moment().format('YYYY-MM-DD'),
+				"flt_date": date,
 				"ordering": "-date",
 			};
 			return this.find(params);

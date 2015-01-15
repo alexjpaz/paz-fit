@@ -9,6 +9,34 @@ angular.module('app')
 		return d3;
 	});
 
+	$provide.service('LiftProgressionChain', function() {
+		var steps = [0.85,0.9,0.95];
+
+		this.nextStep = function(currentStep) {
+			var step = null;
+			for(var i=0;i<steps.length;i++) {
+				if(currentStep ) {
+					step = steps[i];
+				}
+			}
+			return step;
+		};
+	});
+
+	$provide.service('LiftProgressionChain', function() {
+		var chain = ['press','deadlift','bench','squat'];
+
+		this.next = function(lift) {
+			var nextLift = null;
+
+			var liftIndex = chain.indexOf(lift);
+
+			nextLift = chain[(liftIndex + 1) % chain.length];
+
+			return nextLift;
+		};
+	});
+
 	$provide.service('FiveThreeOneCalculator', function(moment) {
 		this.max = function(weight, reps) {
 			var max = (weight*reps*0.0333 + weight);

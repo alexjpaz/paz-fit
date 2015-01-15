@@ -1,9 +1,12 @@
 <div class='screen-profile-personal-record-edit'>
-	<div ng-show='$loading'>
+	<div ng-show='loading.existingPersonalRecord'>
 		<h1><i class='fa fa-spinner fa-spin'> </i></h1>
 	</div>
-	<div ng-hide='$loading'>
+	<div ng-hide='loading.existingPersonalRecord'>
 		<div class='clearfix'>
+			<div class='pull-right'>
+				<button ng-click='fillInFormFromPreviousData()' class='btn btn-warning'><i class='fa fa-bolt'></i></button>
+			</div>
 			<h4>
 				<span class='text-success' ng-show='dto.key == null'>NEW </span>
 				<span>Personal Record for <input type='date' ng-model='dto.date' class='input--noborder' /></span>
@@ -13,17 +16,25 @@
 			<form name='prEditForm'>
 				<div class='form-group'>
 					<label for='lift'>Lift</label>
-					<select ng-model='dto.lift' ng-options='lift for lift in ApplicationEnum.LIFT' class='form-control'>
-						<option>-- Select Lift --</option>
+					<select ng-model='dto.lift' ng-options='lift as lift for lift in ApplicationEnum.LIFT' class='form-control'>
+						<option value=''>-- Select Lift --</option>
 					</select>
 				</div>
 				<div class='form-group'>
 					<label for='weight'>Weight</label>
-					<input type='number' step='5' min='45' max='900' ng-model='dto.weight' placeholder='Weight (lbs)' name='weight' class='form-control' />
+					<div class='input-group'>
+						<input type='number' step='5' min='45' max='900' ng-model='dto.weight' placeholder='Weight (lbs)' name='weight' class='form-control' />
+						<div class='input-group-btn'>
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">%</button>
+							<ul class="dropdown-menu" role="menu">
+								<li ng-repeat='fraction in ApplicationEnum.FRACTION'><a href ng-click='dto.weight = (effectiveMax[dto.lift] * fraction)'>{{ fraction * 100 }}%</a></li>
+							</ul>
+						</div>
+					</div>
 				</div>
 				<div class='form-group'>
 					<label for='reps'>Number of Reps</label>
-					<select ng-model='dto.reps' ng-options='rep for rep in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]' name='reps' class='form-control'>
+					<select ng-model='dto.reps' ng-options='rep as (rep == targetReps ? (rep+"*") : rep)   for rep in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]' name='reps' class='form-control'>
 					</select>
 				</div>
 				<div class='form-group' ng-if='isNew'>
@@ -39,7 +50,10 @@
 						</tr>
 						<tr>
 							<td>{{ effectiveMax[dto.lift] }} </td>
-							<td>{{ estMax | number:0 }} ({{ dto.weight / effectiveMax[dto.lift] * 100 }}%)</td>
+							<td>
+								{{ estMax | number:0 }} 
+								<span class='text-muted'>({{ dto.weight / effectiveMax[dto.lift] * 100 | number:1 }}%)</span>
+							</td>
 							<td>
 								{{ targetReps }}
 								<span class='text-muted'>(<span ng-show='dto.reps > targetReps'>+</span>{{ dto.reps - targetReps }})</span>

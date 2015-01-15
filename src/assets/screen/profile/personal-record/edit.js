@@ -1,78 +1,44 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
-	var ScreenFactory = ScreenFactoryProvider.$get();
-	ScreenFactory.build('screen-profile-personal-record-edit', function($scope, $routeParams, PersonalRecordDao, MaxesDao, moment, FiveThreeOneCalculator, $window, $location, $q) {
-		$scope.key = $routeParams.key;
+	ScreenFactoryProvider.$get().build('screen-profile-personal-record-edit', function($scope, $routeParams, PersonalRecordDao, MaxesDao, moment, FiveThreeOneCalculator, $window, $location, $q, LiftProgressionChain) {
+		var isNew = (!!$routeParams.key);
+		var key = $scope.key = $routeParams.key;
 		$scope.isNew = $routeParams.isNew;
 		var r = $scope.r = $routeParams;
+		$scope.loading = {};
 
 		$scope.dto = {
 			date: $scope.date,
-			reps: 5
+			reps: 5,
 		};
 
-		var progressionMap =  {
-			0.85: 0.90,
-			0.90: 0.95,
-			0.95: 0.85,
-			0.6: 0.85
-		};
+		var getPreviousPersonalRecord = function() {
+			var deffered = $q.defer();
 
-		var liftProgressionChain = ['press','deadlift','bench','squat'];
+			var date = $scope.date;
 
-		var previousPersonalRecord = {};
-		var latestPersonalRecord = {};
-		
-		var calculateValues = function() {
+			var data = {};
 
-			if(!$scope.key && latestPersonalRecord && !$scope.prEditForm.lift) {
-				var previousLiftIndex = liftProgressionChain.indexOf(latestPersonalRecord.lift);	
+			PersonalRecordDao.findLatest(date).then(function(records) {
+				data.latest = records[0];
 
-				var newLift = liftProgressionChain[(previousLiftIndex + 1) % liftProgressionChain.length];
-				$scope.dto.lift = newLift;
-			}
+				var nextLift = LiftProgressionChain.next(data.latest.lift);
 
-			if(!$scope.key && !$scope.prEditForm.weight.$dirty && !!$scope.effectiveMax && previousPersonalRecord) {
-
-				var pct = previousPersonalRecord.weight / $scope.effectiveMax[$scope.dto.lift];
-
-
-				var newPct = progressionMap[pct] || pct;
-
-				$scope.dto.weight = $scope.effectiveMax[$scope.dto.lift] * newPct;
-			}
-
-			if(!!$scope.dto.weight && !!$scope.dto.reps) {
-				$scope.estMax = FiveThreeOneCalculator.max($scope.dto.weight, $scope.dto.reps);
-			}
-
-			if(!!$scope.effectiveMax && !!$scope.dto.weight && !!$scope.dto.lift) {
-				$scope.targetReps = FiveThreeOneCalculator.repgoal($scope.effectiveMax[$scope.dto.lift], $scope.dto.weight);
-
-				if(!$scope.key && !$scope.prEditForm.reps.$dirty) {
-					$scope.dto.reps = $scope.targetReps;
-				}
-			}
-		};
-
-		var getPreviousPersonalRecord = function(date, lift) {
-			var promises = {};
-			
-			promises.previousRecord = PersonalRecordDao.findPrevious(date, lift).then(function(records) {
-				previousPersonalRecord = records[0];
+				PersonalRecordDao.findPrevious(date, nextLift).then(function(records) {
+					data.previous = records[0];
+					deffered.resolve(data);
+				});
 			});
 
-			promises.latestRecord = PersonalRecordDao.findLatest().then(function(records) {
-				latestPersonalRecord = records[0];
-			});
-
-			$q.all(promises).then(function() {
-				calculateValues();
-			});
+			return deffered.promise;
 		};
+	
+		var getExistingPersonalRecord = function() {
+			if(!key) return false;
 
-		$scope.getPersonalRecord  = function() {
+			$scope.loading.existingPersonalRecord = true;
 			var params = {"feq_key": $scope.key};
 			PersonalRecordDao.find(params).then(function(records) {
+				$scope.loading.existingPersonalRecord = false;
 				$scope.$loading = false;
 				var PersonalRecord = records[0];
 
@@ -83,34 +49,116 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 						date: $scope.date
 					};
 				}
-
-
-				getPreviousPersonalRecord(PersonalRecord.date, PersonalRecord.lift);
 			});
 		};
 
-	
-		$scope.getEffectiveMax = function() {
+		var generateNewPersonalRecordDto = function() {
+			var date = moment(r.date,'YYYY-MM-DD');
+
+			if(!date.isValid()) {
+				date = moment();
+			}
+
+			formattedDate = date.format('YYYY-MM-DD');
+
+			$scope.dto.date = formattedDate;
+			$scope.date = formattedDate;
+
+			getEffectiveMax();
+		};
+
+		var getEffectiveMax = function() {
 			MaxesDao.findLatest().then(function(records) {
 				$scope.effectiveMax = records[0];
 
 			});
 		};
 
+		var progressionMap =  {
+			0.85: 0.90,
+			0.90: 0.95,
+			0.95: 0.85,
+			0.6: 0.85
+		};
+
+		var PercentageProgressionMap = (function () {
+			var steps = [0.85,0.9,0.95];
+
+			self = {};
+			self.next = function(currentStep) {
+				var step = null;
+				for(var i=0;i<steps.length;i++) {
+					if(currentStep >= steps[i]) {
+						step = steps[(i+1)%steps.length];
+					}
+				}
+				return step;
+			};
+
+			return self;
+		})();
+
+		var liftProgressionChain = ['press','deadlift','bench','squat'];
+
+		var previousPersonalRecord = {};
+		var latestPersonalRecord = {};
+
+		var CalculatedValues = {
+			lift: function(data) {
+				if(!$scope.key && data.latest.lift && !$scope.prEditForm.lift) {
+					var nextLift = LiftProgressionChain.next(data.latest.lift);
+					$scope.dto.lift = nextLift;
+				}
+			},
+			weight: function(data) {
+				if(!$scope.key && !$scope.prEditForm.weight.$dirty && !!$scope.effectiveMax && data.previous) {
+					
+					var pct = data.previous.weight / $scope.effectiveMax[$scope.dto.lift];
+
+					var nextPct = PercentageProgressionMap.next(pct);
+
+					$scope.dto.weight = $scope.effectiveMax[$scope.dto.lift] * nextPct;
+				}
+			},
+			reps: function(data) {
+				if(!$scope.key && !$scope.prEditForm.reps.$dirty) {
+					$scope.dto.reps = FiveThreeOneCalculator.repgoal($scope.effectiveMax[$scope.dto.lift], $scope.dto.weight);
+				}
+			},
+			estimatedMax: function(data) {
+				if(!!$scope.dto.weight && !!$scope.dto.reps) {
+					$scope.estMax = FiveThreeOneCalculator.max($scope.dto.weight, $scope.dto.reps);
+				}
+			},
+			targetReps: function(data) {
+				if(!!$scope.effectiveMax && !!$scope.dto.weight && !!$scope.dto.lift) {
+					$scope.targetReps = FiveThreeOneCalculator.repgoal($scope.effectiveMax[$scope.dto.lift], $scope.dto.weight);
+				}
+			}
+		};
+
+		$scope.fillInFormFromPreviousData = function(date, life) {
+			getPreviousPersonalRecord().then(function(data) {
+				CalculatedValues.lift(data);
+				CalculatedValues.weight(data);
+				CalculatedValues.reps(data);
+			});
+		};
+
 		$scope.$watch('dto.reps', function(dto) {
 			if(angular.isUndefined(dto)) return;
-			calculateValues();
+			CalculatedValues.estimatedMax();
 		}, true);
 
 		$scope.$watch('dto.weight', function(dto) {
 			if(angular.isUndefined(dto)) return;
-			calculateValues();
+			CalculatedValues.targetReps();
 		}, true);
 
 		$scope.$watch('dto.lift', function(lift) {
 			if(angular.isUndefined(lift)) return;
-			calculateValues();
-			getPreviousPersonalRecord($scope.dto.date, lift);
+			CalculatedValues.estimatedMax();
+			CalculatedValues.targetReps();
 		});
 
 		$scope.saveChanges = function() {
@@ -149,26 +197,11 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		};
 
 		(function init() {
-			if(angular.isDefined($scope.key)) {
-				$scope.$loading = true;
-				$scope.getPersonalRecord();
+			if(isNew) {
+				getExistingPersonalRecord();
 			} else {
-				var date = moment(r.date,'YYYY-MM-DD');
-
-				if(!date.isValid()) {
-					date = moment();
-				}
-
-				formattedDate = date.format('YYYY-MM-DD');
-
-				$scope.dto.date = formattedDate;
-				$scope.date = formattedDate;
-				getPreviousPersonalRecord();
+				generateNewPersonalRecordDto();
 			}
-
-
-
-			$scope.getEffectiveMax();
 		})();
 
 	});
