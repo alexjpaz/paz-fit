@@ -50,6 +50,8 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 					};
 				}
 			});
+
+			getEffectiveMax();
 		};
 
 		var generateNewPersonalRecordDto = function() {
