@@ -5,7 +5,7 @@
 	<div ng-hide='loading.existingPersonalRecord'>
 		<div class='clearfix'>
 			<div class='pull-right'>
-				<button ng-click='fillInFormFromPreviousData()' class='btn btn-warning'><i class='fa fa-bolt'></i></button>
+				<button ng-click='fillInFormFromPreviousData()' ng-show='dto.key == null' class='btn btn-warning'><i class='fa fa-bolt'></i></button>
 			</div>
 			<h4>
 				<span class='text-success' ng-show='dto.key == null'>NEW </span>
