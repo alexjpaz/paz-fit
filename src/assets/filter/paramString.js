@@ -3,7 +3,7 @@ angular.module('app').filter('paramString', function() {
 		var output;
 
 		try {
-			output = $.param(input);
+			output = $.param(input, true);
 		} catch(e) {
 		}
 

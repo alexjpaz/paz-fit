@@ -49,6 +49,12 @@
 			</tr>
 		</tbody>
 	</table>
+
+	<div class='form-group'>
+		<label>Delete Future Cycle</label>
+		<input type='checkbox' ng-model='v.deleteFutureMaxes' />
+	</div>
+
 	<button ng-click='save(projectedMaxes)' class='btn btn-primary'>Save Schedule</button>
 
 	<div class='alert' ng-show='request.error'>Error Saving</div>

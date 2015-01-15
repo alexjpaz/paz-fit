@@ -1,9 +1,14 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
-	ScreenFactory.build('screen-profile-maxes-schedule', function($scope, $routeParams, MaxesDao, moment, $http) {
+	ScreenFactory.build('screen-profile-maxes-schedule', function($scope, $routeParams, MaxesDao, moment, $http, $window, $q) {
+
 
 		$scope.v = {
 			startDate: $routeParams.date || moment().format('YYYY-MM-DD'),
+			press: +$routeParams.press,
+			deadlift: +$routeParams.deadlift,
+			bench: +$routeParams.bench,
+			squat: +$routeParams.squat,
 			cycles: 5
 		};
 
@@ -29,24 +34,62 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 
 		$scope.getMaxesList();
 
+		var checkForFutureMaxes = function() {
+			var deffered = $q.defer();
+
+			MaxesDao.find({
+				"fge_date": $scope.v.startDate
+			}).then(function(records) {
+				if(records.length > 0) {
+					if($scope.v.deleteFutureMaxes) {
+						var promises = [];
+
+						angular.forEach(records, function(max) {
+							promises.push($http.delete('/rest/Maxes/'+max.key));
+						});
+
+
+						$q.all(promises).then(function() {
+							deffered.resolve();
+						}, function() {
+							deffered.reject();
+						});
+					} else {
+						deffered.reject();
+					}
+				} else {
+					deffered.resolve();
+				}
+			});
+
+			return deffered.promise;
+		};
+
+		var deleteFutureMaxes = function() {
+		};
+
 		$scope.save = function(projectedMaxes) {
-			console.debug(projectedMaxes);
-			$scope.request = {};
+			checkForFutureMaxes().then(function() {
+				$scope.request = {};
 
-			var postData = {
-				list: {
-					Maxes: projectedMaxes
-				}
-			};
+				var postData = {
+					list: {
+						Maxes: projectedMaxes
+					}
+				};
 
-			$http.post('/rest/Maxes', postData).then(function() {
-				$scope.request = {
-					success: true,
-				}
-			}, function() {
-				$scope.request = {
-					error: true,
-				}
+				$http.post('/rest/Maxes', postData).then(function() {
+					$scope.request = {
+						success: true,
+					}
+				}, function() {
+					$scope.request = {
+						error: true,
+					}
+				});
+
+			}, function(reason) {
+				$window.alert(reason);
 			});
 		};
 	});
