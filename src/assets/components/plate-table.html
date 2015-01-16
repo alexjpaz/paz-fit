@@ -19,7 +19,12 @@
 			</thead>
 			<tbody>
 			<tr ng-repeat='(fraction, plates) in sets'>
-				<td ng-repeat='plate in plates track by $index' class='plate-table__plate--{{$index}}'>{{plate}}</td>
+				<td ng-repeat='plate in plates track by $index' class='plate-table__plate--{{$index}}'>
+					<span ng-switch='$index'>
+						<span ng-switch-when='0'>{{ plate * 100 | number:0 }}%</span>
+						<span ng-switch-default>{{ plate }}</span>
+					</span>
+				</td>
 			</tr>
 			</tbody>
 		</table>
