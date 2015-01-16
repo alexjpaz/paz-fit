@@ -1,0 +1,36 @@
+application: ajpaz531
+version: dev
+runtime: python27
+api_version: 1
+threadsafe: true
+
+libraries:
+- name: jinja2
+  version: 2.6 
+
+handlers:
+
+- url: /rest/.*
+  script: python.ds.app
+  login: required
+
+- url: /api/.*
+  script: python.api.app
+
+- url: /(index\.html)?
+  static_files: assets/index.html
+  upload: assets/index.html
+  login: required
+
+- url: /assets
+  static_dir: assets
+
+- url: /bower_components
+  static_dir: node/bower_components
+
+- url: /dist
+  static_dir: node/dist
+
+env_variables:
+    GIT_COMMIT: $GIT_COMMIT
+    BUILD_ID: $BUILD_ID
