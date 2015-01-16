@@ -1,3 +1,9 @@
+body {
+	/*font-size: 10px;*/
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 14px;
+}
+ 
 .lift--default .lift__week-table,
 .lift--default .lift__week-header,
 .page--gzcl .lift--default .lift__set--87_5 
@@ -90,6 +96,14 @@
 
 .lift__set td:nth-child(2) {
 	border-right: solid 2px #444;
+}
+
+tr.lift__set {
+	border-bottom: 1px green solid;
+}
+
+tr.lift__set:last-child {
+	border-bottom: #ddd;
 }
 
 .lift__week-legend td {
