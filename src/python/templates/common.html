@@ -1,0 +1,37 @@
+{% macro lift_accessory(title, items, listIndex, sides=2, include_bar=True ) -%}
+<div class='row lift lift--{{ listIndex }}'>
+	<div class='lift__month'>
+		<div class="col-md-3 lift__week">
+			<div class="lift__week-table">
+				<table class="table">
+					<thead>
+						<tr class="lift__week-header">
+							<th colspan="8">{{ title }}</th>
+						</tr>
+						<tr class="lift__week-legend">
+							<td>W</td>
+							<td>45</td>
+							<td>35</td>
+							<td>25</td>
+							<td>10</td>
+							<td>5</td>
+							<td>2&frac12;</td>
+						</tr>
+					</thead>
+					<tbody>
+				    {% for ii in items %}
+				    {% set ii = ii | int() %}
+					<tr class="lift__set fuck lift_set--accessory">
+						<td>{{ ii }}</td>
+						{% for plate in utils.calculate_plates(ii, sides, include_bar) %}
+						<td>{{ plate | int }}</td>
+						{% endfor %}
+					</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{%- endmacro %}

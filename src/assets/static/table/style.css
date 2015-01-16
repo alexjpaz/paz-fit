@@ -98,6 +98,14 @@ body {
 	border-right: solid 2px #444;
 }
 
+.lift_set--accessory td:first-child {
+	border-right: solid 2px #444;
+}
+
+.lift_set--accessory td:nth-child(2) {
+	border-right: 1px solid #ddd;
+}
+
 tr.lift__set {
 	border-bottom: 1px green solid;
 }

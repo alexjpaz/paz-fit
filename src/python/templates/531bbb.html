@@ -5,12 +5,18 @@
 {% set b = request.get('b') | int() %}
 {% set s = request.get('s') | int() %}
 
+{% set press_acc = request.GET.getall('pa')  %}
 
-{% set pa = request.get('pa') | int() %}
+{% set da = request.get('pa') | int() %}
+{% set ba = request.get('pa') | int() %}
+{% set sa = request.get('pa') | int() %}
 
 {% set max_lifts = [('p',p), ('d',d),('b',b),('s',s)] %}
 {% set table = utils.generate_month(max_lifts,'531') %}
 {% set startDate = request.get('startDate') %}
+
+{% import 'common.html' as common with context %}
+
 <html>
   <head>
     <title>531 Month Cycle</title>
@@ -64,38 +70,16 @@
 		  {% endfor %}
 		  <hr class='page-break' />
 		  <div id='page2'>
-			  <div class='lift--0'>
-				  <div class='lift__weed-table'>
-					  <table class='table'>
-						  <thead>
-							  <tr class='lift__week-legend'>
-								  <th colspan='2'>Press</th>
-								  <th>45</th>
-								  <th>35</th>
-								  <th>25</th>
-								  <th>10</th>
-								  <th>5</th>
-								  <th>2&frac12;</th>
-							  </tr>
-						  </thead>
-						  <tbody>
-						  <tr class='lift__set'>
-							  <td></td>
-							  <td>{{ pa }}</td>
-							  {% for plate in utils.calculate_plates(pa, 1, False) %}
-							  <td>{{ plate | int }}</td>
-							  {% endfor %}
-						  </tr>
-						  </tbody>
-					  </table>
-				  </div>
-			  </div>
+			  {{ common.lift_accessory("T-Bar Row", request.GET.getall('pa') , 1, 1, False) }}
+			  {{ common.lift_accessory("Shurgs", request.GET.getall('da'), 2) }}
+			  {{ common.lift_accessory("Rows", request.GET.getall('ba'), 3) }}
+			  {{ common.lift_accessory("Squat", request.GET.getall('sa'), 4) }}
 		  </div>
 		  <div class='date'>
 			  <span>{{ startDate }}</span>
 		  </div>
 		  <div class='page-break'></div>
-		  <div class='' contenteditable>CLICK TO ADD NOTE</div>
+		  <!--<div class='' contenteditable>CLICK TO ADD NOTE</div>-->
 		  <div class='noprint'>
 		  <div class='date'>
 			  <div class='settings'>
