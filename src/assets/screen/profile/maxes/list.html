@@ -19,24 +19,9 @@
 					<a ng-href='#/profile/maxes/schedule?{{ mx | paramString }}'>{{ mx.date }}</a>
 					<span ng-show='mx.isDeload' class='label label-info'>deload</span>
 				</td>
-				<td>
-					<span>{{ mx.press }}</span>
-					<span ng-show='!$first' class='text-muted'>( {{ mx.increment.press * 100 | number:0 }}%)</span>
-				</td>
-				<td>
-					{{ mx.deadlift }}
-					<span ng-show='!$first' class='text-muted'>( {{ mx.increment.deadlift * 100 | number:0 }}%)</span>
-				</td>
-				<td>
-					{{ mx.bench }}
-					<span ng-show='!$first' class='text-muted'>( {{ mx.increment.bench * 100 | number:0 }}%)</span>
-				</td>
-				<td>
-					{{ mx.squat }}
-					<span ng-show='!$first' class='text-muted'>( {{ mx.increment.squat * 100 | number:0 }}%)</span>
-				</td>
-				<td>
-					<a href ng-click='remove(mx)' class='btn btn-danger btn-xs'><i class='fa fa-ban'></i></a>
+				<td ng-repeat='lift in ApplicationEnum.LIFT'>
+					<span>{{ mx[lift] }}</span>
+					<span ng-show='!$first' class='text-muted'>( {{ mx.increment[lift] * 100 | number:0 }}%)</span>
 				</td>
 			</tr>
 			</tbody>
