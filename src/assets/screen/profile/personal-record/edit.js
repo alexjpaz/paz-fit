@@ -114,12 +114,12 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			},
 			weight: function(data) {
 				if(!$scope.key && !$scope.prEditForm.weight.$dirty && !!$scope.effectiveMax && data.previous) {
-					
-					var pct = data.previous.weight / $scope.effectiveMax[$scope.dto.lift];
+					var liftMax = $scope.effectiveMax[data.previous.lift];
+					var pct = data.previous.weight / liftMax;
 
 					var nextPct = PercentageProgressionMap.next(pct);
 
-					$scope.dto.weight = FiveThreeOneCalculator.roundTo($scope.effectiveMax[$scope.dto.lift] * nextPct, 5);
+					$scope.dto.weight = FiveThreeOneCalculator.roundTo(liftMax * nextPct, 5);
 				}
 			},
 			reps: function(data) {
