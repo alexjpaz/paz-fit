@@ -15,8 +15,8 @@ angular.module('app')
 		this.nextStep = function(currentStep) {
 			var step = null;
 			for(var i=0;i<steps.length;i++) {
-				if(currentStep ) {
-					step = steps[i];
+				if(currentStep >= steps[i]) {
+					step = steps[(i+1)%steps.length];
 				}
 			}
 			return step;
