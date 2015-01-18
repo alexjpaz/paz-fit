@@ -55,11 +55,12 @@ def parse_sides(param):
 
 	return sides
 
-def calculate_plates(weight=None, sides=2):
+def calculate_plates(weight=None, sides=2, include_bar=True):
 	oneside = []
 	number_of_plates = 0
 
-	weight = weight - config["bar"]
+	if include_bar:
+		weight = weight - config["bar"]
 
 	for plate in config["plates"]:
 		number_of_plates = math.floor((weight / plate) / sides)

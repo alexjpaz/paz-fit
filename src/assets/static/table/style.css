@@ -1,3 +1,9 @@
+body {
+	/*font-size: 10px;*/
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 14px;
+}
+ 
 .lift--default .lift__week-table,
 .lift--default .lift__week-header,
 .page--gzcl .lift--default .lift__set--87_5 
@@ -92,6 +98,22 @@
 	border-right: solid 2px #444;
 }
 
+.lift_set--accessory td:first-child {
+	border-right: solid 2px #444;
+}
+
+.lift_set--accessory td:nth-child(2) {
+	border-right: 1px solid #ddd;
+}
+
+tr.lift__set {
+	border-bottom: 1px green solid;
+}
+
+tr.lift__set:last-child {
+	border-bottom: #ddd;
+}
+
 .lift__week-legend td {
 	border-bottom: solid 2px #444 !important;
 }
@@ -116,4 +138,44 @@
 	line-height: 40px;
 	border-top-color: #000 !important;
 	border-right-color: #000 !important;
+}
+
+.settings::before {
+	content: "";
+	
+}
+
+.settings {
+	cursor: pointer;
+	margin: 8px;
+	border: 1px solid rgba(0,0,0,0.15);
+	box-shadow: 1px 1px 2px rgba(0,0,0,0.25);
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background: white;
+}
+
+.settings:hover {
+	width: 300px;
+}
+
+.settings:hover .settings__content {
+	display: block;
+}
+
+.settings__content {
+	padding: 8px;
+	display: none;
+}
+
+hr.page-break {
+}
+
+.table tr {
+	border-bottom: 1px solid #ddd;
+}
+
+.table tr:last-child {
+	border-bottom: none;
 }
