@@ -29,7 +29,7 @@
 }
 
 .pr-graph__dot {
-	stroke-width: 10px;
+	stroke-width: 4px;
 	stroke-linecap: round;
 	cursor: pointer;
 }
@@ -52,7 +52,7 @@
 
 .pr-graph__path {
 	fill: none;
-	stroke-width: 4px;
+	stroke-width: 2px;
 }
 
 .pr-graph__g--tm {
