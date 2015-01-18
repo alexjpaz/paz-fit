@@ -159,7 +159,7 @@ angular.module('resources').config(function($provide) {
 				"page_size": 1
 			};
 
-//			console.debug(params)
+			console.debug(params)
 
 
 
