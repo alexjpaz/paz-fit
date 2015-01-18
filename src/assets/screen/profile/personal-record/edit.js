@@ -68,13 +68,17 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			$scope.dto.date = formattedDate;
 			$scope.date = formattedDate;
 
-			getEffectiveMax();
+			getEffectiveMax().then(function() {
+				if($routeParams.autoFill) {
+					$scope.fillInFormFromPreviousData();
+				}
+			});
+
 		};
 
 		var getEffectiveMax = function() {
-			MaxesDao.findLatest().then(function(records) {
+			return MaxesDao.findLatest().then(function(records) {
 				$scope.effectiveMax = records[0];
-
 			});
 		};
 
@@ -145,7 +149,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			}
 		};
 
-		$scope.fillInFormFromPreviousData = function(date, life) {
+		$scope.fillInFormFromPreviousData = function() {
 			getPreviousPersonalRecord().then(function(data) {
 				CalculatedValues.lift(data);
 				CalculatedValues.weight(data);
