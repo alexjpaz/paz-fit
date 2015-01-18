@@ -150,6 +150,21 @@ angular.module('resources').config(function($provide) {
 
 			return this.find(params);
 		};
+		PersonalRecordDao.findLastAttempt = function(lift, weight, date) {
+			var params = {
+				"flt_date": date || moment().format('YYYY-MM-DD'),
+				"feq_lift": lift,
+				"feq_weight": weight,
+				"ordering": "-date",
+				"page_size": 1
+			};
+
+//			console.debug(params)
+
+
+
+			return this.find(params);
+		};
 		return PersonalRecordDao;
 	});
 

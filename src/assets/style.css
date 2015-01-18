@@ -49,3 +49,11 @@ border-radius: 4px;
 	width: 100%;
 	margin-bottom: 6px;
 }
+
+.target-reps-delta.up {
+	color: green;
+}
+
+.target-reps-delta.down {
+	color: red;
+}

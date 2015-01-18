@@ -55,10 +55,16 @@
 							</td>
 							<td>
 								{{ estMax | number:0 }} 
+								<span class='text-muted'>{{ lastAttemptEstMax }}</span>
 							</td>
 							<td>
 								{{ targetReps }}
-								<span class='text-muted'>(<span ng-show='dto.reps > targetReps'>+</span>{{ dto.reps - targetReps }})</span>
+								<span class='target-reps-delta' ng-class='{"up": dto.reps > targetReps, "down": dto.reps < targetReps}'>
+									<span ng-show='dto.reps >= targetReps'>+</span>
+									{{ dto.reps - targetReps }}
+								</span>
+
+							<span class='text-muted'>( {{ lastAttempt.reps }} )</span>
 							</td>
 						</tr>
 					</table>

@@ -23,6 +23,8 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 
 				var nextLift = LiftProgressionChain.next(data.latest.lift);
 
+				var nextLiftPromises = [];
+
 				PersonalRecordDao.findPrevious(date, nextLift).then(function(records) {
 					data.previous = records[0];
 					deffered.resolve(data);
@@ -134,6 +136,12 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 				if(!!$scope.effectiveMax && !!$scope.dto.weight && !!$scope.dto.lift) {
 					$scope.targetReps = FiveThreeOneCalculator.repgoal($scope.effectiveMax[$scope.dto.lift], $scope.dto.weight);
 				}
+			},
+			lastAttempt: function(data) {
+				if(!!data) {
+				$scope.lastAttempt = data;
+				$scope.lastAttemptEstMax = FiveThreeOneCalculator.max(data.weight, data.reps);
+				}
 			}
 		};
 
@@ -153,6 +161,11 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		$scope.$watch('dto.weight', function(dto) {
 			if(angular.isUndefined(dto)) return;
 			CalculatedValues.targetReps();
+
+			PersonalRecordDao.findLastAttempt($scope.dto.lift, $scope.dto.weight, dto.date).then(function(records) {
+//				console.debug('lo', records)
+				CalculatedValues.lastAttempt(records[0]);
+			});
 		}, true);
 
 		$scope.$watch('dto.lift', function(lift) {
