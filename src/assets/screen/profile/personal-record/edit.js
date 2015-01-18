@@ -23,6 +23,8 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 
 				var nextLift = LiftProgressionChain.next(data.latest.lift);
 
+				var nextLiftPromises = [];
+
 				PersonalRecordDao.findPrevious(date, nextLift).then(function(records) {
 					data.previous = records[0];
 					deffered.resolve(data);
@@ -84,26 +86,24 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		};
 
 		var PercentageProgressionMap = (function () {
-			var steps = [0.85,0.9,0.95];
+			var steps = [85,90,95];
 
 			self = {};
 			self.next = function(currentStep) {
-				var step = null;
+				currentStep = Math.round((currentStep*100)/5)*5;
+
+				var step = steps[0];
 				for(var i=0;i<steps.length;i++) {
-					if(currentStep >= steps[i]) {
+					if(currentStep === steps[i]) {
 						step = steps[(i+1)%steps.length];
 					}
 				}
+				step /= 100;
 				return step;
 			};
 
 			return self;
 		})();
-
-		var liftProgressionChain = ['press','deadlift','bench','squat'];
-
-		var previousPersonalRecord = {};
-		var latestPersonalRecord = {};
 
 		var CalculatedValues = {
 			lift: function(data) {
@@ -136,6 +136,12 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 				if(!!$scope.effectiveMax && !!$scope.dto.weight && !!$scope.dto.lift) {
 					$scope.targetReps = FiveThreeOneCalculator.repgoal($scope.effectiveMax[$scope.dto.lift], $scope.dto.weight);
 				}
+			},
+			lastAttempt: function(data) {
+				if(!!data) {
+				$scope.lastAttempt = data;
+				$scope.lastAttemptEstMax = FiveThreeOneCalculator.max(data.weight, data.reps);
+				}
 			}
 		};
 
@@ -155,6 +161,11 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		$scope.$watch('dto.weight', function(dto) {
 			if(angular.isUndefined(dto)) return;
 			CalculatedValues.targetReps();
+			
+			PersonalRecordDao.findLastAttempt($scope.dto.lift, $scope.dto.weight, dto.date).then(function(records) {
+				console.debug('lo', records)
+				CalculatedValues.lastAttempt(records[0]);
+			});
 		}, true);
 
 		$scope.$watch('dto.lift', function(lift) {
