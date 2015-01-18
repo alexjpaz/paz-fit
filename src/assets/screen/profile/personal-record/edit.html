@@ -9,7 +9,7 @@
 			</div>
 			<h4>
 				<span class='text-success' ng-show='dto.key == null'>NEW </span>
-				<span>Personal Record for <input type='date' ng-model='dto.date' class='input--noborder' /></span>
+				<span>Log for <input type='date' ng-model='dto.date' class='input--noborder' /></span>
 			</h4>
 		</div>
 		<div class='screen-profile-personal-record-edit__edit-form'>
@@ -49,10 +49,12 @@
 							<th>Target Reps</th>
 						</tr>
 						<tr>
-							<td>{{ effectiveMax[dto.lift] }} </td>
+							<td>
+								{{ effectiveMax[dto.lift] }}
+								<span class='text-muted'>(&asymp;{{ (dto.weight / effectiveMax[dto.lift]) * 100 | roundTo:5 }}%)</span>
+							</td>
 							<td>
 								{{ estMax | number:0 }} 
-								<span class='text-muted'>(&asymp;{{ dto.weight / effectiveMax[dto.lift] * 100 | number:1 }}%)</span>
 							</td>
 							<td>
 								{{ targetReps }}

@@ -84,26 +84,24 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		};
 
 		var PercentageProgressionMap = (function () {
-			var steps = [0.85,0.9,0.95];
+			var steps = [85,90,95];
 
 			self = {};
 			self.next = function(currentStep) {
-				var step = null;
+				currentStep = Math.round((currentStep*100)/5)*5;
+
+				var step = steps[0];
 				for(var i=0;i<steps.length;i++) {
-					if(currentStep >= steps[i]) {
+					if(currentStep === steps[i]) {
 						step = steps[(i+1)%steps.length];
 					}
 				}
+				step /= 100;
 				return step;
 			};
 
 			return self;
 		})();
-
-		var liftProgressionChain = ['press','deadlift','bench','squat'];
-
-		var previousPersonalRecord = {};
-		var latestPersonalRecord = {};
 
 		var CalculatedValues = {
 			lift: function(data) {
