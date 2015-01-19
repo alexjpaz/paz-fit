@@ -10,18 +10,17 @@
 					<th>Deadlift</th>
 					<th>Bench</th>
 					<th>Squat</th>
-					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-			<tr ng-repeat='mx in maxes' ng-class='{"danger": isFutureMax(mx) }'>
+			<tr ng-repeat='mx in maxes' ng-class='{"danger": isFutureMax(mx) }' ng-init='firstRow = $first'>
 				<td>
 					<a ng-href='#/profile/maxes/schedule?{{ mx | paramString }}'>{{ mx.date }}</a>
 					<span ng-show='mx.isDeload' class='label label-info'>deload</span>
 				</td>
 				<td ng-repeat='lift in ApplicationEnum.LIFT'>
 					<span>{{ mx[lift] }}</span>
-					<span ng-show='!$first' class='text-muted'>( {{ mx.increment[lift] * 100 | number:0 }}%)</span>
+					<span ng-show='!firstRow' class='text-muted'>({{ mx.increment[lift] * 100 | number:0 }}%)</span>
 				</td>
 			</tr>
 			</tbody>
