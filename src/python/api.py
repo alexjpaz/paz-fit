@@ -103,6 +103,13 @@ class ExportHandler(webapp2.RequestHandler):
 		write_json(self.response, result);
 
 
+class ProfileHandler(webapp2.RequestHandler):
+	def get(self):
+		user_id = users.get_current_user().user_id()
+		profile = models.get_profile(user_id)
+		write_json(self.response, profile)
+
+
 
 class EnvironmentHandler(webapp2.RequestHandler):
     def get(self):
@@ -126,6 +133,7 @@ app = webapp2.WSGIApplication(routes=[
 	('/api/plates', PlateHandler),
 	('/api/goal', PlateHandler),
 	('/api/env', EnvironmentHandler),
+	('/api/profile', ProfileHandler),
 	webapp2.Route('/api/table/<template>', handler=TemplateHandler, name='home'),
 	webapp2.Route(r'/api/table/', handler=TemplateHandler, name='home2'),
 	webapp2.Route(r'/api/table', handler=TemplateHandler, name='home3')

@@ -21,6 +21,19 @@ class PersonalRecord(db.Model):
 	date = db.DateProperty(auto_now_add=True)
 	#post = db.ReferenceProperty(Post)
 
+class Profile(db.Model):
+	userid = db.StringProperty()
+	email = db.StringProperty()
+	config = db.StringProperty()
+
+	pass
+
+def get_profile(current_user):
+	ddd = {
+		"name": "DefaultProfile",
+	}
+	return ddd
+
 
 def export_all_the_things():
 	qm = Maxes.all()
