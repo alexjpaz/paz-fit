@@ -167,7 +167,6 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			CalculatedValues.targetReps();
 			
 			PersonalRecordDao.findLastAttempt($scope.dto.lift, $scope.dto.weight, dto.date).then(function(records) {
-				console.debug('lo', records)
 				CalculatedValues.lastAttempt(records[0]);
 			});
 		}, true);
@@ -192,7 +191,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 				$scope.$loading = true;
 				$location.search('key', key);
 				$scope.key = key;
-				$scope.getPersonalRecord();
+				getExistingPersonalRecord();
 				$scope.saveStatus = 'saved';
 			}, function() {
 				$scope.saveStatus = 'error';
