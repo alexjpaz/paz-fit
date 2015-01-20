@@ -57,3 +57,11 @@ border-radius: 4px;
 .target-reps-delta.down {
 	color: red;
 }
+
+.row--chop {
+	margin-bottom: 0;
+}
+
+.navbar {
+	margin-bottom: 0;
+}

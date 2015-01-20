@@ -106,6 +106,10 @@ def generate_week(max_weight=0, week=None, method='531'):
 
 	return rows
 
+def calculate_work(weight, reps):
+	return (weight*reps*0.0333 + weight);
+
+
 def goal(max_weight, weight):
 	return int(round(37-36*weight/(max_weight+5)));
 

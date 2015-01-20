@@ -1,6 +1,6 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
-	ScreenFactory.build('screen-profile-main', function($scope, PersonalRecordDao, MaxesDao, CalendarEventRepository, CalendarUtils, FiveThreeOneCalculator, $location) {
+	ScreenFactory.build('screen-profile-main', function($scope, PersonalRecordDao, MaxesDao, CalendarEventRepository, CalendarUtils, FiveThreeOneCalculator, $location, $http, $q) {
 	$scope.events = new CalendarEventRepository();
 
 	$scope.repgoal = function(max, fraction) {
@@ -16,7 +16,11 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 
 		var dateRange = CalendarUtils.getCalendarRangeForToday();
 
-		PersonalRecordDao.fetchFromDateRange(dateRange.begin,dateRange.end).then(function(records) {
+		var future = {
+			calendar: {}
+		};
+
+		future.calendar.pr = PersonalRecordDao.fetchFromDateRange(dateRange.begin,dateRange.end).then(function(records) {
 			angular.forEach(records, function(record) {
 				var event  = new Object();
 				event.label = record.lift+" "+record.weight+"x"+record.reps; 
@@ -26,7 +30,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			});
 		});
 
-		MaxesDao.fetchFromDateRange(dateRange.begin,dateRange.end).then(function(records) {
+		future.calendar.maxes = MaxesDao.fetchFromDateRange(dateRange.begin,dateRange.end).then(function(records) {
 			angular.forEach(records, function(record) {
 				var event  = new Object();
 				event.label = [record.press, record.deadlift, record.bench, record.squat].join('-');
@@ -34,6 +38,10 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 				event.type = 'Maxes';
 				$scope.events.put(record.date, event);
 			});
+		});
+
+		$q.all(future.calendar).then(function() {
+			$scope.isReadyCalendar = true;
 		});
 
 		MaxesDao.findLatest().then(function(records) {
@@ -44,6 +52,10 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 					b: $scope.currentMaxes.bench,
 					s: $scope.currentMaxes.squat,
 			});
+		});
+
+		$http.get('/api/stats').then(function(rsp) {
+			$scope.stats = rsp.data;
 		});
 	};
 

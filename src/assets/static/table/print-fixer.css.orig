@@ -1,0 +1,32 @@
+@page {
+	size: landscape;
+}
+
+body{
+	-webkit-print-color-adjust:exact;
+}
+
+.col-md-3 {
+	box-sizing: border-box;
+	width: 25%;
+	float: left;
+	position: relative;
+	min-height: 1px;
+}
+
+
+@media print {
+	.noprint {
+		display: none;
+	}
+
+<<<<<<< HEAD
+	.page-break {
+		page-break-after: always;
+		border: none;
+	}
+=======
+	.page-break	{ display: block; page-break-before: always; }
+>>>>>>> baf29f1... Fixing borders and page break
+}
+
