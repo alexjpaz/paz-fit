@@ -1,0 +1,14 @@
+<div class='form-group'>
+	<label>
+		<a class='pull-left btn btn-default btn-xs' ng-click='mdl.push(mdl.length || 100)'>
+			<i class='fa fa-plus'></i>
+		</a>
+		<span>{{ name }}</span>
+	</label>
+
+	<span ng-repeat='mm in mdl'>
+		<input type='number' ng-model='mdl[$index]' class='form-control' />
+		<br />
+	</span>
+</div>
+

@@ -22,6 +22,10 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 				d: +r.d,
 				b: +r.b,
 				s: +r.s,
+				pa: [],
+				da: [],
+				ba: [],
+				sa: [],
 			}
 		};
 
@@ -40,7 +44,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		}, true);
 
 		$scope.$watch('m.cycle', function(cycle) {
-			$scope.cycleParams = $.param(cycle);
+			$scope.cycleParams = $.param(cycle, true);
 		},true);
 	});
 });
