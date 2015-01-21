@@ -24,7 +24,8 @@
 					<span ng-show='!firstRow' class='text-muted'>({{ mx.increment[lift] * 100 | number:0 }}%)</span>
 				</td>
 				<td>
-					<a ng-href='#/profile/maxes/schedule?{{ mx | paramString }}' class='btn btn-xs btn-default'>Reshcedulee</a>
+					<a ng-href='#/profile/maxes/schedule?{{ mx | paramString }}' class='btn btn-xs btn-default' ng-disabled='!isFutureMax(mx)'>Reschedule</a>
+					<a ng-href='#/tools/sheets?p={{mx.press}}&d={{mx.deadlift}}&b={{mx.bench}}&s={{mx.squat}}' class='btn btn-xs btn-default' ng-disabled='!isFutureMax(mx)'>View Sheets</a>
 				</td>
 			</tr>
 			</tbody>
