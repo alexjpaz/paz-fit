@@ -1,6 +1,9 @@
 <div class='screen-profile-maxes-list'>
-	<a href='#/profile/maxes/schedule' class='btn btn-default'>Schedule Cycles</a>
+	<a href='#/profile/maxes/schedule' class='btn btn-default btn-block'>
+		<i class='fa fa-calendar'></i> Schedule Cycles
+	</a>
 	<hr />
+	<panel panel-title='Scheduled Maxes' class='panel-default'>
 	<div class='table-responsive'>
 		<table class='table table-bordered'>
 			<thead>
@@ -25,10 +28,11 @@
 				</td>
 				<td>
 					<a ng-href='#/profile/maxes/schedule?{{ mx | paramString }}' class='btn btn-xs btn-default' ng-disabled='!isFutureMax(mx)'>Reschedule</a>
-					<a ng-href='#/tools/sheets?p={{mx.press}}&d={{mx.deadlift}}&b={{mx.bench}}&s={{mx.squat}}' class='btn btn-xs btn-default' ng-disabled='!isFutureMax(mx)'>View Sheets</a>
+					<a ng-href='#/tools/sheets?p={{mx.press}}&d={{mx.deadlift}}&b={{mx.bench}}&s={{mx.squat}}' class='btn btn-xs btn-default'>View Sheets</a>
 				</td>
 			</tr>
 			</tbody>
 		</table>
 	</div>
+</panel>
 </div>
