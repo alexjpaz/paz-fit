@@ -1,11 +1,24 @@
 <div class='screen-tools-sheets'>
 	<ul class="nav nav-tabs nav-justified">
+		<li ng-class='{true:"active"}[v.pane === "531bbb"]'><a href ng-click='v.pane = "531bbb"'>531bbb</a></li>
 		<li ng-class='{true:"active"}[v.pane === "531single"]'><a href ng-click='v.pane = "531single"'>531 Single Lift</a></li>
 		<li ng-class='{true:"active"}[v.pane === "531day"]'><a href ng-click='v.pane = "531day"'>531 Day (mobile friendly)</a></li>
 		<li ng-class='{true:"active"}[v.pane === "531"]'><a href ng-click='v.pane = "531"'>531</a></li>
 		<li ng-class='{true:"active"}[v.pane === "GZCL"]'><a href ng-click='v.pane = "GZCL"'>GZCL</a></li>
 	</ul>
 	<div ng-switch on='v.pane'>
+		<article ng-switch-when='531bbb'>
+			<h3>531bbb</h3>
+			<div max-group='m.cycle'></div>
+
+			<div sheets-accessory='m.cycle.pa' name="T-Bar Row"></div>
+			<div sheets-accessory='m.cycle.da' name="Shrugs"></div>
+			<div sheets-accessory='m.cycle.ba' name="Rows"></div>
+			<div sheets-accessory='m.cycle.sa' name="Good Morning"></div>
+
+			<a class='btn btn-primary' ng-href='/api/table/531bbb?{{ cycleParams }}'><i class='fa fa-external-link'> </i> 531 cycles</a>
+		</article>
+
 		<article ng-switch-when='531'>
 			<h3>531</h3>
 			<div max-group='m.cycle'></div>
