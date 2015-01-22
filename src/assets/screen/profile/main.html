@@ -30,7 +30,9 @@
 			</thead>
 			<tbody>
 			<tr ng-repeat='lift in ApplicationEnum.LIFT'>
-				<th class='screen-profile-main__lift--{{ lift }}'>{{ lift }}</th>
+				<th class='screen-profile-main__lift--{{ lift }}'>
+					<span class='label'>{{ lift }}</span>
+				</th>
 				<td>{{ stats[v.statsView][lift].work | number:1 }}</td>
 				<td><a href='#/profile/personal-record?feq_lift={{ lift }}&feq_weight={{ stats[v.statsView][lift].weight }}'>{{ stats[v.statsView][lift].weight }}</a></td>
 				<td>
