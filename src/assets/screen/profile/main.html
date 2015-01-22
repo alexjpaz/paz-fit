@@ -30,7 +30,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			<tr ng-repeat='lift in ApplicationEnum.LIFT'>
+			<tr ng-repeat='lift in ApplicationEnum.LIFT' ng-init='liftStat = stats[v.statsView][lift]'>
 				<th class='screen-profile-main__lift--{{ lift }}'>
 					<span class='label'>{{ lift }}</span>
 				</th>
@@ -42,6 +42,7 @@
 				</td>
 				<td>
 					{{ stats[v.statsView][lift].max }}
+					<span class='text-muted'>(%{{ (stats[v.statsView][lift].weight/stats[v.statsView][lift].max)*100 | roundTo:5 }})</span>
 				</td>
 				<td><a href='#/profile/personal-record?feq_date={{ stats[v.statsView][lift].date }}'>{{ stats[v.statsView][lift].date }}</a></td>
 			</tr>
