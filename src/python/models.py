@@ -34,7 +34,8 @@ import utils
 def get_stats():
 	stats = {
 		"latest": {},
-		"best": {}
+		"best": {},
+		"weight": {}
 	}
 
 	for lift in ['press','deadlift','bench','squat']:
@@ -93,6 +94,27 @@ def get_stats():
 				"max": best["max"]
 			}
 
+	
+	for lift in ['press','deadlift','bench','squat']:
+		q = PersonalRecord.all().filter('lift =', lift).order('-weight')
+
+		pr = q.get();
+
+		if pr is not None:
+			mx = Maxes.all().filter('date <=', pr.date).order('-date')
+			pr_max = mx.get().__dict__["_entity"][lift]
+
+
+
+			stats["weight"][lift] = {
+					"key": pr.key().id_or_name(),
+					"date": pr.date.strftime("%Y-%m-%d"),
+					"weight": pr.weight,
+					"reps": pr.reps,
+					"targetReps": utils.goal(pr_max, pr.weight),
+					"work": utils.calculate_work(pr.weight, pr.reps),
+					"max": pr_max
+					}
 
 	return stats
 

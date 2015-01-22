@@ -15,6 +15,7 @@
 	<ul class="nav nav-tabs nav-justified" nav-tabs='v.statsView'>
 		<li tab="latest">Latest</li>
 		<li tab="best">Best</li>
+		<li tab="weight">Highest Weight</li>
 	</ul>
 	<div class='table-responsive'>
 		<table class='table table-bordered'>
@@ -34,7 +35,7 @@
 					<span class='label'>{{ lift }}</span>
 				</th>
 				<td>{{ stats[v.statsView][lift].work | number:1 }}</td>
-				<td><a href='#/profile/personal-record?feq_lift={{ lift }}&feq_weight={{ stats[v.statsView][lift].weight }}'>{{ stats[v.statsView][lift].weight }}</a></td>
+				<td><a href='#/profile/personal-record?ordering=-date&feq_lift={{ lift }}&feq_weight={{ stats[v.statsView][lift].weight }}'>{{ stats[v.statsView][lift].weight }}</a></td>
 				<td>
 					<span>{{ stats[v.statsView][lift].reps }}</span>
 					<span class='text-muted'> / {{ stats[v.statsView][lift].targetReps }}</span>
