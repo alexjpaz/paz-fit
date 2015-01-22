@@ -11,6 +11,10 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		return FiveThreeOneCalculator.roundToNearestPlate(max * fraction);
 	};
 
+	$scope.v = {
+		statsView: "latest",
+	};
+
 	$scope.getProfileData = function() {
 		$scope.events.clear();
 

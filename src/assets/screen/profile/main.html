@@ -12,37 +12,38 @@
 	</div>
 	</panel>
 	<panel panel-title='Stats' class='panel-default'>
-		<div class='row'>
-			<div class='col-md-6'>
-				<h6>Latest</h6>
-				<div class='table-responsive'>
-					<table class='table table-bordered'>
-						<tbody>
-						<tr ng-repeat='lift in ApplicationEnum.LIFT'>
-							<th class='screen-profile-main__lift--{{ lift }}'>{{ lift }}</th>
-							<td>
-								<div dashboard-stats='stats.latest[lift]'></div>
-							</td>
-						</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class='col-md-6'>
-				<h6>Best</h6>
-				<div class='table-responsive'>
-					<table class='table table-bordered'>
-						<tbody>
-						<tr ng-repeat='lift in ApplicationEnum.LIFT'>
-							<th class='screen-profile-main__lift--{{ lift }}'>{{ lift }}</th>
-							<td>
-								<div dashboard-stats='stats.best[lift]'></div>
-							</td>
-						</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
+	<ul class="nav nav-tabs nav-justified" nav-tabs='v.statsView'>
+		<li tab="latest">Latest</li>
+		<li tab="best">Best</li>
+	</ul>
+	<div class='table-responsive'>
+		<table class='table table-bordered'>
+			<thead>
+				<tr>
+					<th>Lift</th>
+					<th>Work</th>
+					<th>Weight</th>
+					<th>Reps</th>
+					<th>Max</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat='lift in ApplicationEnum.LIFT'>
+				<th class='screen-profile-main__lift--{{ lift }}'>{{ lift }}</th>
+				<td>{{ stats[v.statsView][lift].work | number:1 }}</td>
+				<td><a href='#/profile/personal-record?feq_lift={{ lift }}&feq_weight={{ stats[v.statsView][lift].weight }}'>{{ stats[v.statsView][lift].weight }}</a></td>
+				<td>
+					<span>{{ stats[v.statsView][lift].reps }}</span>
+					<span class='text-muted'> / {{ stats[v.statsView][lift].targetReps }}</span>
+				</td>
+				<td>
+					{{ stats[v.statsView][lift].max }}
+				</td>
+				<td><a href='#/profile/personal-record?feq_date={{ stats[v.statsView][lift].date }}'>{{ stats[v.statsView][lift].date }}</a></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
 	</panel>
 </div>
