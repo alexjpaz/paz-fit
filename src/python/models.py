@@ -30,93 +30,97 @@ class Profile(db.Model):
 
 
 import utils
+import json
 
-def get_stats():
-	stats = {
-		"latest": {},
-		"best": {},
-		"weight": {}
-	}
+class Expando(object):
 
-	for lift in ['press','deadlift','bench','squat']:
-		q = PersonalRecord.all().filter('lift =', lift).order('-date')
-		pr = q.get()
-
-		if pr is not None:
-			mx = Maxes.all().filter('date <=', pr.date).order('-date')
-
-			pr_max = mx.get().__dict__["_entity"][lift]
-
-			stats["latest"][lift] = {
-				"key": pr.key().id_or_name(),
-				"date": pr.date.strftime("%Y-%m-%d"),
-				"weight": pr.weight,
-				"reps": pr.reps,
-				"targetReps": utils.goal(pr_max, pr.weight),
-				"work": utils.calculate_work(pr.weight, pr.reps),
-				"max": pr_max
-			}
+	def to_json(self):
+		return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
 
-	for lift in ['press','deadlift','bench','squat']:
-		q = PersonalRecord.all().filter('lift =', lift).order('-date')
+class StatsCollection(object):
+	def __init__(self):
+		self.latest = Expando()
+		self.best = Expando()
+		self.weight = Expando()
+
+	def to_json(self):
+		return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
 
-		best = {
-			"entity": None,
-			"work": 0,
-			"targetReps": 0,
-			"max": 0
-		}
+class Stats(object):
+	def __init__(self, pr, pr_max):
+		ent_max = pr_max.__dict__["_entity"]
 
-		print lift
-		for pr in q.run():
-			mx = Maxes.all().filter('date <=', pr.date).order('-date')
-			pr_max = mx.get().__dict__["_entity"][lift]
-
-			work = utils.calculate_work(pr.weight, pr.reps)
-
-			if(best["entity"] is None or work >= best["work"]):
-				best["work"] = work
-				best["max"] = pr_max
-				best["targetReps"] = utils.goal(pr_max, pr.weight)
-				best["entity"] = pr
+		self.prKey = str(pr.key())
+		self.date = pr.date.strftime("%Y-%m-%d")
+		self.weight = pr.weight
+		self.reps = pr.reps
+		self.targetReps = utils.goal(ent_max[pr.lift], pr.weight)
+		self.work = utils.calculate_work(pr.weight, pr.reps)
+		self.max = getattr(pr_max, pr.lift)
+		self.maxKey = str(pr_max.key())
 
 
-		if best["entity"] is not None:
-			stats["best"][lift] = {
-				"key": best["entity"].key().id(),
-				"date": best["entity"].date.strftime("%Y-%m-%d"),
-				"weight": best["entity"].weight,
-				"reps": best["entity"].reps,
-				"targetReps": best["targetReps"],
-				"work": best["work"],
-				"max": best["max"]
-			}
+	def to_json(self):
+		return json.dumps(self, default=lambda o: o.__dict__, sort_keys=False, indent=4)
 
-	
-	for lift in ['press','deadlift','bench','squat']:
-		q = PersonalRecord.all().filter('lift =', lift).order('-weight')
+class StatsCalculator():
 
-		pr = q.get();
+	@staticmethod
+	def get_log_max(pr):
+		q = Maxes.all().filter('date <=', pr.date).order('-date')
+		return q.get()
 
-		if pr is not None:
-			mx = Maxes.all().filter('date <=', pr.date).order('-date')
-			pr_max = mx.get().__dict__["_entity"][lift]
+	@staticmethod
+	def get_stats(user_id=None):
+		stats = StatsCollection()
+
+		for lift in ['press','deadlift','bench','squat']:
+			q = PersonalRecord.all().filter('lift =', lift).order('-date')
+			pr = q.get()
+
+			best = Expando()
+			best.pr = pr
+			best.work = 0
+			best.max = None 
+
+			weight = Expando()
+			weight.pr = pr
+			weight.weight = 0
+			weight.max = None
+
+			if q.count() == 0:
+				continue
+
+			for pr in q.run():
+				mx = StatsCalculator.get_log_max(pr)
+				
+				if not hasattr(stats.latest,lift):
+					setattr(stats.latest,lift, Stats(pr, mx))
+
+				work = utils.calculate_work(pr.weight, pr.reps)
+
+				if work >= best.work:
+					best.pr = pr
+					best.work = work
+					best.max = mx
+
+				if pr.weight >= weight.weight:
+					weight.pr = pr
+					weight.weight = pr.weight
+					weight.max = mx
 
 
+			setattr(stats.weight, lift, Stats(weight.pr, weight.max))
+			setattr(stats.best, lift, Stats(best.pr, best.max))
+		
 
-			stats["weight"][lift] = {
-					"key": pr.key().id_or_name(),
-					"date": pr.date.strftime("%Y-%m-%d"),
-					"weight": pr.weight,
-					"reps": pr.reps,
-					"targetReps": utils.goal(pr_max, pr.weight),
-					"work": utils.calculate_work(pr.weight, pr.reps),
-					"max": pr_max
-					}
+		print(stats.to_json())
 
-	return stats
+		return stats
+
+
 
 
 def get_profile(current_user):

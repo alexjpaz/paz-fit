@@ -3,6 +3,10 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 	ScreenFactory.build('screen-profile-main', function($scope, PersonalRecordDao, MaxesDao, CalendarEventRepository, CalendarUtils, FiveThreeOneCalculator, $location, $http, $q) {
 	$scope.events = new CalendarEventRepository();
 
+	$scope.roundTo = function(value, step) {
+		return FiveThreeOneCalculator.roundTo(value, step);
+	};
+
 	$scope.repgoal = function(max, fraction) {
 		return FiveThreeOneCalculator.repgoal(max, max*fraction);
 	};

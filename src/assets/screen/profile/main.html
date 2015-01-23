@@ -30,21 +30,23 @@
 				</tr>
 			</thead>
 			<tbody>
-			<tr ng-repeat='lift in ApplicationEnum.LIFT' ng-init='liftStat = stats[v.statsView][lift]'>
+			<tr ng-repeat='(lift, liftStat) in stats[v.statsView] | eachLift'>
 				<th class='screen-profile-main__lift--{{ lift }}'>
 					<span class='label'>{{ lift }}</span>
 				</th>
-				<td>{{ stats[v.statsView][lift].work | number:1 }}</td>
-				<td><a href='#/profile/personal-record?ordering=-date&feq_lift={{ lift }}&feq_weight={{ stats[v.statsView][lift].weight }}'>{{ stats[v.statsView][lift].weight }}</a></td>
 				<td>
-					<span>{{ stats[v.statsView][lift].reps }}</span>
-					<span class='text-muted'> / {{ stats[v.statsView][lift].targetReps }}</span>
+					<a ng-href='#/profile/personal-record/edit?key={{ liftStat.prKey }}'>{{ liftStat.work | number:1 }}</a>
+				</td>
+				<td><a href='#/profile/personal-record?ordering=-date&feq_lift={{ lift }}&feq_weight={{ liftStat.weight }}'>{{ liftStat.weight }}</a></td>
+				<td>
+					<span>{{ liftStat.reps }}</span>
+					<span class='text-muted'> / {{ liftStat.targetReps }}</span>
 				</td>
 				<td>
-					{{ stats[v.statsView][lift].max }}
-					<span class='text-muted'>(%{{ (stats[v.statsView][lift].weight/stats[v.statsView][lift].max)*100 | roundTo:5 }})</span>
+					{{ liftStat.max }}
+					<span class='text-muted'>(%{{ (liftStat.weight/liftStat.max)*100 | roundTo:5 }})</span>
 				</td>
-				<td><a href='#/profile/personal-record?feq_date={{ stats[v.statsView][lift].date }}'>{{ stats[v.statsView][lift].date }}</a></td>
+				<td><a href='#/profile/personal-record?feq_date={{ liftStat.date }}'>{{ liftStat.date }}</a></td>
 			</tr>
 			</tbody>
 		</table>

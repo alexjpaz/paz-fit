@@ -115,8 +115,10 @@ class StatsHandler(webapp2.RequestHandler):
 		user_namespace = users.get_current_user().user_id()
 		logging.info('Setting namespame to %s', user_namespace)
 		namespace_manager.set_namespace(user_namespace)
+		stats = models.StatsCalculator.get_stats(user_namespace)
 
-		write_json(self.response, models.get_stats())
+		self.response.headers['Content-Type'] = 'application/json'
+		self.response.write(stats.to_json())
 
 class EnvironmentHandler(webapp2.RequestHandler):
     def get(self):
