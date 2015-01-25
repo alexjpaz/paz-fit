@@ -126,7 +126,7 @@ class StatsHandler(webapp2.RequestHandler):
 		if stats is None:
 			stats = ndb_models.StatsCalculator.get_stats(user_namespace)
 			stats = stats.to_json()
-			memcache.add(memkey, stats, 60)
+			memcache.add(memkey, stats, 3600)
 
 
 		self.response.headers['Content-Type'] = 'application/json'
