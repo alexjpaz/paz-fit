@@ -121,7 +121,7 @@ class StatsHandler(webapp2.RequestHandler):
 		stats = ndb_models.StatsCalculator.get_stats(user_namespace)
 
 		self.response.headers['Content-Type'] = 'application/json'
-		self.response.write(stats)
+		self.response.write(stats.to_json())
 
 
 class GraphHandler(webapp2.RequestHandler):

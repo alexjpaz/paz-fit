@@ -1,4 +1,5 @@
 from google.appengine.ext import ndb
+from google.appengine.api import memcache
 
 class Post(ndb.Expando):
 	modified_date = ndb.DateProperty(auto_now=True)
@@ -122,14 +123,19 @@ class DatGraph():
 
 	@staticmethod
 	def get_graph_data(user_id=None, lift=None):
-		graph_data = []
-		q = PersonalRecord.query(PersonalRecord.lift == lift).order(-PersonalRecord.date)
+		memkey = 'graph_data:%s:%s' % (user_id, lift) 
+		graph_data = memcache.get(memkey)
 
-		for pr in q.iter():
-			mx = Maxes.query(Maxes.date <= pr.date).order(-Maxes.date).get()
-			graph_data.append(Stats(pr, mx))
+		if graph_data is None:
+			graph_data = []
+			q = PersonalRecord.query(PersonalRecord.lift == lift).order(-PersonalRecord.date)
 
-		graph_data = json.dumps(graph_data, default=lambda o: o.__dict__, sort_keys=False, indent=4)
+			for pr in q.iter():
+				mx = Maxes.query(Maxes.date <= pr.date).order(-Maxes.date).get()
+				graph_data.append(Stats(pr, mx))
+
+			graph_data = json.dumps(graph_data, default=lambda o: o.__dict__, sort_keys=False, indent=4)
+			memcache.add(memkey, graph_data, 3600)
 
 		return graph_data
 
