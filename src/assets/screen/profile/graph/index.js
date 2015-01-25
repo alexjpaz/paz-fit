@@ -3,8 +3,8 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 	ScreenFactory.build('screen-profile-graph-index', function($scope, $http, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator, $location, MaxesDao, moment, $q) {
 		var each = angular.forEach;
 
-		$scope.chartObject = {
-			"type": "SteppedAreaChart",
+		var defaultChartObject = {
+			"type": "LineChart",
 			"displayed": true,
 			"colors": ["red"],
 			"data": {
@@ -28,8 +28,13 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 					"type": "number",
 					"p": {}
 				},
+				{
+					"id": "work",
+					"label": "Work",
+					"type": "number",
+					"p": {}
+				},
 				],
-				"rows": [ ]
 			},
 			"options": {
 				"title": "Sales per month",
@@ -52,51 +57,45 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			"formatters": {}
 		};
 
-		$scope.records = {};
-		$scope.params = [
-			{'feq_lift': 'press','ordering': '-date'},
-			//{'feq_lift': 'bench','ordering': '-date'},
-			//{'feq_lift': 'squat','ordering': '-date'},
-			//{'feq_lift': 'press','ordering': '-date'},
-		];
-
-		fn = {
-			vMin: function(min) {
-				if($scope.chartObject.options.vAxis.viewWindow.min > min) {
-					$scope.chartObject.options.vAxis.viewWindow.min = min - 20;
-				}
-			}
-		};
-
+		$scope.charts = {};
 		var loadData = function() {
-			$http.get('/api/graph', {lift: "press"}).then(function(rsp) {
-				var row = {};
+			each(['press','deadlift','bench','squat'], function(lift) {
+				var chart = angular.copy(defaultChartObject);
+				chart.data.rows = [];
 
-				each(rsp.data, function(dp) {
-					row = {
-						c: [
-							{v: dp.date},
-							{v: dp.max},
-							{v: dp.weight}
-						]
-					};
+				var min = 9999;
+				$http({
+					url:'/api/graph', 
+					params:{lift: lift}
+				}).then(function(rsp) {
+					var row = {};
 
-					fn.vMin(dp.max)
+					each(rsp.data, function(dp) {
+						row = {
+							c: [
+								{v: dp.date},
+								{v: dp.max},
+								{v: dp.weight},
+								{v: dp.work}
+							]
+						};
 
-					$scope.chartObject.data.rows.push(row);
+						if(min >= dp.max) {
+							min = dp.max - 10;
+						}
+
+						chart.data.rows.push(row);
+					});
 				});
-			});
 
-			console.debug($scope.chartObject);
+
+				chart.options.title = lift;
+				chart.options.vAxis.viewWindow = min;
+				$scope.charts[lift] = chart;
+			});
 		};
 
 		loadData();
-
-
-		$scope.$on('prGraph.select', function($event, r, clickEvent) {
-			$location.path('/profile/personal-record/edit')
-			$location.search('date', moment(r.date).format('YYYY-MM-DD'));
-		});
 	});
 
 });

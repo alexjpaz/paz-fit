@@ -123,7 +123,7 @@ class DatGraph():
 	@staticmethod
 	def get_graph_data(user_id=None, lift=None):
 		graph_data = []
-		q = PersonalRecord.query().order(-PersonalRecord.date)
+		q = PersonalRecord.query(PersonalRecord.lift == lift).order(-PersonalRecord.date)
 
 		for pr in q.iter():
 			mx = Maxes.query(Maxes.date <= pr.date).order(-Maxes.date).get()

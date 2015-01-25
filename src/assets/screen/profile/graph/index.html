@@ -1,4 +1,5 @@
 <div class='screen-profile-graph-index'>
-		q
-	<div google-chart chart="chartObject" style="{{cssStyle}}"></div>
+	<div ng-repeat='liftCharts in charts | eachLift'>
+		<div google-chart chart="liftCharts" style="{{cssStyle}}"></div>
+	</div>
 </div>
