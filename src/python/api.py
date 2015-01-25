@@ -13,6 +13,7 @@ import ndb_models
 
 from google.appengine.api import users
 from google.appengine.api import namespace_manager
+from google.appengine.api import memcache
 
 from datetime import date
 
@@ -118,10 +119,18 @@ class StatsHandler(webapp2.RequestHandler):
 		user_namespace = users.get_current_user().user_id()
 		logging.info('Setting namespame to %s', user_namespace)
 		namespace_manager.set_namespace(user_namespace)
-		stats = ndb_models.StatsCalculator.get_stats(user_namespace)
+
+		memkey = "stats:%s" % (user_namespace) 
+		stats = memcache.get(memkey)
+
+		if stats is None:
+			stats = ndb_models.StatsCalculator.get_stats(user_namespace)
+			stats = stats.to_json()
+			memcache.add(memkey, stats, 60)
+
 
 		self.response.headers['Content-Type'] = 'application/json'
-		self.response.write(stats.to_json())
+		self.response.write(stats)
 
 
 class GraphHandler(webapp2.RequestHandler):

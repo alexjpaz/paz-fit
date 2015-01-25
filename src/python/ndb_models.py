@@ -69,8 +69,14 @@ class StatsCalculator():
 
 	@staticmethod
 	def get_log_max(pr):
-		q = Maxes.query(Maxes.date <= pr.date).order(-Maxes.date)
-		return q.get()
+		memkey = "max:%s" % (pr.date.strftime("%Y-%m-%d"))
+		mx = memcache.get(memkey)
+		if mx is None:
+			q = Maxes.query(Maxes.date <= pr.date).order(-Maxes.date)
+			mx = q.get()
+			memcache.add(memkey, mx, 3600) # TODO: if the max is older cache for longer!
+
+		return mx
 
 	@staticmethod
 	def get_stats(user_id=None):
