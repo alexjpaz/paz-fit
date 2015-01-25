@@ -1,6 +1,10 @@
-
-
-angular.module('app',['ngResource','ngRoute','helper','resources'])
+angular.module('app', [
+	'ngResource',
+	'ngRoute',
+	'helper',
+	'resources',
+	'googlechart'
+])
 .config(function($provide){
 	$provide.factory('App', function($rootScope, ApplicationEnum) {
 		function App() {
