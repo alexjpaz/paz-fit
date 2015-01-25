@@ -1,48 +1,56 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
-	ScreenFactory.build('screen-profile-graph-index', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator, $location, MaxesDao, moment, $q) {
+	ScreenFactory.build('screen-profile-graph-index', function($scope, $http, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator, $location, MaxesDao, moment, $q) {
 		var each = angular.forEach;
 
 		$scope.chartObject = {
 			"type": "SteppedAreaChart",
-  "displayed": true,
-  "data": {
-    "cols": [
-      {
-        "id": "month",
-        "label": "Month",
-        "type": "string",
-        "p": {}
-      },
-      {
-        "id": "deadlift",
-        "label": "Deadlift",
-        "type": "number",
-        "p": {}
-      },
-	],
-    "rows": [ ]
-  },
-  "options": {
-    "title": "Sales per month",
-    "isStacked": "true",
-    "fill": 20,
-    "displayExactValues": true,
-    "vAxis": {
-	  "minValue": 20,
-      "gridlines": {
-        "count": 5
-      },
-	  viewWindow: {
-		  min: 9999
-	  }
-    },
-    "hAxis": {
-      "title": "Date",
-    }
-  },
-  "formatters": {}
-}
+			"displayed": true,
+			"colors": ["red"],
+			"data": {
+				"cols": [
+					{
+					"id": "month",
+					"label": "Month",
+					"type": "string",
+					"p": {}
+				},
+				{
+					"id": "deadlift",
+					"label": "Max",
+					"type": "number",
+					"p": {}
+				},
+				{
+
+					"id": "weight",
+					"label": "Weight",
+					"type": "number",
+					"p": {}
+				},
+				],
+				"rows": [ ]
+			},
+			"options": {
+				"title": "Sales per month",
+				"isStacked": "false",
+				"fill": 20,
+				"displayExactValues": true,
+				"vAxis": {
+					"minValue": 20,
+					"gridlines": {
+						"count": 5
+					},
+					viewWindow: {
+						min: 9999
+					}
+				},
+				"hAxis": {
+					"title": "Date",
+				}
+			},
+			"formatters": {}
+		};
 
 		$scope.records = {};
 		$scope.params = [
@@ -55,43 +63,31 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		fn = {
 			vMin: function(min) {
 				if($scope.chartObject.options.vAxis.viewWindow.min > min) {
-					$scope.chartObject.options.vAxis.viewWindow.min = min;
+					$scope.chartObject.options.vAxis.viewWindow.min = min - 20;
 				}
 			}
 		};
 
 		var loadData = function() {
-			var promises = {};
-			var params = {'feq_lift': 'press','ordering': '-date'};
+			$http.get('/api/graph', {lift: "press"}).then(function(rsp) {
+				var row = {};
 
-			var data = {
-			};
-
-			promises.pr = PersonalRecordDao.find(params).then(function(records) {
-				data.pr = records;
-			});
-
-			params = {'ordering': 'date'};
-			promises.maxes = MaxesDao.find(params).then(function(maxes) {
-				data.maxes = maxes;
-			});
-			
-			$q.all(promises).then(function() {
-				angular.forEach(data.maxes, function(rr) {
-					fn.vMin(rr.deadlift);
-					
-					$scope.chartObject.data.rows.push({
-						"c": [
-							{
-							"v": rr.date
-						},
-						{
-							"v": rr.deadlift
-						}
+				each(rsp.data, function(dp) {
+					row = {
+						c: [
+							{v: dp.date},
+							{v: dp.max},
+							{v: dp.weight}
 						]
-					});
-				})
+					};
+
+					fn.vMin(dp.max)
+
+					$scope.chartObject.data.rows.push(row);
+				});
 			});
+
+			console.debug($scope.chartObject);
 		};
 
 		loadData();

@@ -121,7 +121,19 @@ class StatsHandler(webapp2.RequestHandler):
 		stats = ndb_models.StatsCalculator.get_stats(user_namespace)
 
 		self.response.headers['Content-Type'] = 'application/json'
-		self.response.write(stats.to_json())
+		self.response.write(stats)
+
+
+class GraphHandler(webapp2.RequestHandler):
+	def get(self):
+		user_namespace = users.get_current_user().user_id()
+		logging.info('Setting namespame to %s', user_namespace)
+		namespace_manager.set_namespace(user_namespace)
+		lift = self.request.get('lift')
+		stats = ndb_models.DatGraph.get_graph_data(user_namespace, lift)
+
+		self.response.headers['Content-Type'] = 'application/json'
+		self.response.write(stats)
 
 class EnvironmentHandler(webapp2.RequestHandler):
     def get(self):
@@ -147,6 +159,7 @@ app = webapp2.WSGIApplication(routes=[
 	('/api/env', EnvironmentHandler),
 	('/api/profile', ProfileHandler),
 	('/api/stats', StatsHandler),
+	('/api/graph', GraphHandler),
 	webapp2.Route('/api/table/<template>', handler=TemplateHandler, name='home'),
 	webapp2.Route(r'/api/table/', handler=TemplateHandler, name='home2'),
 	webapp2.Route(r'/api/table', handler=TemplateHandler, name='home3')

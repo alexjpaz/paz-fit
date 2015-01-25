@@ -32,6 +32,7 @@ class Profile(ndb.Model):
 import utils
 import json
 
+
 class Expando(object):
 
 	def to_json(self):
@@ -115,6 +116,23 @@ class StatsCalculator():
 		
 
 		return stats
+
+
+class DatGraph():
+
+	@staticmethod
+	def get_graph_data(user_id=None, lift=None):
+		graph_data = []
+		q = PersonalRecord.query().order(-PersonalRecord.date)
+
+		for pr in q.iter():
+			mx = Maxes.query(Maxes.date <= pr.date).order(-Maxes.date).get()
+			graph_data.append(Stats(pr, mx))
+
+		graph_data = json.dumps(graph_data, default=lambda o: o.__dict__, sort_keys=False, indent=4)
+
+		return graph_data
+
 
 
 
