@@ -131,8 +131,6 @@ def get_profile(current_user):
 def export_all_the_things():
 	qm = Maxes.query().order(-Maxes.date)
 
-	print qm.count()
-
 	qp = PersonalRecord.query().order(-Maxes.date)
 
 	result = {

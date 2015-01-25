@@ -6,7 +6,10 @@ import logging
 import jinja2
 import os
 import datetime
+
+
 import models
+import ndb_models
 
 from google.appengine.api import users
 from google.appengine.api import namespace_manager
@@ -115,7 +118,7 @@ class StatsHandler(webapp2.RequestHandler):
 		user_namespace = users.get_current_user().user_id()
 		logging.info('Setting namespame to %s', user_namespace)
 		namespace_manager.set_namespace(user_namespace)
-		stats = models.StatsCalculator.get_stats(user_namespace)
+		stats = ndb_models.StatsCalculator.get_stats(user_namespace)
 
 		self.response.headers['Content-Type'] = 'application/json'
 		self.response.write(stats.to_json())
