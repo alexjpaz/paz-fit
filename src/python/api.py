@@ -103,7 +103,7 @@ class ExportHandler(webapp2.RequestHandler):
 		user_namespace = users.get_current_user().user_id()
 		logging.info('Setting namespame to %s', user_namespace)
 		namespace_manager.set_namespace(user_namespace)
-		result = models.export_all_the_things()
+		result = ndb_models.export_all_the_things()
 		write_json(self.response, result);
 
 
