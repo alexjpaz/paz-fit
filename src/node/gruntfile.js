@@ -11,7 +11,8 @@ module.exports = function (grunt) {
 						'../assets/helper/tools.js',
 						'../assets/config/routes.js',
 						'../assets/components/**/*.js',
-						'../assets/filter/**/*.js'
+						'../assets/filter/**/*.js',
+						'../assets/decorator/**/*.js'
 						],
 						dest: 'dist/app.js',
 				},
