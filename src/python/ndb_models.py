@@ -1,6 +1,8 @@
 from google.appengine.ext import ndb
 from google.appengine.api import memcache
 
+import datetime
+
 class Post(ndb.Expando):
 	modified_date = ndb.DateProperty(auto_now=True)
 	creation_date = ndb.DateProperty(auto_now_add=True)
@@ -58,6 +60,8 @@ class Stats(object):
 		self.reps = pr.reps
 		self.targetReps = utils.goal(getattr(pr_max, pr.lift), pr.weight)
 		self.work = utils.calculate_work(pr.weight, pr.reps)
+		self.targetWork = utils.calculate_work(pr.weight, self.targetReps)
+		print pr_max
 		self.max = getattr(pr_max, pr.lift)
 		self.maxKey = pr_max.key.urlsafe();
 
@@ -66,6 +70,7 @@ class Stats(object):
 		return json.dumps(self, default=lambda o: o.__dict__, sort_keys=False, indent=4)
 
 class StatsCalculator():
+
 
 	@staticmethod
 	def get_log_max(pr):
@@ -158,35 +163,83 @@ def get_profile(current_user):
 	return ddd
 
 
-def export_all_the_things():
-	qm = Maxes.query().order(-Maxes.date)
+class DataMigrator():
 
-	qp = PersonalRecord.query().order(-Maxes.date)
+	@staticmethod
+	def delete_all_the_things():
+		qm = Maxes.query().order(-Maxes.date)
 
-	result = {
-		"Maxes": [],
-		"PersonalRecord": []
-	}
+		for e in qm.iter():
+			e.key.delete()
 
-	for m in qm.iter():
-		result["Maxes"].append({
-			"press": m.press,
-			"deadlift": m.deadlift,
-			"bench": m.bench,
-			"squat": m.squat,
-			"date": m.date.strftime("%Y-%m-%dT00:00:00.000Z")
+		qp = PersonalRecord.query().order(-Maxes.date)
 
-		})
+		for e in qp.iter():
+			e.key.delete()
 
-	for p in qp.iter():
-		result["PersonalRecord"].append({
-			"weight": p.weight,
-			"reps": p.reps,
-			"lift": p.lift,
-			"date": p.date.strftime("%Y-%m-%dT00:00:00.000Z")
-		})
 
-	return result
+
+
+	@staticmethod
+	def import_all_the_things(data):
+		transient = []
+
+		for d in data["PersonalRecord"]:
+			pr = PersonalRecord()
+			pr.weight = d["weight"]
+			pr.lift = d["lift"]
+			pr.reps = d["reps"]
+			pr.date = datetime.datetime.strptime(d["date"],"%Y-%m-%dT00:00:00.000Z").date()
+
+			transient.append(pr)
+
+		for d in data["Maxes"]:
+			mx = Maxes()
+			mx.date = datetime.datetime.strptime(d["date"],"%Y-%m-%dT00:00:00.000Z").date()
+			mx.press = d["press"]
+			mx.deadlift = d["deadlift"]
+			mx.bench = d["bench"]
+			mx.squat = d["squat"]
+
+
+			transient.append(mx)
+
+		for t in transient:
+			t.put();
+
+
+		return data;
+
+	@staticmethod
+	def export_all_the_things():
+		qm = Maxes.query().order(-Maxes.date)
+
+		qp = PersonalRecord.query().order(-Maxes.date)
+
+		result = {
+				"Maxes": [],
+				"PersonalRecord": []
+				}
+
+		for m in qm.iter():
+			result["Maxes"].append({
+				"press": m.press,
+				"deadlift": m.deadlift,
+				"bench": m.bench,
+				"squat": m.squat,
+				"date": m.date.strftime("%Y-%m-%dT00:00:00.000Z")
+
+				})
+
+			for p in qp.iter():
+				result["PersonalRecord"].append({
+					"weight": p.weight,
+					"reps": p.reps,
+					"lift": p.lift,
+					"date": p.date.strftime("%Y-%m-%dT00:00:00.000Z")
+					})
+
+				return result
 
 
 

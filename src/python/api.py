@@ -98,12 +98,23 @@ class GoalHandler(webapp2.RequestHandler):
 		result = {}
 		write_json(self.response, result)
 
-class ExportHandler(webapp2.RequestHandler):
+class MigrateHandler(webapp2.RequestHandler):
+	def post(self):
+		user_namespace = users.get_current_user().user_id()
+		namespace_manager.set_namespace(user_namespace)
+
+		#if(self.request.get('delete') == 'true'):
+		#result = ndb_models.DataMigrator.delete_all_the_things()
+		import_json = json.loads(self.request.body)
+		result = ndb_models.DataMigrator.import_all_the_things(import_json)
+
+		write_json(self.response, result);
+		return
+
 	def get(self):
 		user_namespace = users.get_current_user().user_id()
-		logging.info('Setting namespame to %s', user_namespace)
 		namespace_manager.set_namespace(user_namespace)
-		result = ndb_models.export_all_the_things()
+		result = ndb_models.DataMigrator.export_all_the_things()
 		write_json(self.response, result);
 
 
@@ -162,7 +173,7 @@ class EnvironmentHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication(routes=[
 	('/api/authenticate', DerpAuthenticationHandler),
-	('/api/export', ExportHandler),
+	('/api/migrate', MigrateHandler),
 	('/api/plates', PlateHandler),
 	('/api/goal', PlateHandler),
 	('/api/env', EnvironmentHandler),

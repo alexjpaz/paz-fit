@@ -14,6 +14,11 @@ indexes:
   properties:
   - name: lift
   - name: date
+
+- kind: PersonalRecord
+  properties:
+  - name: lift
+  - name: date
     direction: desc
 
 - kind: PersonalRecord

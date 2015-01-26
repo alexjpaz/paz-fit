@@ -4,54 +4,47 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		var each = angular.forEach;
 
 		var defaultChartObject = {
-			"type": "LineChart",
+			"type": "ComboChart",
 			"displayed": true,
 			"colors": ["red"],
 			"data": {
 				"cols": [
-					{
-					"id": "month",
-					"label": "Month",
-					"type": "string",
-					"p": {}
-				},
-				{
-					"id": "deadlift",
-					"label": "Max",
-					"type": "number",
-					"p": {}
-				},
-				{
-
-					"id": "weight",
-					"label": "Weight",
-					"type": "number",
-					"p": {}
-				},
-				{
-					"id": "work",
-					"label": "Work",
-					"type": "number",
-					"p": {}
-				},
+					{ "id": "month", "label": "Month", "type": "string", "p": {} },
+					{ "id": "target-work", "label": "Target Work", "type": "number", "p": {} },
+					{ "id": "max", "label": "Max", "type": "number", "p": {} },
+					{ "id": "work", "label": "Work", "type": "number", "p": {} },
 				],
 			},
 			"options": {
-				"title": "Sales per month",
+				  seriesType: "steppedArea",
+				series: {
+						0: { color: '#aaa', type: 'area'},
+						1: { color: '#f00'},
+						2: { color: '#00f', type: 'line' },
+				},
+				crosshair: { 
+					trigger: 'both',
+					orientation: 'vertical'
+				},
+				//tooltip: {
+					//trigger: "selection"
+				//},
+				//selectionMode: "single",
+				focusTarget: 'category',
+				aggregationTarget: "category",
 				"isStacked": "false",
 				"fill": 20,
 				"displayExactValues": true,
 				"vAxis": {
-					"minValue": 20,
 					"gridlines": {
 						"count": 5
 					},
-					viewWindow: {
-						min: 9999
-					}
+					//viewWindow: {
+						//min: 200,
+						////max: ,
+					//}
 				},
 				"hAxis": {
-					"title": "Date",
 				}
 			},
 			"formatters": {}
@@ -64,6 +57,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 				chart.data.rows = [];
 
 				var min = 9999;
+
 				$http({
 					url:'/api/graph', 
 					params:{lift: lift}
@@ -74,24 +68,24 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 						row = {
 							c: [
 								{v: dp.date},
+								{v: dp.targetWork},
 								{v: dp.max},
-								{v: dp.weight},
-								{v: dp.work}
+								{v: dp.work},
 							]
 						};
 
 						if(min >= dp.max) {
-							min = dp.max - 10;
+							min = dp.max;
 						}
 
 						chart.data.rows.push(row);
 					});
+
+					chart.options.title = lift;
+					chart.options.vAxis.minValue = min;
+					$scope.charts[lift] = chart;
+
 				});
-
-
-				chart.options.title = lift;
-				chart.options.vAxis.viewWindow = min;
-				$scope.charts[lift] = chart;
 			});
 		};
 
