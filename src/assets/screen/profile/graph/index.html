@@ -1,5 +1,9 @@
 <div class='screen-profile-graph-index'>
-	<div ng-repeat='liftCharts in charts | eachLift'>
-		<div google-chart chart="liftCharts" style="{{cssStyle}}"></div>
+	<div>
+		<div google-chart chart="charts[selectedLift]" style="{{cssStyle}}"></div>
+
+		<ul class="nav nav-pills nav-justified" nav-tabs='selectedLift'>
+			<li ng-repeat='l in ApplicationEnum.LIFT' tab="{{ l }}">{{ l }}</li>
+		</ul>
 	</div>
 </div>

@@ -34,7 +34,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 				aggregationTarget: "category",
 				"isStacked": "false",
 				"fill": 20,
-				"displayExactValues": true,
+				"displayExactValues": false,
 				"vAxis": {
 					"gridlines": {
 						"count": 5
@@ -50,42 +50,45 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			"formatters": {}
 		};
 
+
+		$scope.$watch('selectedLift', function(selectedLift) {
+			loadData(selectedLift);
+		});
+
 		$scope.charts = {};
-		var loadData = function() {
-			each(['press','deadlift','bench','squat'], function(lift) {
-				var chart = angular.copy(defaultChartObject);
-				chart.data.rows = [];
+		var loadData = function(lift) {
+			var chart = angular.copy(defaultChartObject);
+			chart.data.rows = [];
 
-				var min = 9999;
+			var min = 9999;
 
-				$http({
-					url:'/api/graph', 
-					params:{lift: lift}
-				}).then(function(rsp) {
-					var row = {};
+			$http({
+				url:'/api/graph', 
+				params:{lift: lift}
+			}).then(function(rsp) {
+				var row = {};
 
-					each(rsp.data, function(dp) {
-						row = {
-							c: [
-								{v: dp.date},
-								{v: dp.targetWork},
-								{v: dp.max},
-								{v: dp.work},
-							]
-						};
+				each(rsp.data, function(dp) {
+					row = {
+						c: [
+							{v: dp.date},
+							{v: Math.round(dp.targetWork)},
+							{v: dp.max},
+							{v: Math.round(dp.work)},
+						]
+					};
 
-						if(min >= dp.max) {
-							min = dp.max;
-						}
+					if(min >= dp.max) {
+						min = dp.max;
+					}
 
-						chart.data.rows.push(row);
-					});
-
-					chart.options.title = lift;
-					chart.options.vAxis.minValue = min;
-					$scope.charts[lift] = chart;
-
+					chart.data.rows.unshift(row);
 				});
+
+				chart.options.title = lift;
+				chart.options.vAxis.minValue = min;
+				$scope.charts[lift] = chart;
+
 			});
 		};
 

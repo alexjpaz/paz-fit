@@ -1,0 +1,9 @@
+<panel panel-title='Graph' class='panel-default'>
+	<div google-chart chart="charts[v.selectedLift]" style="{{cssStyle}}"></div>
+
+
+
+	<ul class="nav nav-pills nav-justified" nav-tabs='v.selectedLift' enum>
+		<li ng-repeat='l in ApplicationEnum.LIFT' tab="{{ l }}">{{ l }}</li>
+	</ul>
+</panel>
