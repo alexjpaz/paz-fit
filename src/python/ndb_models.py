@@ -61,7 +61,6 @@ class Stats(object):
 		self.targetReps = utils.goal(getattr(pr_max, pr.lift), pr.weight)
 		self.work = utils.calculate_work(pr.weight, pr.reps)
 		self.targetWork = utils.calculate_work(pr.weight, self.targetReps)
-		print pr_max
 		self.max = getattr(pr_max, pr.lift)
 		self.maxKey = pr_max.key.urlsafe();
 

@@ -1,5 +1,6 @@
 <panel panel-title='Graph' class='panel-default'>
-	<div google-chart chart="charts[v.selectedLift]" style="{{cssStyle}}"></div>
+	<h1 ng-hide='!charts[v.selectedLift]'><i class='fa fa-spinner fa-spin'></i></h1>
+	<div ng-show='!charts[v.selectedLift]' google-chart chart="charts[v.selectedLift]" style="{{cssStyle}}"></div>
 
 
 
