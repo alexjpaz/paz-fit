@@ -11,7 +11,8 @@ module.exports = function (grunt) {
 						'../assets/helper/tools.js',
 						'../assets/config/routes.js',
 						'../assets/components/**/*.js',
-						'../assets/filter/**/*.js'
+						'../assets/filter/**/*.js',
+						'../assets/decorator/**/*.js'
 						],
 						dest: 'dist/app.js',
 				},
@@ -31,6 +32,7 @@ module.exports = function (grunt) {
 						'bower_components/angular-route/angular-route.js',
 						'bower_components/bootstrap/dist/js/bootstrap.min.js',
 						'bower_components/d3/d3.min.js',
+						'bower_components/angular-google-chart/ng-google-chart.js',
 						'bower_components/momentjs/min/moment.min.js',
 						'../assets/lib/ydn.db-iswu-core-e-qry-dev.js'
 						],

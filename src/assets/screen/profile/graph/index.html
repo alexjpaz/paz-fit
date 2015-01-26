@@ -1,18 +1,9 @@
 <div class='screen-profile-graph-index'>
-	<div class='col-md-6'>
-		<h4><a href='#/profile/personal-record?ordering=-date&feq_lift=press'>Press</a></h4>
-		<div pr-graph='records.press' pr-graph-maxes='maxes' pr-graph-key='press'></div>
-	</div>
-	<div class='col-md-6'>
-		<h4><a href='#/profile/personal-record?ordering=-date&feq_lift=deadlift'>Deadlift</a></h4>
-		<div pr-graph='records.deadlift' pr-graph-maxes='maxes' pr-graph-key='deadlift'></div>
-	</div>
-	<div class='col-md-6'>
-		<h4><a href='#/profile/personal-record?ordering=-date&feq_lift=bench'>Bench</a></h4>
-		<div pr-graph='records.bench' pr-graph-maxes='maxes' pr-graph-key='bench'></div>
-	</div>
-	<div class='col-md-6'>
-		<h4><a href='#/profile/personal-record?ordering=-date&feq_lift=squat'>Squat</a></h4>
-		<div pr-graph='records.squat' pr-graph-maxes='maxes' pr-graph-key='squat'></div>
+	<div>
+		<div google-chart chart="charts[selectedLift]" style="{{cssStyle}}"></div>
+
+		<ul class="nav nav-pills nav-justified" nav-tabs='selectedLift'>
+			<li ng-repeat='l in ApplicationEnum.LIFT' tab="{{ l }}">{{ l }}</li>
+		</ul>
 	</div>
 </div>

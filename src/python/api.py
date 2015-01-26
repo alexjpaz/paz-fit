@@ -13,6 +13,7 @@ import ndb_models
 
 from google.appengine.api import users
 from google.appengine.api import namespace_manager
+from google.appengine.api import memcache
 
 from datetime import date
 
@@ -97,12 +98,23 @@ class GoalHandler(webapp2.RequestHandler):
 		result = {}
 		write_json(self.response, result)
 
-class ExportHandler(webapp2.RequestHandler):
+class MigrateHandler(webapp2.RequestHandler):
+	def post(self):
+		user_namespace = users.get_current_user().user_id()
+		namespace_manager.set_namespace(user_namespace)
+
+		#if(self.request.get('delete') == 'true'):
+		#result = ndb_models.DataMigrator.delete_all_the_things()
+		import_json = json.loads(self.request.body)
+		result = ndb_models.DataMigrator.import_all_the_things(import_json)
+
+		write_json(self.response, result);
+		return
+
 	def get(self):
 		user_namespace = users.get_current_user().user_id()
-		logging.info('Setting namespame to %s', user_namespace)
 		namespace_manager.set_namespace(user_namespace)
-		result = models.export_all_the_things()
+		result = ndb_models.DataMigrator.export_all_the_things()
 		write_json(self.response, result);
 
 
@@ -118,10 +130,30 @@ class StatsHandler(webapp2.RequestHandler):
 		user_namespace = users.get_current_user().user_id()
 		logging.info('Setting namespame to %s', user_namespace)
 		namespace_manager.set_namespace(user_namespace)
-		stats = ndb_models.StatsCalculator.get_stats(user_namespace)
+
+		memkey = "stats:%s" % (user_namespace) 
+		stats = memcache.get(memkey)
+
+		if stats is None:
+			stats = ndb_models.StatsCalculator.get_stats(user_namespace)
+			stats = stats.to_json()
+			memcache.add(memkey, stats, 3600)
+
 
 		self.response.headers['Content-Type'] = 'application/json'
-		self.response.write(stats.to_json())
+		self.response.write(stats)
+
+
+class GraphHandler(webapp2.RequestHandler):
+	def get(self):
+		user_namespace = users.get_current_user().user_id()
+		logging.info('Setting namespame to %s', user_namespace)
+		namespace_manager.set_namespace(user_namespace)
+		lift = self.request.get('lift')
+		stats = ndb_models.DatGraph.get_graph_data(user_namespace, lift)
+
+		self.response.headers['Content-Type'] = 'application/json'
+		self.response.write(stats)
 
 class EnvironmentHandler(webapp2.RequestHandler):
     def get(self):
@@ -141,12 +173,13 @@ class EnvironmentHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication(routes=[
 	('/api/authenticate', DerpAuthenticationHandler),
-	('/api/export', ExportHandler),
+	('/api/migrate', MigrateHandler),
 	('/api/plates', PlateHandler),
 	('/api/goal', PlateHandler),
 	('/api/env', EnvironmentHandler),
 	('/api/profile', ProfileHandler),
 	('/api/stats', StatsHandler),
+	('/api/graph', GraphHandler),
 	webapp2.Route('/api/table/<template>', handler=TemplateHandler, name='home'),
 	webapp2.Route(r'/api/table/', handler=TemplateHandler, name='home2'),
 	webapp2.Route(r'/api/table', handler=TemplateHandler, name='home3')

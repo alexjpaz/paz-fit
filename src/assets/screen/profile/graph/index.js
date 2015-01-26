@@ -1,40 +1,98 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
 	var ScreenFactory = ScreenFactoryProvider.$get();
-	ScreenFactory.build('screen-profile-graph-index', function($scope, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator, $location, MaxesDao, moment) {
+	ScreenFactory.build('screen-profile-graph-index', function($scope, $http, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator, $location, MaxesDao, moment, $q) {
 		var each = angular.forEach;
 
-		$scope.records = {};
-		$scope.params = [
-			{'feq_lift': 'deadlift','ordering': '-date'},
-			{'feq_lift': 'bench','ordering': '-date'},
-			{'feq_lift': 'squat','ordering': '-date'},
-			{'feq_lift': 'press','ordering': '-date'},
-		];
+		var defaultChartObject = {
+			"type": "ComboChart",
+			"displayed": true,
+			"colors": ["red"],
+			"data": {
+				"cols": [
+					{ "id": "month", "label": "Month", "type": "string", "p": {} },
+					{ "id": "target-work", "label": "Target Work", "type": "number", "p": {} },
+					{ "id": "max", "label": "Max", "type": "number", "p": {} },
+					{ "id": "work", "label": "Work", "type": "number", "p": {} },
+				],
+			},
+			"options": {
+				  seriesType: "steppedArea",
+				series: {
+						0: { color: '#aaa', type: 'area'},
+						1: { color: '#f00'},
+						2: { color: '#00f', type: 'line' },
+				},
+				crosshair: { 
+					trigger: 'both',
+					orientation: 'vertical'
+				},
+				//tooltip: {
+					//trigger: "selection"
+				//},
+				//selectionMode: "single",
+				focusTarget: 'category',
+				aggregationTarget: "category",
+				"isStacked": "false",
+				"fill": 20,
+				"displayExactValues": false,
+				"vAxis": {
+					"gridlines": {
+						"count": 5
+					},
+					//viewWindow: {
+						//min: 200,
+						////max: ,
+					//}
+				},
+				"hAxis": {
+				}
+			},
+			"formatters": {}
+		};
 
-		$scope.getPersonalRecords  = function(params) {
-			PersonalRecordDao.find(params).then(function(records) {
-				$scope.records[params.feq_lift] = records;
+
+		$scope.$watch('selectedLift', function(selectedLift) {
+			loadData(selectedLift);
+		});
+
+		$scope.charts = {};
+		var loadData = function(lift) {
+			var chart = angular.copy(defaultChartObject);
+			chart.data.rows = [];
+
+			var min = 9999;
+
+			$http({
+				url:'/api/graph', 
+				params:{lift: lift}
+			}).then(function(rsp) {
+				var row = {};
+
+				each(rsp.data, function(dp) {
+					row = {
+						c: [
+							{v: dp.date},
+							{v: Math.round(dp.targetWork)},
+							{v: dp.max},
+							{v: Math.round(dp.work)},
+						]
+					};
+
+					if(min >= dp.max) {
+						min = dp.max;
+					}
+
+					chart.data.rows.unshift(row);
+				});
+
+				chart.options.title = lift;
+				chart.options.vAxis.minValue = min;
+				$scope.charts[lift] = chart;
+
 			});
 		};
 
-		$scope.getMaxes = function(params) {
-			MaxesDao.find(params).then(function(maxes) {
-				$scope.maxes = maxes;
-			});
-		};
-
-		each($scope.params, function(param) {
-			$scope.getPersonalRecords(param);
-		});
-
-		$scope.getMaxes({
-			'ordering': '-date'
-		});
-
-		$scope.$on('prGraph.select', function($event, r, clickEvent) {
-			$location.path('/profile/personal-record/edit')
-			$location.search('date', moment(r.date).format('YYYY-MM-DD'));
-		});
+		loadData();
 	});
 
 });
