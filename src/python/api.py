@@ -149,11 +149,28 @@ class GraphHandler(webapp2.RequestHandler):
 		user_namespace = users.get_current_user().user_id()
 		logging.info('Setting namespame to %s', user_namespace)
 		namespace_manager.set_namespace(user_namespace)
+
+
 		lift = self.request.get('lift')
-		stats = ndb_models.DatGraph.get_graph_data(user_namespace, lift)
+		limit = self.request.get('limit')
+
+		if limit == '':
+			limit = None
+		else:
+			limit = int(limit)
+
+		memkey = "graph:%s:%s:%s" % (user_namespace,lift,limit) 
+
+		print memkey
+
+		graph = memcache.get(memkey)
+
+		if graph is None:
+			print 'lol'
+			graph = ndb_models.DatGraph.get_graph_data(user_namespace, lift, limit)
 
 		self.response.headers['Content-Type'] = 'application/json'
-		self.response.write(stats)
+		self.response.write(graph)
 
 class EnvironmentHandler(webapp2.RequestHandler):
     def get(self):

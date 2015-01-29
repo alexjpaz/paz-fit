@@ -7,7 +7,8 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 
 			$scope.charts = {};
 			$scope.v = {
-				selectedLift: "press"
+				lift: "press",
+				limit: null
 			};
 
 			var defaultChartObject = {
@@ -20,6 +21,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 						{ "id": "target-work", "label": "Target Work", "type": "number", "p": {} },
 						{ "id": "max", "label": "Max", "type": "number", "p": {} },
 						{ "id": "work", "label": "Work", "type": "number", "p": {} },
+						{ "id": "maxShift", "label": "Max check", "type": "number", "p": {} },
 					],
 				},
 				"options": {
@@ -28,6 +30,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 						0: { color: '#aaa', type: 'area'},
 						1: { color: '#f00'},
 						2: { color: '#00f', type: 'line' },
+						3: { color: '#444', type: 'line',  lineDashStyle: [4, 4]},
 					},
 					crosshair: { 
 						trigger: 'both',
@@ -59,14 +62,12 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 			};
 
 
-			$scope.$watch('v.selectedLift', function(selectedLift) {
-				loadData(selectedLift);
-			});
 
 
 			$scope.charts = {};
 
-			var loadData = function(lift) {
+			var loadData = function(v) {
+				if(angular.isUndefined(v)) return; 
 				var chart = angular.copy(defaultChartObject);
 				chart.data.rows = [];
 
@@ -74,7 +75,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 
 				$http({
 					url:'/api/graph', 
-					params:{lift: lift}
+					params: v,
 				}).then(function(rsp) {
 					var row = {};
 
@@ -85,6 +86,9 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 								{v: Math.round(dp.targetWork)},
 								{v: dp.max},
 								{v: Math.round(dp.work)},
+								{
+									v: (dp.max >= dp.work ? dp.work : null)
+								},
 							]
 						};
 
@@ -95,14 +99,14 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 						chart.data.rows.unshift(row);
 					});
 
-					chart.options.title = lift;
+					chart.options.title = v.lift;
 					chart.options.vAxis.minValue = min;
-					$scope.charts[lift] = chart;
+					$scope.charts[v.lift] = chart;
 
 				});
 			};
 
-			loadData();
+			$scope.$watch('v', loadData, true);
 		}
 	});
 

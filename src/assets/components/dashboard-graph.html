@@ -1,10 +1,13 @@
 <panel panel-title='Graph' class='panel-default'>
-	<h1 ng-hide='charts[v.selectedLift]'><i class='fa fa-spinner fa-spin'></i></h1>
-	<div ng-show='charts[v.selectedLift]' google-chart chart="charts[v.selectedLift]" style="{{cssStyle}}"></div>
+	<h1 ng-hide='charts[v.lift]'><i class='fa fa-spinner fa-spin'></i></h1>
 
+	<div ng-show='charts[v.lift]' 
+		<div google-chart chart="charts[v.lift]" style="{{cssStyle}}"></div>
+	</div>
 
-
-	<ul class="nav nav-pills nav-justified" nav-tabs='v.selectedLift' enum>
+	<ul class="nav nav-pills nav-justified" nav-tabs='v.lift' enum>
 		<li ng-repeat='l in ApplicationEnum.LIFT' tab="{{ l }}">{{ l }}</li>
 	</ul>
+	<input type='number' ng-model='v.limit' />
+	<pre>{{ v | json }}</pre>
 </panel>

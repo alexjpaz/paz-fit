@@ -35,7 +35,6 @@ class Profile(ndb.Model):
 import utils
 import json
 
-
 class Expando(object):
 
 	def to_json(self):
@@ -132,20 +131,16 @@ class StatsCalculator():
 class DatGraph():
 
 	@staticmethod
-	def get_graph_data(user_id=None, lift=None):
-		memkey = 'graph_data:%s:%s' % (user_id, lift) 
-		graph_data = memcache.get(memkey)
+	def get_graph_data(user_id=None, lift=None, limit=None):
+		graph_data = []
+		q = PersonalRecord.query(PersonalRecord.lift == lift).order(-PersonalRecord.date)
 
-		if graph_data is None:
-			graph_data = []
-			q = PersonalRecord.query(PersonalRecord.lift == lift).order(-PersonalRecord.date)
+		for pr in q.iter(limit=limit):
+			mx = Maxes.query(Maxes.date <= pr.date).order(-Maxes.date).get()
+			graph_data.append(Stats(pr, mx))
 
-			for pr in q.iter():
-				mx = Maxes.query(Maxes.date <= pr.date).order(-Maxes.date).get()
-				graph_data.append(Stats(pr, mx))
-
-			graph_data = json.dumps(graph_data, default=lambda o: o.__dict__, sort_keys=False, indent=4)
-			memcache.add(memkey, graph_data, 3600)
+		graph_data = json.dumps(graph_data, default=lambda o: o.__dict__, sort_keys=False, indent=4)
+		#memcache.add(memkey, graph_data, 3600)
 
 		return graph_data
 
