@@ -24,7 +24,6 @@ class PlateRepository(dict):
 		__order__ = [45,35,25,10,5,2.5]
 		for idx, num in enumerate(args):
 			self[str(__order__[idx])] =  num
-		print self
 
 PLATES = {}
 PLATES['home'] = PlateRepository(4,4,4,4,8,4)

@@ -27,10 +27,9 @@ class PersonalRecord(ndb.Model):
 class Profile(ndb.Model):
 	userid = ndb.StringProperty()
 	email = ndb.StringProperty()
-	config = ndb.StringProperty()
+	options = ndb.JsonProperty()
 
 	pass
-
 
 import utils
 import json
@@ -149,12 +148,22 @@ class DatGraph():
 
 
 def get_profile(current_user):
-	ddd = {
-		"name": "DefaultProfile",
-	}
+	memkey = "profile:%s" % (current_user)
+	profile = memcache.get(memkey)
 
+	if profile is None:
+		profile = Profile.get_or_insert(current_user, options={"foo":"bar"})
+		memcache.add(memkey, profile, 90000)
 
-	return ddd
+	return profile.options
+
+def set_profile(current_user, profile_options):
+	profile = Profile.get_or_insert(current_user, options={"foo":"bar"})
+	profile.options = profile_options
+	profile.put()
+	memkey = "profile:%s" % (current_user)
+	memcache.replace(memkey, profile, 90000)
+	return profile.options
 
 
 class DataMigrator():

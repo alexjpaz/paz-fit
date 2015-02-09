@@ -1,0 +1,35 @@
+<div class='screen-profile-options'>
+	<h2>Options</h2>
+	<form ng-submit='save(p)'>
+		<fieldset>
+			<legend>Personal Details</legend>
+			<div class='form-group'>
+				<label>Full Name</label>
+				<input type='text' ng-model='p.name' class='form-control' />
+			</div>
+			<div class='form-group'>
+				<label>Email</label>
+				<input type='text' ng-model='p.email' class='form-control' />
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend>Lifts</legend>
+			<div class='form-group'>
+				<label>Primary Lift Order</label>
+				<input type='text' ng-model='p.lift_order' ng-list class='form-control' />
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend>Dashboard</legend>
+			<div class='form-group'>
+				<label>Number of Max Intervals to Show</label>
+				<input type='number' ng-model='p.num_max_intervals' class='form-control' />
+			</div>
+		</fieldset>
+
+
+
+
+		<button class='btn btn-primary'>Save</button>
+	</form>
+</div>

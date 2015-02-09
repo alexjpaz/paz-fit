@@ -121,7 +121,13 @@ class MigrateHandler(webapp2.RequestHandler):
 class ProfileHandler(webapp2.RequestHandler):
 	def get(self):
 		user_id = users.get_current_user().user_id()
-		profile = models.get_profile(user_id)
+		profile = ndb_models.get_profile(user_id)
+		write_json(self.response, profile)
+
+	def post(self):
+		user_id = users.get_current_user().user_id()
+		profile = json.loads(self.request.body)
+		ndb_models.set_profile(user_id, profile)
 		write_json(self.response, profile)
 
 
