@@ -5,7 +5,11 @@ import math
 import json
 from collections import OrderedDict
 
+class Expando(object):
+	pass
+
 class Config(object):
+	r
 	bar = 45
 	bbb = 0.6
 	plates = [45,35,25,10,5,2.5]
@@ -16,18 +20,20 @@ class Config(object):
 		'DL': [0.4,0.5,0.6]
 	}
 
+class PlateRepository():
+	__order__ = [45,35,25,10,5,2.5];
+	def __init__(*args):
+		for idx, num in enumerate(args):
+			self[__order__[idx]] = num
+
+PLATES = Expando()
+PLATES.home = PlateRepository(4,4,4,4,8,4)
+PLATES.gym = PlateRepository(10,4,4,4,8,4)
+
 config = {
 	"bar": 45,
 	"bbb": 0.6,
 	"plates": [45,35,25,10,5,2.5],
-	"num_plates": { # at home setup
-		'45': 4,
-		'35' : 4,
-		'25' : 4,
-		'10' : 4,
-		'5'  : 8,
-		'2.5': 4
-	},
 	"method": {
 		"531": {
 			'3x5': [0.65,0.75,0.85],
@@ -55,7 +61,7 @@ def parse_sides(param):
 
 	return sides
 
-def calculate_plates(weight=None, sides=2, include_bar=True):
+def calculate_plates(weight=None, sides=2, include_bar=True, plates_setup='gym'):
 	oneside = []
 	number_of_plates = 0
 
@@ -65,7 +71,9 @@ def calculate_plates(weight=None, sides=2, include_bar=True):
 	for plate in config["plates"]:
 		number_of_plates = math.floor((weight / plate) / sides)
 
-		count = (config["num_plates"][str(plate)] / sides)
+		plates = PLATES[plates_setup]
+
+		count = (plates[str(plate)] / sides)
 
 		# decrement weight
 		if number_of_plates > count:
