@@ -234,15 +234,15 @@ class DataMigrator():
 
 				})
 
-			for p in qp.iter():
-				result["PersonalRecord"].append({
-					"weight": p.weight,
-					"reps": p.reps,
-					"lift": p.lift,
-					"date": p.date.strftime("%Y-%m-%dT00:00:00.000Z")
-					})
+		for p in qp.iter():
+			result["PersonalRecord"].append({
+				"weight": p.weight,
+				"reps": p.reps,
+				"lift": p.lift,
+				"date": p.date.strftime("%Y-%m-%dT00:00:00.000Z")
+				})
 
-				return result
+		return result
 
 
 

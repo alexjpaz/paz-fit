@@ -172,7 +172,6 @@ class GraphHandler(webapp2.RequestHandler):
 		graph = memcache.get(memkey)
 
 		if graph is None:
-			print 'lol'
 			graph = ndb_models.DatGraph.get_graph_data(user_namespace, lift, limit)
 
 		self.response.headers['Content-Type'] = 'application/json'
