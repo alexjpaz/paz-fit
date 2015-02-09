@@ -9,7 +9,6 @@ class Expando(object):
 	pass
 
 class Config(object):
-	r
 	bar = 45
 	bbb = 0.6
 	plates = [45,35,25,10,5,2.5]
@@ -20,15 +19,16 @@ class Config(object):
 		'DL': [0.4,0.5,0.6]
 	}
 
-class PlateRepository():
-	__order__ = [45,35,25,10,5,2.5];
-	def __init__(*args):
+class PlateRepository(dict):
+	def __init__(self, *args):
+		__order__ = [45,35,25,10,5,2.5]
 		for idx, num in enumerate(args):
-			self[__order__[idx]] = num
+			self[str(__order__[idx])] =  num
+		print self
 
-PLATES = Expando()
-PLATES.home = PlateRepository(4,4,4,4,8,4)
-PLATES.gym = PlateRepository(10,4,4,4,8,4)
+PLATES = {}
+PLATES['home'] = PlateRepository(4,4,4,4,8,4)
+PLATES['gym'] = PlateRepository(10,4,4,4,8,4)
 
 config = {
 	"bar": 45,
@@ -89,7 +89,7 @@ def calculate_plates(weight=None, sides=2, include_bar=True, plates_setup='gym')
 	return oneside
 
 
-def generate_month(maxes, method):
+def generate_month(maxes, method, plates_setup='gym'):
 	month = OrderedDict()
 
 	for mm in maxes:
@@ -98,17 +98,17 @@ def generate_month(maxes, method):
 		
 		month[lift_max] = {}
 		for week in config['method'][method].keys():
-			month[lift_max][week] = generate_week(lift_max, week, method)
+			month[lift_max][week] = generate_week(lift_max, week, method, plates_setup)
 
 	return month
 
-def generate_week(max_weight=0, week=None, method='531'):
+def generate_week(max_weight=0, week=None, method='531', plates_setup='gym'):
 
 	rows = OrderedDict()
 
 	for fraction in config["method"][method][week]:
 		weight = round(max_weight*fraction / 5) * 5;
-		plates = calculate_plates(weight)
+		plates = calculate_plates(weight=weight, plates_setup=plates_setup)
 		plates.insert(0,weight)
 		rows[fraction] = plates
 

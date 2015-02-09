@@ -5,14 +5,16 @@
 {% set b = request.get('b') | int() %}
 {% set s = request.get('s') | int() %}
 
-{% set press_acc = request.GET.getall('pa')  %}
+{% set plates_setup = request.get('plates_setup', default_value='gym') %}
+
+{% set press_acc = request.GET.getall('pa') %}
 
 {% set da = request.get('pa') | int() %}
 {% set ba = request.get('pa') | int() %}
 {% set sa = request.get('pa') | int() %}
 
 {% set max_lifts = [('p',p), ('d',d),('b',b),('s',s)] %}
-{% set table = utils.generate_month(max_lifts,'531') %}
+{% set table = utils.generate_month(max_lifts,'531', plates_setup) %}
 {% set startDate = request.get('startDate') %}
 
 {% import 'common.html' as common with context %}
