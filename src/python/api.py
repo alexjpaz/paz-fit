@@ -70,12 +70,16 @@ class GZCLTableHandler(webapp2.RequestHandler):
 class TemplateHandler(webapp2.RequestHandler):
     def get(self, template="index"):
 		self.response.headers['Content-Type'] = 'text/html'
+		user_id = users.get_current_user().user_id()
+		profile = ndb_models.get_profile(user_id)
+
 		template = JINJA_ENVIRONMENT.get_template(template+'.html')
 		template_values = {
 			"request": self.request,
 			"response": self.response,
 			"utils": utils,
-			"tmpl": tmpl
+			"tmpl": tmpl,
+			"Profile": profile
 		}
 		self.response.write(template.render(template_values))
 
@@ -129,6 +133,17 @@ class ProfileHandler(webapp2.RequestHandler):
 		profile = json.loads(self.request.body)
 		ndb_models.set_profile(user_id, profile)
 		write_json(self.response, profile)
+
+	def put(self):
+		user_id = users.get_current_user().user_id()
+		profile_update = json.loads(self.request.body)
+		profile_old = ndb_models.get_profile(user_id)
+
+		profile_old.update(profile_update)
+
+		ndb_models.set_profile(user_id, profile_old)
+
+		write_json(self.response, profile_old)
 
 
 class StatsHandler(webapp2.RequestHandler):
