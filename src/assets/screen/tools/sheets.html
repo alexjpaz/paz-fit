@@ -16,7 +16,10 @@
 			<div sheets-accessory ng-model='m.cycle.ba' name="Rows"></div>
 			<div sheets-accessory ng-model='m.cycle.sa' name="Good Morning"></div>
 
-			<a class='btn btn-primary' ng-href='/api/table/531bbb?{{ cycleParams }}'><i class='fa fa-external-link'> </i> 531 cycles</a>
+			<a class='btn btn-primary' ng-href='/api/table/531bbb?{{ cycleParams }}'><i class='fa fa-external-link'> </i> View Sheet</a>
+			<hr />
+			<input type='text' ng-model='v.sheetTitle' />
+			<a class='btn' ng-click='save(v.sheetTitle, cycleParams)'> Save</a>
 		</article>
 
 		<article ng-switch-when='531'>

@@ -42,6 +42,14 @@ angular.module('app').service('Profile', function($parse, $q, $http) {
 		return promise;
 
 	};
+
+	this.update = function(updates) {
+		var deffered = $q.defer();
+		$http.put('/api/profile', updates).then(function(rsp) {
+			_profile = rsp.data;
+		});
+		return deffered.promise;
+	};
 	
 	this.init = function() {
 		return this.load();	

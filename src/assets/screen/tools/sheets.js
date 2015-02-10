@@ -1,5 +1,5 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
-	ScreenFactoryProvider.$get().build('screen-tools-sheets', function($scope, FiveThreeOneCalculator, PersonalRecordDao, $routeParams, MaxesDao) {
+	ScreenFactoryProvider.$get().build('screen-tools-sheets', function($scope, FiveThreeOneCalculator, PersonalRecordDao, $routeParams, MaxesDao, Profile) {
 
 		/** @var m model */
 		$scope.m = {};
@@ -31,6 +31,16 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 
 		$scope.useMax = function(lift) {
 			$scope.m.fiveMonths.max = +$scope.r[lift[0]];
+		};
+
+		$scope.save = function(title, params) {
+			Profile.update({
+				latestSheet: {
+					title: title,
+					params: params,
+					pane: $scope.v.pane
+				}
+			});
 		};
 
 		$scope.$watch('m.fiveMonths', function(fiveMonths) {
