@@ -89,11 +89,7 @@ angular.module('app', [
 	$injector.get('App');
 })
 
-.run(function($http, $rootScope) {
-	$http.get('/api/profile').then(function(rsp) {
-		$rootScope.Profile = rsp.data;
-	});
-})
+
 
 .run(function($http, $rootScope) {
 	$http.get('/api/env').then(function(rsp) {

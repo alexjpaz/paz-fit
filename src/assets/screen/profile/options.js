@@ -1,16 +1,9 @@
 angular.module('app').config(function(ScreenFactoryProvider) {
-	ScreenFactoryProvider.$get().build('screen-profile-options', function($scope, $http, $rootScope) {
-		$scope.p = {};
-
-		$http.get('/api/profile').then(function(rsp) {
-			$scope.p = rsp.data;
-		});
+	ScreenFactoryProvider.$get().build('screen-profile-options', function($scope, Profile) {
+		$scope.p = Profile.get();
 		
 		$scope.save = function() {
-			$http.post('/api/profile',$scope.p).then(function(rsp) {
-				// BAD CHANGE THIS!
-				$rootScope.Profile = rsp.data;
-			});
+			Profile.save($scope.p);
 		};
 	});
 });

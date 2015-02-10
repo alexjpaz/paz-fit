@@ -73,6 +73,10 @@ angular.module('helper')
 
 							return deferred.promise;
 						},
+						profiles: function($q, Profile) {
+							var promise = Profile.init();
+							return promise;
+						}
 					},
 					reloadOnSearch: false
 				};

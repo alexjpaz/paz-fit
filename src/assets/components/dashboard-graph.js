@@ -2,14 +2,16 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 	var ComponentFactory = ComponentFactoryProvider.$get();
 	ComponentFactory.build('dashboard-graph', {
 		scope: {},
-		controller: function($scope, $http, $routeParams, PersonalRecordDao, moment, FiveThreeOneCalculator, $location, MaxesDao, moment, $q) {
+		controller: function($scope, $http, $routeParams, PersonalRecordDao, FiveThreeOneCalculator, $location, MaxesDao, moment, $q, Profile) {
 			var each = angular.forEach;
 
 			$scope.charts = {};
 			$scope.v = {
 				lift: "press",
-				limit: null
+				limit: Profile.get('dashboard.graphs.limit')
 			};
+
+			console.debug('2',Profile.get());
 
 			var defaultChartObject = {
 				"type": "ComboChart",
@@ -22,6 +24,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 						{ "id": "max", "label": "Max", "type": "number", "p": {} },
 						{ "id": "work", "label": "Work", "type": "number", "p": {} },
 						{ "id": "maxShift", "label": "Max check", "type": "number", "p": {} },
+						{ "id": "average", "label": "Average", "type": "number", "p": {} },
 					],
 				},
 				"options": {
@@ -31,6 +34,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 						1: { color: '#f00'},
 						2: { color: '#00f', type: 'line' },
 						3: { color: '#444', type: 'line',  lineDashStyle: [4, 4]},
+						4: { color: '#aaf', type: 'line',  lineDashStyle: [4, 4]},
 					},
 					crosshair: { 
 						trigger: 'both',
@@ -79,7 +83,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 				}).then(function(rsp) {
 					var row = {};
 
-					each(rsp.data, function(dp) {
+					each(rsp.data, function(dp,i) {
 						row = {
 							c: [
 								{v: dp.date},
@@ -87,10 +91,14 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 								{v: dp.max},
 								{v: Math.round(dp.work)},
 								{
-									v: (dp.max >= dp.work ? dp.work : null)
+									//v: (dp.max >= dp.work ? dp.work : null)
 								},
 							]
 						};
+
+						try {
+							row.c.push({v:  (rsp.data[i].work+rsp.data[i-1].work+rsp.data[i+1].work) / 3 });
+						} catch(e) {}
 
 						if(min >= dp.max) {
 							min = dp.max;

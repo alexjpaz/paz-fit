@@ -5,6 +5,7 @@ module.exports = function (grunt) {
 					src: [
 						'../assets/helper/factory.js',
 						'../assets/resources/repository.js',
+						'../assets/config/constants/**/*.js',
 						'../assets/config/app.js',
 						'../assets/resources/rest.js',
 						'../assets/helper/enum.js',
@@ -12,7 +13,8 @@ module.exports = function (grunt) {
 						'../assets/config/routes.js',
 						'../assets/components/**/*.js',
 						'../assets/filter/**/*.js',
-						'../assets/decorator/**/*.js'
+						'../assets/decorator/**/*.js',
+						'../assets/service/**/*.js'
 						],
 						dest: 'dist/app.js',
 				},
