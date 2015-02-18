@@ -3,6 +3,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 
 		/** @var m model */
 		$scope.m = {};
+		$scope.v = {};
 
 		var r = $scope.r = $routeParams;
 
@@ -33,6 +34,13 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			"531bbb": {
 				url: "/api/table/531?{{ params }}"
 			}
+		};
+
+		$scope.v.pane = Profile.get('sheets.defaultSheet');
+
+		$scope.setAsDefault = function(pane) {
+			Profile.set('sheets.defaultSheet', pane);
+			Profile.save();
 		};
 
 		$scope.sheetUrl = "";
