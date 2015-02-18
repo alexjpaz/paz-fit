@@ -34,7 +34,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 						1: { color: '#f00'},
 						2: { color: '#00f', type: 'line' },
 						3: { color: '#444', type: 'line',  lineDashStyle: [4, 4]},
-						4: { color: '#aaf', type: 'line',  lineDashStyle: [4, 4]},
+						4: { color: '#888', type: 'line',  lineDashStyle: [4, 4]},
 					},
 					crosshair: { 
 						trigger: 'both',
@@ -97,7 +97,9 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 						};
 
 						try {
-							row.c.push({v:  (rsp.data[i].work+rsp.data[i-1].work+rsp.data[i+1].work) / 3 });
+							row.c.push({
+								v:  Math.round((rsp.data[i].work+rsp.data[i-1].work+rsp.data[i+1].work) / 3 )
+							});
 						} catch(e) {}
 
 						if(min >= dp.max) {

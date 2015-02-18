@@ -8,6 +8,7 @@ angular.module('app').config(function(RouteBuilderProvider) {
 	RouteBuilder.when('/tools/sheets', 'tools/sheets');
 	RouteBuilder.when('/profile', 'profile/main');
 	RouteBuilder.when('/profile/options', 'profile/options');
+	RouteBuilder.when('/profile/data', 'profile/data');
 	RouteBuilder.when('/profile/personal-record', 'profile/personal-record/list');
 	RouteBuilder.when('/profile/personal-record/add', 'profile/personal-record/add');
 	RouteBuilder.when('/profile/personal-record/edit', 'profile/personal-record/edit');
