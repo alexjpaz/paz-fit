@@ -32,9 +32,7 @@
 					<span ng-if='saveStatus == "error"'>Error</span>
 				</button>
 				<button class='btn btn-danger pull-right' ng-click='remove()'>Remove Max</button>
-				<hr />
-				<a class='btn btn-sm btn-default' ng-if='uriEncodedMaxes' ng-href='api/table/531?{{uriEncodedMaxes}}'>531 Cycle</a>
-				<a class='btn btn-sm btn-default' ng-if='uriEncodedMaxes' ng-href='api/table/gzcl?{{uriEncodedMaxes}}'>GZCL Method</a>
+				<a ng-href='#/tools/sheets?p={{record.press}}&d={{record.deadlift}}&b={{record.bench}}&s={{record.squat}}' class='btn btn-default'>Prepare Sheets</a>
 			</form>
 		</div>
 	</div>

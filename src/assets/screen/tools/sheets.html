@@ -1,10 +1,10 @@
 <div class='screen-tools-sheets'>
-	<ul class="nav nav-tabs nav-justified">
-		<li ng-class='{true:"active"}[v.pane === "531bbb"]'><a href ng-click='v.pane = "531bbb"'>531bbb</a></li>
-		<li ng-class='{true:"active"}[v.pane === "531single"]'><a href ng-click='v.pane = "531single"'>531 Single Lift</a></li>
-		<li ng-class='{true:"active"}[v.pane === "531day"]'><a href ng-click='v.pane = "531day"'>531 Day (mobile friendly)</a></li>
-		<li ng-class='{true:"active"}[v.pane === "531"]'><a href ng-click='v.pane = "531"'>531</a></li>
-		<li ng-class='{true:"active"}[v.pane === "GZCL"]'><a href ng-click='v.pane = "GZCL"'>GZCL</a></li>
+	<ul class="nav nav-tabs nav-justified" nav-tabs='v.pane'>
+		<li tab="531bbb">531 BBB</li>
+		<li tab="531single">531single</li>
+		<li tab="531day">531day</li>
+		<li tab="531">531</li>
+		<li tab="GZCL">GZCL</li>
 	</ul>
 	<div ng-switch on='v.pane'>
 		<article ng-switch-when='531bbb'>
@@ -16,16 +16,12 @@
 			<div sheets-accessory ng-model='m.cycle.ba' name="Rows"></div>
 			<div sheets-accessory ng-model='m.cycle.sa' name="Good Morning"></div>
 
-			<a class='btn btn-primary' ng-href='/api/table/531bbb?{{ cycleParams }}'><i class='fa fa-external-link'> </i> View Sheet</a>
-			<hr />
-			<input type='text' ng-model='v.sheetTitle' />
-			<a class='btn' ng-click='save(v.sheetTitle, cycleParams)'> Save</a>
+
 		</article>
 
 		<article ng-switch-when='531'>
 			<h3>531</h3>
 			<div max-group='m.cycle'></div>
-			<a class='btn btn-primary' ng-href='/api/table/531?{{ cycleParams }}'><i class='fa fa-external-link'> </i> 531 cycles</a>
 		</article>
 
 		<article ng-switch-when='531day'>
@@ -51,8 +47,6 @@
 					<option value='DL'>DL</option>
 				</select>
 			</div>
-
-			<a class='btn btn-primary' ng-href='/api/table/531day?{{ m["531day"] | paramString }}'><i class='fa fa-external-link'> </i> 531 cycles</a>
 		</article>
 
 		<article ng-switch-when='531single'>
@@ -82,13 +76,11 @@
 				</select>
 			</div>
 
-			<a class='btn btn-primary' ng-href='/api/table/531x5?{{ projectedMaxes }}'><i class='fa fa-external-link'> </i> 531 cycles</a>
 		</article>
 
 		<div ng-switch-when='GZCL'>
 			<h3>GZCL</h3>
 			<div max-group='m.cycle'></div>
-			<a class='btn btn-primary' ng-href='/api/table/gzcl?{{ cycleParams }}'><i class='fa fa-external-link'> </i> GZCL</a>
 		</div>
 
 		<div ng-switch-when='Accessory'>
@@ -102,5 +94,10 @@
 				<h2><i class='fa fa-hand-o-up'></i> Please choose a sheet</h2>
 			</div>
 		</article>
+
+		<div ng-show='sheetUrl'>
+			<a class='btn btn-primary' ng-href='{{ sheetUrl }}' target='_blank'><i class='fa fa-external-link'> </i> View Sheet</a>
+			<a class='btn btn-default' ng-click='save(v.sheetTitle, cycleParams)'> Save</a>
+		</div>
 	</div>
 </div>
