@@ -34,3 +34,4 @@ handlers:
 env_variables:
     GIT_COMMIT: $GIT_COMMIT
     BUILD_ID: $BUILD_ID
+    DEVELEOPER_MODE: true

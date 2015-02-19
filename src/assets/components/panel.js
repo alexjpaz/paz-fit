@@ -16,10 +16,13 @@ angular.module('app').config(function(ComponentFactoryProvider){
 							'panel-content'
 						];
 
-
-						angular.forEach(tElements, function(el) {
-							cElement.find(el).replaceWith(tElement.filter(el));
-						});
+						if(tElement.filter('panel-content').length === 0) {
+							cElement.find('panel-content').append(tElement);
+						} else {
+							angular.forEach(tElements, function(el) {
+								cElement.find(el).replaceWith(tElement.filter(el));
+							});
+						}
 					});
 				}
 			};
