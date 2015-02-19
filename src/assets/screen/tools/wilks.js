@@ -45,7 +45,6 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			var lift = params.feq_lift;
 			PersonalRecordDao.find(param).then(function(records) {
 				if(angular.isUndefined(records)) return;
-				console.debug('apaz',records);
 				var r = records[0];
 				if(r) {
 					var max = FiveThreeOneCalculator.max(r.weight, r.reps);

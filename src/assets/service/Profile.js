@@ -1,6 +1,6 @@
-angular.module('app').service('Profile', function($parse, $q, $http) {
-	//var _profile = DEFAULT_PROFILE;
-	var _profile = {};
+angular.module('app').service('Profile', function($parse, $q, $http, DEFAULT_PROFILE) {
+	var _profile = angular.copy(DEFAULT_PROFILE);
+	//var _profile = {};
 
 	this.get = function(path) {
 		var value = _profile;
@@ -23,7 +23,7 @@ angular.module('app').service('Profile', function($parse, $q, $http) {
 		var deffered = $q.defer();
 
 		$http.get('/api/profile').then(function(rsp) {
-			_profile = rsp.data;
+			angular.extend(_profile, rsp.data);
 			deffered.resolve(_profile);
 		});
 
@@ -44,9 +44,8 @@ angular.module('app').service('Profile', function($parse, $q, $http) {
 	};
 
 	this.update = function(updates) {
-		var deffered = $q.defer();
 		$http.put('/api/profile', updates).then(function(rsp) {
-			_profile = rsp.data;
+			angular.extend(_profile, rsp.data);
 		});
 		return deffered.promise;
 	};

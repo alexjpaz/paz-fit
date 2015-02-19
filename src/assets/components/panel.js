@@ -18,7 +18,6 @@ angular.module('app').config(function(ComponentFactoryProvider){
 
 
 						angular.forEach(tElements, function(el) {
-							console.debug(cElement.html())
 							cElement.find(el).replaceWith(tElement.filter(el));
 						});
 					});

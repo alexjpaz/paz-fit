@@ -23,7 +23,6 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 			}, true);
 
 			//ngModel.$parsers.push(function(value) {
-				//console.debug(value);
 				//scope.mdl = value;
 			//});
 		}

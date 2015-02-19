@@ -25,7 +25,12 @@ angular.module('resources').config(function($provide) {
 			return httpPromise;
 		};
 
-		Dao.prototype.findSingle = function(key) {
+		Dao.prototype.findSingle = function(params) {
+			var deffered = $q.defer();
+			this.find(params).then(function(records) {
+				deffered.resolve(records[0]);
+			});
+			return deffered.promise;
 		};
 
 		Dao.prototype.find = function(params) {
@@ -126,6 +131,17 @@ angular.module('resources').config(function($provide) {
 
 			return this.find(params);
 		};
+
+		MaxesDao.findEffective = function(date) {
+			var deferred = $q.defer();
+			var params = {
+				"fle_date": date || moment().format('YYYY-MM-DD'),
+				"ordering": "-date",
+				"page_size": 1
+			};
+
+			return this.findSingle(params);
+		};
 		return MaxesDao;
 	});
 
@@ -159,7 +175,6 @@ angular.module('resources').config(function($provide) {
 				"page_size": 1
 			};
 
-			console.debug(params)
 
 
 
@@ -206,7 +221,6 @@ angular.module('resources').config(function($provide) {
 							var elements = response.data.list[store.name];
 
 							if(angular.isUndefined(elements)) {
-								console.debug("No new elements to add");
 							} else {
 								Database.put(store.name, elements).then(function() { 
 									$rootScope.$apply();
@@ -215,7 +229,6 @@ angular.module('resources').config(function($provide) {
 						},
 						failure: function(error) {
 							if(error.status == 304) {
-								console.debug('Not Modified recieved for '+store.name);
 							} else {
 								throw "Erorr during Datastore pull" + error;
 							}
@@ -262,7 +275,6 @@ angular.module('resources').config(function($provide) {
 
 						var cb = {
 							success: function(response) {
-								console.debug('Successfully pushed datastore', store.name);
 								deffered.resolve();
 							},
 							failure: function(data) {

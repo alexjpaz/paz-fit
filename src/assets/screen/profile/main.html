@@ -3,17 +3,17 @@
 		<panel-header>
 		<div class='btn-group pull-right'>
 			<a class='btn btn-default btn-xs' ng-href='#/profile/personal-record/edit?autoFill=true'><i class='fa fa-plus-square'></i> Add Log</a>
-			<a class='btn btn-default btn-xs'>derp</a>
+			<a class='btn btn-danger btn-xs' ng-href='#/profile/maxes/edit?key={{effectiveMax.key}}'>
+				{{ effectiveMax | maxShorthand }}
+			</a>
 		</div>
 		</panel-header>
 		<panel-content>
 		<div class='row row--chop'>
-			<div class='col-md-10'>
+			<div class='col-md-12'>
 				<div class='clearfix'>	
 					<div c-calendar='selectDay(day)' events='events'></div>
 				</div>
-			</div>
-			<div class='col-md-2'>
 			</div>
 		</div>
 		</panel-content>

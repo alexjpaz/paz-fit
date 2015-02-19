@@ -11,7 +11,6 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 				limit: Profile.get('dashboard.graphs.limit')
 			};
 
-			console.debug('2',Profile.get());
 
 			var defaultChartObject = {
 				"type": "ComboChart",

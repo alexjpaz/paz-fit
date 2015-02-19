@@ -30,7 +30,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 
 		future.calendar.pr = PersonalRecordDao.fetchFromDateRange(dateRange.begin,dateRange.end).then(function(records) {
 			angular.forEach(records, function(record) {
-				var event  = new Object();
+				var event  = {};
 				event.label = record.lift+" "+record.weight+"x"+record.reps; 
 				event.href = '#/profile/personal-record/edit?key='+record.key;
 				event.type = 'PersonalRecord';
@@ -40,12 +40,16 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 
 		future.calendar.maxes = MaxesDao.fetchFromDateRange(dateRange.begin,dateRange.end).then(function(records) {
 			angular.forEach(records, function(record) {
-				var event  = new Object();
+				var event  = {};
 				event.label = [record.press, record.deadlift, record.bench, record.squat].join('-');
 				event.href = '#/profile/maxes/edit?key='+record.key;
 				event.type = 'Maxes';
 				$scope.events.put(record.date, event);
 			});
+		});
+
+		future.calendar.effectiveMax = MaxesDao.findEffective().then(function(effectiveMax) {
+			$scope.effectiveMax = effectiveMax;
 		});
 
 		$q.all(future.calendar).then(function() {
