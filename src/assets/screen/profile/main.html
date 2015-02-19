@@ -1,15 +1,22 @@
 <div class='screen-profile-main'>
 	<panel panel-title='Events' class='panel-default'>
-	<div class='row row--chop'>
-		<div class='col-md-10'>
-			<div class='clearfix'>	
-				<div c-calendar='selectDay(day)' events='events'></div>
+		<panel-header>
+		<div class='btn-group pull-right'>
+			<a class='btn btn-default btn-xs' ng-href='#/profile/personal-record/edit?autoFill=true'><i class='fa fa-plus-square'></i> Add Log</a>
+			<a class='btn btn-default btn-xs'>derp</a>
+		</div>
+		</panel-header>
+		<panel-content>
+		<div class='row row--chop'>
+			<div class='col-md-10'>
+				<div class='clearfix'>	
+					<div c-calendar='selectDay(day)' events='events'></div>
+				</div>
+			</div>
+			<div class='col-md-2'>
 			</div>
 		</div>
-		<div class='col-md-2'>
-			<a class='btn btn-default btn-block' ng-href='#/profile/personal-record/edit?autoFill=true'><i class='fa fa-plus-square'></i> Add Log</a>
-		</div>
-	</div>
+		</panel-content>
 	</panel>
 	<panel panel-title='Stats' class='panel-default'>
 	<ul class="nav nav-tabs nav-justified" nav-tabs='v.statsView'>
