@@ -1,4 +1,5 @@
 import os
+import datetime
 
 def list_templates():
 	path = os.path.join(os.path.dirname(__file__), 'templates')
@@ -10,3 +11,6 @@ def list_templates():
 
 	return templates
 
+
+def today():
+	return datetime.date.today()
