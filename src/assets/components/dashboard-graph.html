@@ -1,11 +1,11 @@
 <panel panel-title='Graph' class='panel-default'>
-	<h1 ng-hide='charts[v.lift]'><i class='fa fa-spinner fa-spin'></i></h1>
+	<spinner on='charts[v.lift]'>
+		<div>
+			<div google-chart chart="charts[v.lift]" style="{{cssStyle}}"></div>
+		</div>
 
-	<div ng-show='charts[v.lift]' 
-		<div google-chart chart="charts[v.lift]" style="{{cssStyle}}"></div>
-	</div>
-
-	<ul class="nav nav-pills nav-justified" nav-tabs='v.lift' enum>
-		<li ng-repeat='l in ApplicationEnum.LIFT' tab="{{ l }}">{{ l }}</li>
-	</ul>
+		<ul class="nav nav-pills nav-justified" nav-tabs='v.lift' enum>
+			<li ng-repeat='l in ApplicationEnum.LIFT' tab="{{ l }}">{{ l }}</li>
+		</ul>
+	</spinner>
 </panel>

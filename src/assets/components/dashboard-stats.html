@@ -1,8 +1,45 @@
-<span class='dashboard-stats'>
-	<span>{{ stats.weight }}</span>
-	<span>x</span>
-	<span>{{ stats.reps }}</span>
-	<span>=</span>
-	<span class='label label-default label--estimatedMax'>{{ stats.work }}</span>
-	<span>({{ stats.targetReps }})</span>
-</span>
+<div class='dashboard-stats'>
+	<panel panel-title='Stats' class='panel-default'>
+		<spinner on='stats'>
+		<ul class="nav nav-tabs nav-justified" nav-tabs='v.statsView'>
+			<li tab="latest">Latest</li>
+			<li tab="best">Best</li>
+			<li tab="weight">Highest Weight</li>
+		</ul>
+		<div class='table-responsive'>
+			<table class='table table-bordered'>
+				<thead>
+					<tr>
+						<th>Lift</th>
+						<th>Work</th>
+						<th>Weight</th>
+						<th>Reps</th>
+						<th>Max</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat='(lift, liftStat) in stats[v.statsView] | eachLift'>
+						<th class='screen-profile-main__lift--{{ lift }}'>
+							<span class='label'>{{ lift }}</span>
+						</th>
+						<td>
+							<a ng-href='#/profile/personal-record/edit?key={{ liftStat.prKey }}'>{{ liftStat.work | number:1 }}</a>
+						</td>
+						<td><a href='#/profile/personal-record?ordering=-date&feq_lift={{ lift }}&feq_weight={{ liftStat.weight }}'>{{ liftStat.weight }}</a></td>
+						<td>
+							<span>{{ liftStat.reps }}</span>
+							<span class='text-muted'> / {{ liftStat.targetReps }}</span>
+						</td>
+						<td>
+							{{ liftStat.max }}
+							<span class='text-muted'>(%{{ (liftStat.weight/liftStat.max)*100 | roundTo:5 }})</span>
+						</td>
+						<td><a href='#/profile/personal-record?feq_date={{ liftStat.date }}'>{{ liftStat.date }}</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		</spinner>
+	</panel>
+</div>
