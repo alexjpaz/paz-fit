@@ -166,7 +166,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			if(angular.isUndefined(dto)) return;
 			CalculatedValues.targetReps();
 			
-			PersonalRecordDao.findLastAttempt($scope.dto.lift, $scope.dto.weight, dto.date).then(function(records) {
+			PersonalRecordDao.findLastAttempt($scope.dto.lift, $scope.dto.weight, $scope.dto.date).then(function(records) {
 				CalculatedValues.lastAttempt(records[0]);
 			});
 		}, true);

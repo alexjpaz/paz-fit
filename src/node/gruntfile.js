@@ -4,6 +4,7 @@ module.exports = function (grunt) {
 				dist: {
 					src: [
 						'../assets/helper/factory.js',
+						'../assets/provider/**/*.js',
 						'../assets/resources/repository.js',
 						'../assets/config/app.js',
 						'../assets/config/constants/**/*.js',

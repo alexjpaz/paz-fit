@@ -39,55 +39,6 @@ angular.module('helper')
 		};
 	});
 
-	$provide.provider('RouteBuilder', function(TemplateResolverProvider, AssetLoaderProvider) {
-		var TemplateResolver = TemplateResolverProvider.$get();
-		var AssetLoaderProvider = AssetLoaderProvider.$get();
-
-		function RouteBuilder() {
-			this.redirect = function(urlPattern, redirectUrl) {
-				var routeConfigObj = {
-					redirectTo: redirectUrl	
-				};
-				$routeProvider.when(urlPattern, routeConfigObj);
-			};
-
-			this.when = function(urlPattern, screenName) {
-				var routeConfigObj = {
-					templateUrl: TemplateResolver.screen(screenName),
-					resolve: {
-						load: function ($q, $rootScope, AssetLoader) {
-							var deferred = $q.defer();
-
-							AssetLoader.screen(screenName, function() {
-
-								if ($rootScope.$$phase) { 
-									return deferred.resolve();
-								} else {
-									$rootScope.$apply(function () {
-										deferred.resolve();
-									});
-								}
-
-								$rootScope.$broadcast('ScreenLoaded');
-							});
-
-							return deferred.promise;
-						},
-						profiles: function($q, Profile) {
-							var promise = Profile.init();
-							return promise;
-						}
-					},
-					reloadOnSearch: false
-				};
-				$routeProvider.when(urlPattern, routeConfigObj);
-			};
-		}
-
-		this.$get = function() {
-			return new RouteBuilder();
-		};
-	});
 
 	$provide.provider('ResourceFactory', function() {
 		function ResourceFactory() {

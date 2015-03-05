@@ -55,7 +55,7 @@
 							</td>
 							<td>
 								{{ estMax | number:0 }} 
-								<span class='text-muted'>({{ lastAttemptEstMax | number:0 }})</span>
+								<a ng-href='#/profile/personal-record/edit?key={{ lastAttempt.key }}'<span class='text-muted'>({{ lastAttemptEstMax | number:0 }})</span>
 							</td>
 							<td>
 								{{ targetReps }}
