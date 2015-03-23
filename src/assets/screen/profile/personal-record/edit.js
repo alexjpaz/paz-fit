@@ -146,7 +146,13 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 				$scope.lastAttempt = data;
 				$scope.lastAttemptEstMax = FiveThreeOneCalculator.max(data.weight, data.reps);
 				}
-			}
+			},
+			previousWork: function(data) {
+				if(!!data.previous) {
+					$scope.previous = data.previous;
+					$scope.previousEstMax = FiveThreeOneCalculator.max(data.previous.weight, data.previous.reps);
+				}
+			},
 		};
 
 		$scope.fillInFormFromPreviousData = function() {
@@ -154,6 +160,7 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 				CalculatedValues.lift(data);
 				CalculatedValues.weight(data);
 				CalculatedValues.reps(data);
+				CalculatedValues.previousWork(data);
 			});
 		};
 

@@ -51,11 +51,12 @@
 						<tr>
 							<td>
 								{{ effectiveMax[dto.lift] }}
-								<span class='text-muted'>(&asymp;{{ (dto.weight / effectiveMax[dto.lift]) * 100 | roundTo:5 }}%)</span>
+								<span class='text-muted'>&asymp;{{ (dto.weight / effectiveMax[dto.lift]) * 100 | roundTo:5 }}%</span>
 							</td>
 							<td>
 								{{ estMax | number:0 }} 
-								<a ng-href='#/profile/personal-record/edit?key={{ lastAttempt.key }}'<span class='text-muted'>({{ lastAttemptEstMax | number:0 }})</span>
+								<a ng-href='#/profile/personal-record/edit?key={{ lastAttempt.key }}'<span class='text-muted'>{{ lastAttemptEstMax | number:0 }}</span></a>
+								<a ng-href='#/profile/personal-record/edit?key={{ previous.key }}'<span class='text-muted'>{{ previousEstMax | number:0 }}</span></a>
 							</td>
 							<td>
 								{{ targetReps }}
