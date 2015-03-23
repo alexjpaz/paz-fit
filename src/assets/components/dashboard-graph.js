@@ -1,7 +1,7 @@
 angular.module('app').config(function(ComponentFactoryProvider) {
 	var ComponentFactory = ComponentFactoryProvider.$get();
 	ComponentFactory.build('dashboard-graph', {
-		scope: {},
+		scope: true,
 		controller: function($scope, $http, $routeParams, PersonalRecordDao, FiveThreeOneCalculator, $location, MaxesDao, moment, $q, Profile) {
 			var each = angular.forEach;
 

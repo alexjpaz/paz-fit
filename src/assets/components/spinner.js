@@ -4,6 +4,7 @@ angular.module('app').config(function(ComponentFactoryProvider) {
 		transclude: true,
 		scope: { on: '='},
 		controller: function($scope, $q) {
+			//TODO: check for promise
 		}
 	});
 });

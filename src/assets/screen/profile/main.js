@@ -57,13 +57,16 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 		});
 
 		MaxesDao.findLatest().then(function(records) {
-			$scope.currentMaxes = records[0];
-			$scope.uriEncodedMaxes = $.param({
-					p: $scope.currentMaxes.press,
-					d: $scope.currentMaxes.deadlift,
-					b: $scope.currentMaxes.bench,
-					s: $scope.currentMaxes.squat,
-			});
+			var currentMaxes = null;
+			if(!!records[0]) {
+				$scope.currentMaxes = currentMaxes = records[0];
+				$scope.uriEncodedMaxes = $.param({
+					p: currentMaxes.press,
+					d: currentMaxes.deadlift,
+					b: currentMaxes.bench,
+					s: currentMaxes.squat,
+				});
+			}
 		});
 
 		$http.get('/api/stats').then(function(rsp) {

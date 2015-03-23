@@ -1,6 +1,6 @@
 angular.module('app').filter('maxShorthand', function(Profile) {
 	return function(input) {
-		var output;
+		var output = "N/A";
 
 		try {
 			var liftOrder = Profile.get('lift_order');
