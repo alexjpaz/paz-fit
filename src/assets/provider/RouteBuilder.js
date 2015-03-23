@@ -43,8 +43,6 @@ angular.module('helper').provider('RouteBuilder', function(TemplateResolverProvi
 
 			angular.extend(routeConfigObj,override);
 
-			console.debug(routeConfigObj, override)
-
 			$routeProvider.when(urlPattern, routeConfigObj);
 		};
 

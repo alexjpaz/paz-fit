@@ -57,6 +57,11 @@ angular.module('app')
 			return goal;
 		};
 
+		this.repsToMax = function(max, weight) {
+			var reps = (max - weight)/(weight*0.0333);
+			return Math.ceil(reps);
+		};
+
 		this.plates = function(weight) {
 			var bar = 45;
 

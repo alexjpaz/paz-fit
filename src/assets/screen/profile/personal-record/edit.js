@@ -149,8 +149,14 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 			},
 			previousWork: function(data) {
 				if(!!data.previous) {
-					$scope.previous = data.previous;
+					$scope.previous = FiveThreeOneCalculator.max(data.previous.weight, data.previous.res);
 					$scope.previousEstMax = FiveThreeOneCalculator.max(data.previous.weight, data.previous.reps);
+
+					if(!!$scope.previousEstMax && !!$scope.dto) {
+						$scope.previousTargetReps = FiveThreeOneCalculator.repsToMax($scope.previousEstMax, $scope.dto.weight);
+
+						console.debug($scope.previousTargetReps);
+					}
 				}
 			},
 		};
@@ -204,6 +210,29 @@ angular.module('app').config(function(ScreenFactoryProvider) {
 				$scope.saveStatus = 'error';
 			});
 
+		};
+
+		$scope.formatRepsLabel = function(rep) {
+			var formatted = rep;
+			var suffix;
+
+			if(rep == $scope.targetReps) {
+				suffix = "=";
+			}
+
+			if(rep == $scope.previousTargetReps) {
+				suffix = "+";
+			}
+
+			if(!!$scope.lastAttempt && rep == $scope.lastAttempt.reps) {
+				suffix = "!";
+			}
+
+			if(!!suffix) {
+				formatted = rep + " " + suffix;
+			}
+
+			return formatted;
 		};
 
 		$scope.remove = function() {
