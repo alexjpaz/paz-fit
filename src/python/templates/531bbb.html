@@ -31,10 +31,20 @@
 		  {% endfor %}
 		  <hr class='page-break' />
 		  <div id='page2'>
-			  {{ common.lift_accessory("T-Bar Row", request.GET.getall('pa') , 1, 1, False) }}
-			  {{ common.lift_accessory("Shurgs", request.GET.getall('da'), 2) }}
-			  {{ common.lift_accessory("Rows", request.GET.getall('ba'), 3) }}
-			  {{ common.lift_accessory("Squat", request.GET.getall('sa'), 4) }}
+			  <div style='overflow: hidden'>
+				  {{ common.lift_accessory("T-Bar Row", request.GET.getall('pa') , 1, 1, False) }}
+				  {{ common.lift_accessory("Shurgs", request.GET.getall('da'), 2) }}
+				  {{ common.lift_accessory("Rows", request.GET.getall('ba'), 3) }}
+				  {{ common.lift_accessory("Squat", request.GET.getall('sa'), 4) }}
+			  </div>
+			  <hr />
+			  <div style='overflow: hidden'>
+				  {{ common.lift_dl("Press", p, 1) }}
+				  {{ common.lift_dl("Deadlift", d, 2) }}
+				  {{ common.lift_dl("Bench",    b, 3) }}
+				  {{ common.lift_dl("Squat",    s, 4) }}
+			  </div>
+
 		  </div>
 		  <div class='date'>
 			  <span>{{ startDate }}</span>

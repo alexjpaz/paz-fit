@@ -14,3 +14,6 @@ def list_templates():
 
 def today():
 	return datetime.date.today()
+
+def weight_round(weight, fraction):
+	return round(weight*fraction / 5) * 5;
