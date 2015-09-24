@@ -30,7 +30,8 @@
 		  	{{ common.lift_month(lift, month, loop.index) }}
 		  {% endfor %}
 		  <hr class='page-break' />
-		  <div id='page2'>
+
+		  <div id='page2' class='overflow-clearfix'>
 			  <div style='overflow: hidden'>
 				  {{ common.lift_accessory("T-Bar Row", request.GET.getall('pa') , 1, 1, False) }}
 				  {{ common.lift_accessory("Shurgs", request.GET.getall('da'), 2) }}
@@ -44,8 +45,21 @@
 				  {{ common.lift_dl("Bench",    b, 3) }}
 				  {{ common.lift_dl("Squat",    s, 4) }}
 			  </div>
-
 		  </div>
+
+		  <div class='center'>
+			  <h1 class='center'>531 Month Cycle ({{ tmpl.today() }})</h1>
+			  <img id='url1' src='' class='center' />
+			  <p><a id='url2'></a></p>
+		  </div>
+
+		  <script>
+			var thisUrl = document.location.href;
+			document.getElementById('url1').src = 'http://chart.apis.google.com/chart?cht=qr&chs=200x200&chl='+encodeURIComponent(thisUrl)+'&chld=H|0';
+			document.getElementById('url2').href = thisUrl;
+			document.getElementById('url2').innerHTML = thisUrl;
+		  </script>
+
 		  <div class='date'>
 			  <span>{{ startDate }}</span>
 		  </div>

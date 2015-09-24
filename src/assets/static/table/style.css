@@ -179,3 +179,16 @@ hr.page-break {
 .table tr:last-child {
 	border-bottom: none;
 }
+
+.overflow-clearfix {
+	overflow: hidden;
+}
+
+h1.center {
+	color: #aaa;
+	text-align: center;
+}
+
+.center {
+	text-align: center;
+}
