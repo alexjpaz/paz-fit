@@ -1,7 +1,7 @@
 ## PazFit
 
 ### (Yet Another) Personal fitness tracking website
-Note: old, outdated, and slow. See [PazFit2](https://github.com/alexjpaz/pazfit2) for updated service model.
+Note: old, outdated, and slow. See [liftit](https://github.com/alexjpaz/liftit) for the replacement project.
 
 #### Features
 * Pretty graphs to show progress
